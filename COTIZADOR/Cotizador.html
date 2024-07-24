@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <title>Registro Cotizador</title>
+    <?!= include('COTIZADOR/CSS'); ?>
+  </head>
+  <body>
+    <div class="container mb-3">
+      <h2>Registro Cotizador de Asambleas</h2>
+      <!-- <br/> -->
+      <form id="formularioRegistro" name="formularioRegistro" class="row g-3 needs-validation" method="post" action="<?= pubUrl ?>" novalidate>        
+        <div class="col-md-12 mb-2">
+          <label for="nombreConjunto" class="form-label">Nombre Conjunto*</label>
+          <input type="text" name="nombreConjunto" id="nombreConjunto" class="form-control" placeholder="Nombre del Conjunto" required>
+          <div class="invalid-feedback">
+            Ingresar nombre del conjunto.
+          </div>
+        </div>
+        
+        <div class="col-md-3 mb-2"> 
+          <label for="fecha" class="form-label">Fecha de asamblea</label>
+          <input type="date" class="form-control" name="fecha" id="fecha" placeholder="dd/mm/aaaa">            
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="email" class="form-label">Correo electronico del Cliente</label>
+          <input type="email"  class="form-control" name="email" id="email" placeholder="Correo electronico al cual enviar Documento (conjunto@ejemplo.com)" required>
+          <div class="invalid-feedback">
+            Ingresa una direccion de correo electronico valida
+          </div>
+        </div>
+        <div class="col-md-3 ">
+          <label for="tel" class="form-label">Telefono</label>
+          <input type="number" class="form-control" name="tel" id="tel" placeholder="300123456 (sin espacios)" required>
+          <div class="invalid-feedback">
+            Ingresa un numero de telefono
+          </div>
+        </div>
+        
+        <div class="col-md-3 mb-3">
+          <h4>Modalidad</h4>
+          <div class="form-check mb-2">
+            <input type="checkbox" class="form-check-input" id="flexCheckVirtual" name="flexCheckVirtrual">
+            <label class="form-check-label" for="flexCheckVirtual">Virtual</label>
+          </div>
+          <div class="form-check mb-2">
+            <input type="checkbox" class="form-check-input" id="flexCheckPresencial" name="flexCheckPresencial">
+            <label class="form-check-label" for="flexCheckPresencial">Presencial</label>
+          </div>
+          <div class="formcheck mb-2">
+            <input type="checkbox" class="form-check-input" id="flexCheckMixta" name="flexCheckMixta">
+            <label class="form-check-label" for="flexCheckMixta">Mixta</label>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="predios">Numero de Predios</label>
+            <input type="number" class="form-control" name="predios" id="predios" placeholder="Escribe en numeros" required>
+            <div class="invalid-feedback">
+              Introduce el numero de Predios. ¡¡Pilas pues!!
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="precio" class="form-label-lg">Valor</label>
+            <input input="number" class="form-control form-control-lg" name="precio" id="precio" placeholder="Debe ser automatico" style="text-align: right" required>
+          </div>
+        </div>
+        
+        <div class="col-md-3">
+          <div class="row mt-3">
+            <div class="input-group mb-3">
+              <div class="input-group-text">
+                <input class="form-check-input mt-0" type="checkbox" id="checkboxDescuento">
+              </div>
+              <input type="text" class="form-control" placeholder="Dcto %" name="inputDescuento" id="inputDescuento" disabled>
+            </div>
+          </div>
+          <div class="mt-3">
+            <div class="input-group mb-3">
+              <div class="input-group-text">
+                <input class="form-check-input mt-0" type="checkbox" id="checkboxIncremento">
+              </div>
+              <input type="text" class="form-control" placeholder="Icto %" name="inputIncremento" id="inputIncremento" disabled>
+            </div>
+          </div>            
+        </div>
+
+        <div class="col-md-6 mb-1">
+          <h4>Adicionales</h4>
+          <div class="mb-3">
+            <div>
+              <label for="vAVirtual" class="form-label">Valor de Acompañamiento Virtual:</label>
+              <input type="number" name="vAVirtual" id="vAVirtual" style="text-align: right" class="form-control" value="500000" required>
+              <div class="invalid-feedback">
+                Debe ir un valor, si no existe escribe 0.
+              </div>
+            </div>
+            <div>
+              <label for="vAPresencial" class="form-label">Valor Adicional Presencial:</label>
+              <input type="number" name="vAPresencial" id="vAPresencial" style="text-align: right" class="form-control" placeholder="Adicional por transportes o viáticos " title="Adicional por transportes o viáticos" required>
+              <div class="invalid-feedback">
+                Debe ir un valor, si no existe escribe 0.
+              </div>
+            </div>
+            <div>
+              <label for="vAMixta" class="form-label">Valor de Acompañamiento para Mixta:</label>
+              <input type="number" name="vAMixta" id="vAMixta" style="text-align: right" class="form-control" value="800000" required>
+              <div class="invalid-feedback">
+                Debe ir un valor, si no existe escribe 0.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="mb-3">
+          <div class="form-check">
+            <label for="acuerdoPrivacidad" class="form-check-label">Enviar correo con cotización al cliente</label>
+            <input type="checkbox" class="form-check-input" name="acuerdoPrivacidad" id="acuerdoPrivacidad" checked>            
+          </div>
+        </div>
+        <div class="d-grid">
+          <button class="btn btn-primary" type="submit">Enviar</button>
+        </div>
+      </form>
+    </div>
+
+    <?!= include('COTIZADOR/JS'); ?>
+  </body>
+</html>
