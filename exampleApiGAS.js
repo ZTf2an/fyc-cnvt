@@ -11,3 +11,15 @@ async function conectar () {
         console.log( await conectar())
     }
 )()
+
+let url2 = 'https://script.google.com/macros/s/AKfycbxa0v7KznY-9SFl8lP7tPwX1WYNQQUw1Unv8QaCfbPrZbK5jPnayJQjwyBZo9bd28Qp/exec'
+fetch(`${url2}?type=cot`,{
+    method : 'POST' ,
+    headers : {
+        'Content-Type' : 'application/json'
+    },
+    body : JSON.stringify({"nombre" : 'Boren' , "contrasena" : "BorenElRoscon28"})
+})
+    .then(response => response.json())
+    .then(data => console.log('Respuesta : ' , data))
+    .catch(error => console.error('Ocurrió un error: ' , error))
