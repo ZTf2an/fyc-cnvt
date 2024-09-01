@@ -1,0 +1,49 @@
+.pointer {
+    cursor : pointer
+}
+.icon-check {
+    color : #72de2c
+}
+
+.icon-check:hover{
+    color : #4ba013  ;
+}
+
+.icon-check:active {
+    color : grey
+}
+
+.icon-msg{
+    color : rgb(79, 230, 41)
+}
+.icon-msg:hover{
+    color : rgb(54, 163, 27)
+}
+
+.icon-del{
+    color : rgb(247, 31, 31)
+}
+.icon-del:hover{
+    color : rgb(179, 17, 17)
+}
+
+.icon-edit {
+    color : rgb(0, 162, 255)
+}
+.icon-edit:hover {
+    color : rgb(21, 94, 136)
+}
+
+/* iconos de pdf y docs */
+.pdf-icon{
+    color : #ad0b00
+}
+.pdf-icon:hover{
+    color : #7c7c7c
+}
+.g-docs-icon {
+    color :#4B88EC
+}
+.g-docs-icon:hover {
+    color : #7c7c7c
+}

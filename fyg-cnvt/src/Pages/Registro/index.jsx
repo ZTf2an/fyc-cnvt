@@ -1,7 +1,14 @@
-function Registro () {
+import TableRegistro from "../../Components/TableRegistro";
+import Searcher from "../../Components/Searcher";
+import Layout from "../../Components/Layout";
+
+function Registro ({data}) {
     return (
         <>
-        <p>Registro</p>
+            <Layout >
+                <Searcher />
+                <TableRegistro />
+            </Layout>
         </>
     )
 }
