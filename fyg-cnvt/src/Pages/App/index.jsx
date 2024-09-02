@@ -4,6 +4,7 @@ import Registro from '../Registro'
 import Cuentas from '../Cuentas'
 import Gestion from "../Gestion"
 import NotFound from '../NotFound'
+import { RegistroProvider } from "../../Context"
 
 
 const AppRoutes = () => {
@@ -19,10 +20,13 @@ const AppRoutes = () => {
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <NavBar />
-        <AppRoutes />
-      </BrowserRouter>
+      <RegistroProvider>
+        <BrowserRouter>
+          <NavBar />
+
+          <AppRoutes />
+        </BrowserRouter>
+      </RegistroProvider>
     </>
   )
 }
