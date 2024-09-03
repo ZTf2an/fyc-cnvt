@@ -27,14 +27,16 @@ export const RegistroProvider= ({children}) => {
           aceptado: false,
           modalidad: '' ,
           pagado : true,
-        }
-      ]);
+        }]);
+    
+    const [modalRegistroIsOpen , setModalRegistroIsOpen ] = useState(false);
 
     // useEffect(() => {} , [])
 
     return (
         <RegistroContext.Provider value={{
-            data, setdata
+            data, setdata,
+            modalRegistroIsOpen , setModalRegistroIsOpen
         }}>
             {children}
         </RegistroContext.Provider>

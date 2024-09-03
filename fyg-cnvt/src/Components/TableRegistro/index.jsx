@@ -31,7 +31,7 @@ function TableRegistro () {
                     {data.map( row => {
                         const fecha = new Date(row.fecha);
                         return (
-                            <tr key={row.id} className={row.aceptado && "table-success"}>
+                            <tr key={row.id} className={row.aceptado ? "table-success" : undefined }>
                                 <td>{row.cliente}</td>                            
                                 <td>{fecha.toLocaleDateString('es-ES', {month : 'short' , day :'numeric' })}</td>
                                 <td className="text-end">{row.predios}</td>
