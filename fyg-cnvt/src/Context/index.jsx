@@ -25,7 +25,8 @@ export const RegistroProvider= ({children}) => {
           pdf: 'https://docs.google.com/spreadsheets/d/131UVGTKkb4jcRRUUe4j6LSMgFETQTbflfmsLiYq0a3A',
           docs: 'https://script.google.com/home/projects/15PSzwCYukipKDEryRxpoAFDrTy7DmHC5NJ8hTZbLt9--kHL9Xr1UJqKp',
           aceptado: false,
-          modalidad: ''
+          modalidad: '' ,
+          pagado : true,
         }
       ]);
 

@@ -1,9 +1,12 @@
+import Searcher from '../../Components/Searcher'
+import TableCobranza from "../../Components/TableCobranza"
+
+
 function Cuentas () {
     return (
         <>
-            <div className='bg-red-100'>
-                Cobranza
-            </div>
+            <Searcher />
+            <TableCobranza />
         </>
     )
 }
