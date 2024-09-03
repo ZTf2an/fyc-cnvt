@@ -1,14 +1,16 @@
+import { BsPencilSquare } from "react-icons/bs";
+
 function ProyeccionSetting() {
     return (
         <div className="col-md-4 border-end border-start">
             <div className="input-group mb-2">
                 <input className="form-control" value="Video Beam" disabled/>
                 <span className="input-group-text">
-                    <i 
-                        className="bi bi-pencil-square me-2" 
+                    <BsPencilSquare 
+                    className="me-1"
                         role="button" 
                         // onclick="esconderOMostrarContenedor(this)"
-                    ></i>
+                    />
                     <input 
                         type="checkbox" 
                         className="form-check-input mt-0" 

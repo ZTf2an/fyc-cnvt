@@ -1,3 +1,5 @@
+import { BsPencilSquare } from "react-icons/bs";
+
 function CircuitoSetting() {
     return (
         <div className="col-md-4 border-end border-start">
@@ -10,12 +12,12 @@ function CircuitoSetting() {
                     disabled
                 />
                 <span className="input-group-text">
-                    <i 
-                        className="bi bi-pencil-square me-2" 
+                    <BsPencilSquare
+                    className="me-1"
                         role="button" 
                         // onclick="esconderOMostrarContenedor(this)" 
                         hidden
-                    ></i>
+                    />
                     <input 
                         type="checkbox" 
                         className="form-check-input mt-0" 

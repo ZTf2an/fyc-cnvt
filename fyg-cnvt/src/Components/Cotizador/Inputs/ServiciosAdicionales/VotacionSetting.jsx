@@ -1,13 +1,18 @@
+import { BsPencilSquare } from "react-icons/bs";
+
 function VotacionSetting () {
     return (
         <div className="col-md-4 border-end border-start">
             <div className="input-group mb-2">
                 <input className="form-control" value="Votación" disabled onChange={e=>e}/>
                 <span className="input-group-text">
-                    <i 
-                        className="bi bi-pencil-square me-2" 
+                    <BsPencilSquare 
+                        className="me-1" 
                         role="button" 
                         // onclick="esconderOMostrarContenedor(this)"
+                    />
+                    <i 
+                        
                     ></i>
                     <input 
                         type="checkbox" 
