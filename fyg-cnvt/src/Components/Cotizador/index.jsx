@@ -24,7 +24,7 @@ function Cotizador () {
 
         console.log(params)
 
-        let url2 = 'https://script.google.com/macros/s/AKfycbxa0v7KznY-9SFl8lP7tPwX1WYNQQUw1Unv8QaCfbPrZbK5jPnayJQjwyBZo9bd28Qp/exec'
+        let url2 = 'https://script.google.com/macros/s/AKfycbwz2HIdp5aaFngEoeQgB9uRS0CZFlkWkoVYg85ujXMohlYmOBgI2NYupOiyllus7GUoqg/exec'
         fetch(`${url2}?type=cot`,{
             method : 'POST' ,
             headers : {
