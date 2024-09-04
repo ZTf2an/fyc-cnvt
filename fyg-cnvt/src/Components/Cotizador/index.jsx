@@ -35,7 +35,7 @@ function Cotizador () {
 })
     .then(response => response.json())
     .then(data => console.log('Respuesta : ' , data))
-    .catch(error => console.error('Ocurrió un error: ' , error))
+    .catch(error => console.log('Ocurrió un error: ' , error))
     }
     return(
             <form 
