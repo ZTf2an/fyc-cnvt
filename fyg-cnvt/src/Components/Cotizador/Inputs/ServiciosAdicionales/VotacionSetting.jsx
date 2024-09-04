@@ -1,57 +1,35 @@
 import { BsPencilSquare } from "react-icons/bs";
+import { useState } from "react";
+import ItemModifier from "../../../ItemModifier"
 
 function VotacionSetting () {
+    const [checked , setChecked] = useState(true)
+    const [editIsClosed , setEditIsClosed] = useState(true)
+
     return (
         <div className="col-md-4 border-end border-start">
             <div className="input-group mb-2">
-                <input className="form-control" value="Votación" disabled onChange={e=>e}/>
+                <input className={`${!checked && "text-decoration-line-through"} form-control`} value="Votación" disabled onChange={e=>e}/>
                 <span className="input-group-text">
                     <BsPencilSquare 
                         className="me-1" 
                         role="button" 
-                        // onclick="esconderOMostrarContenedor(this)"
+                        hidden={!checked}
+                        onClick={e=>setEditIsClosed(!editIsClosed)}
                     />
-                    <i 
-                        
-                    ></i>
                     <input 
                         type="checkbox" 
                         className="form-check-input mt-0" 
-                        // onclick="esconderOMostrarBotonEditar(this)" 
+                        onClick={e=>setChecked(!checked)} 
                         onChange={e=>e} 
                         name="inputSerVotacion" 
-                        checked
+                        checked={checked}
                     />
                 </span>
             </div>
-            <div name="contenedor-votacion" className="esconder-mostrar-contenedor" hidden>
+            <div name="contenedor-votacion" className="esconder-mostrar-contenedor" hidden={editIsClosed}>
                 <div className="row mb-1">
-                    <div className="input-group">
-                        <span className="input-group-text">
-                            Patinadores
-                        </span>
-                        <input 
-                            className="form-control" 
-                            type="number" 
-                            value="2" 
-                            onChange={e=>e} 
-                            name="inputSerPatinadores2"
-                        />
-                        <button 
-                            className="btn btn-outline-secondary restar-1" 
-                            // onclick="restar1(this)" 
-                            type="button"
-                        >
-                            <i className="bi bi-dash-circle-fill"></i>
-                        </button>
-                        <button 
-                            className="btn btn-outline-secondary sumar-1" 
-                            // onclick="sumar1(this)" 
-                            type="button"
-                        >
-                            <i className="bi bi-plus-circle-fill"></i>
-                        </button>
-                    </div>
+                    <ItemModifier item={"Patinadores"} defaultLot={2}/>
                 </div>
             </div>
         </div>
