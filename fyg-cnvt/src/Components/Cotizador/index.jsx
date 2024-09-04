@@ -13,8 +13,36 @@ import { CotizadorContext, CotizadorProvider } from "./Context"
 
 function Cotizador () {
     const context = useContext(CotizadorContext);
+    const mySubmit = (e) => {
+        e.preventDefault();
+
+        let params = {}
+
+        for (let i = 0 ; i < e.target.length ; i++) {
+            params[e.target[i].name] = e.target[i].value
+        }
+
+        console.log(params)
+
+        let url2 = 'https://script.google.com/macros/s/AKfycbxa0v7KznY-9SFl8lP7tPwX1WYNQQUw1Unv8QaCfbPrZbK5jPnayJQjwyBZo9bd28Qp/exec'
+        fetch(`${url2}?type=cot`,{
+            method : 'POST' ,
+            headers : {
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify(params)
+        })
+            .then(response => response.json())
+            .then(data => console.log('Respuesta : ' , data))
+            .catch(error => console.error('Ocurrió un error: ' , error))
+    }
     return(
-            <form className="row g-3 needs-validation" id="crearRegistro" noValidate>
+            <form 
+                className="row g-3 needs-validation" 
+                id="crearRegistro" 
+                noValidate
+                onSubmit={e => mySubmit(e)}
+            >
                 <Cliente/>
                 <Fecha/>
                 <Email/>

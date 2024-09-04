@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { BsPencilSquare } from "react-icons/bs";
 import { BsPlusCircleFill , BsDashCircleFill } from "react-icons/bs";
 
 function ItemModifier ({item , defaultLot}) {
@@ -9,7 +8,7 @@ function ItemModifier ({item , defaultLot}) {
             <span className="input-group-text">
                 {item}
             </span>
-            <input className="form-control" type="number" value={amount} name="inputSerCabinas" onChange={e=>e}/>
+            <input className="form-control" type="number" value={amount} name={`inputSer${item.replace(/\s/g,'')}`} onChange={e=>e}/>
             <button 
                 className="btn btn-outline-secondary restar-1 d-flex align-items-center" 
                 onClick={e=> setAmount(amount-1)} 
