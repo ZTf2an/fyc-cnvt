@@ -24,17 +24,18 @@ function Cotizador () {
 
         console.log(params)
 
-        let url2 = 'https://script.google.com/macros/s/AKfycbwz2HIdp5aaFngEoeQgB9uRS0CZFlkWkoVYg85ujXMohlYmOBgI2NYupOiyllus7GUoqg/exec'
+        let url2 = 'https://script.google.com/macros/s/AKfycbzgl9vmX89mpKcjsCv294JfWOLX9a8DUxtrIeHsfasF4QQkj0gD8EgO1HUfz4HWYrg/exec'
         fetch(`${url2}?type=cot`,{
             method : 'POST' ,
+            mode : 'no-cors' ,
             headers : {
                 'Content-Type' : 'application/json'
             },
-            body : JSON.stringify(params)
-        })
-            .then(response => response.json())
-            .then(data => console.log('Respuesta : ' , data))
-            .catch(error => console.error('Ocurrió un error: ' , error))
+            body : JSON.stringify({"nombre" : 'Boren' , "contrasena" : "BorenElRoscon28"})
+})
+    .then(response => response.json())
+    .then(data => console.log('Respuesta : ' , data))
+    .catch(error => console.error('Ocurrió un error: ' , error))
     }
     return(
             <form 

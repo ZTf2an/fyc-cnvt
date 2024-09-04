@@ -13,9 +13,12 @@ async function conectar () {
 )()
 
 // let url2 = 'https://script.google.com/macros/s/AKfycbxa0v7KznY-9SFl8lP7tPwX1WYNQQUw1Unv8QaCfbPrZbK5jPnayJQjwyBZo9bd28Qp/exec'
-let url2 = 'https://script.google.com/macros/s/AKfycbwz2HIdp5aaFngEoeQgB9uRS0CZFlkWkoVYg85ujXMohlYmOBgI2NYupOiyllus7GUoqg/exec'
+// let url2 = 'https://script.google.com/macros/s/AKfycbwz2HIdp5aaFngEoeQgB9uRS0CZFlkWkoVYg85ujXMohlYmOBgI2NYupOiyllus7GUoqg/exec'
+// let url2 = 'https://script.google.com/macros/s/AKfycbyEDHKpKOcWGkcleQaWe2oUglLN1sbYFPpr0o_U-wZ9YgVZzCH-N3JDYQuLNOL5vXAW6Q/exec'
+let url2 = 'https://script.google.com/macros/s/AKfycbzgl9vmX89mpKcjsCv294JfWOLX9a8DUxtrIeHsfasF4QQkj0gD8EgO1HUfz4HWYrg/exec'
 fetch(`${url2}?type=cot`,{
     method : 'POST' ,
+    mode : 'no-cors' ,
     headers : {
         'Content-Type' : 'application/json'
     },
