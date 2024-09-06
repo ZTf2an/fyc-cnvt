@@ -32,7 +32,7 @@ function ProyeccionSetting() {
                     <ItemModifier item={"Video Beam"} defaultLot={1} />
                 </div>
                 <div className="row mb-1">
-                    <ItemModifier item={"Telón"} defaultLot={1}/>
+                    <ItemModifier item={"Telon"} defaultLot={1}/>
                 </div>
             </div>                      
         </div>

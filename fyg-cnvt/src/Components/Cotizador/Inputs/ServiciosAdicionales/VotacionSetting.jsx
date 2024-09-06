@@ -29,7 +29,7 @@ function VotacionSetting () {
             </div>
             <div name="contenedor-votacion" className="esconder-mostrar-contenedor" hidden={editIsClosed}>
                 <div className="row mb-1">
-                    <ItemModifier item={"Patinadores"} defaultLot={2}/>
+                    <ItemModifier item={"Logisticos"} defaultLot={2}/>
                 </div>
             </div>
         </div>

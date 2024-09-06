@@ -9,6 +9,7 @@ import ValoresAdicionales from "./Inputs/ValoresAdicionales"
 import ServiciosAdicionales from "./Inputs/ServiciosAdicionales"
 import { useContext } from "react"
 import { CotizadorContext, CotizadorProvider } from "./Context"
+import { API_GAS } from "../../Globals/GAS"
 
 
 function Cotizador () {
@@ -19,23 +20,29 @@ function Cotizador () {
         let params = {}
 
         for (let i = 0 ; i < e.target.length ; i++) {
-            params[e.target[i].name] = e.target[i].value
+            if (e.target[i].name != "") {
+                params[e.target[i].name] = e.target[i].value
+            } 
         }
 
         console.log(params)
-
-        let url2 = 'https://script.google.com/macros/s/AKfycbzgl9vmX89mpKcjsCv294JfWOLX9a8DUxtrIeHsfasF4QQkj0gD8EgO1HUfz4HWYrg/exec'
-        fetch(`${url2}?type=cot`,{
+        // const url = 'https://corsproxy.io/?'+encodeURIComponent(API_GAS);
+        // https://cors-anywhere.herokuapp.com/
+        // fetch(`https://corsproxy.io/?${API_GAS}?type=cot`,{
+        fetch(API_GAS,{
+            redirect : 'follow',
+            // mode : 'no-cors' ,
             method : 'POST' ,
-            mode : 'no-cors' ,
             headers : {
-                'Content-Type' : 'application/json'
+                'Content-Type' : '"text/plain;charset=utf-8'
+                // 'Origin' : '*',
             },
-            body : JSON.stringify({"nombre" : 'Boren' , "contrasena" : "BorenElRoscon28"})
-})
-    .then(response => response.json())
-    .then(data => console.log('Respuesta : ' , data))
-    .catch(error => console.log('Ocurrió un error: ' , error))
+            body : JSON.stringify(params)
+        })
+            // .then(response => console.log(response))
+            .then(response => response.json())
+            .then(data => console.log('Respuesta : ' , data))
+            .catch(error => console.log('Ocurrió un error: ' , error))
     }
     return(
             <form 
