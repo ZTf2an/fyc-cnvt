@@ -1,11 +1,12 @@
 import { useContext } from "react";
 import { RegistroContext } from "../../Context";
 import TableRow from "./TableRow";
+import Loader from "../Loader";
 import './TableRegistro.css'
 
 function TableRegistro () {
-    const { data } = useContext(RegistroContext);
-    // console.log(data[0])
+    const { data , loading } = useContext(RegistroContext);
+
     return (
         <>
         <div className="my-3">
@@ -27,6 +28,8 @@ function TableRegistro () {
                     {data.map( row => row.active && <TableRow key={row.id} row={row}/>)}
                 </tbody>
             </table>
+            {loading && <Loader/>}
+            {!data && 'No hay datos aún'}            
         </div>
         </>
     )

@@ -1,11 +1,12 @@
-import { useContext } from "react";
+import { useContext , useState} from "react";
 import { RegistroContext } from "../../Context";
 import TableRow from "./TableRow";
 import './TableCobranza.css'
+import Loader from "../Loader";
 
 function TableCobranza () {
-    const { data } = useContext(RegistroContext);
-    // console.log(data[0])
+    const { data , loading } = useContext(RegistroContext);
+
     return (
         <>
         <div className="my-3">
@@ -30,6 +31,7 @@ function TableCobranza () {
                     {data.map( row => row.aceptado && <TableRow key={row.id} row={row} />)}
                 </tbody>
             </table>
+            {loading ? <Loader/> : !(data.find(row => (row.aceptado))) && 'No hay datos'}
         </div>
         </>
     )
