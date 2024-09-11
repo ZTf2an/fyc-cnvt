@@ -9,7 +9,7 @@ import ValoresAdicionales from "./Inputs/ValoresAdicionales"
 import ServiciosAdicionales from "./Inputs/ServiciosAdicionales"
 import { useContext } from "react"
 import { CotizadorContext, CotizadorProvider } from "./Context"
-import { API_GAS , API_CNVT } from "../../Globals/GAS"
+import { API_GAS , API_CNVT } from "../../Globals/API"
 
 
 function Cotizador () {
