@@ -28,6 +28,15 @@ function ValoresAdicionales () {
                             onChange={e => console.log(e)} 
                             required
                         />
+                        <label className="form-label">Valor adicional por <strong>Controles</strong></label>
+                        <input 
+                            className="form-control text-end" 
+                            type="number" 
+                            value="0" 
+                            name="inputValorControles"
+                            onChange={e => console.log(e)} 
+                            required
+                        />
                         <label className="form-label"> Valor de acompañamiento <strong>Mixta</strong></label>
                         <input 
                             className="form-control text-end" 

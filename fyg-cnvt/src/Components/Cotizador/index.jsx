@@ -9,11 +9,12 @@ import ValoresAdicionales from "./Inputs/ValoresAdicionales"
 import ServiciosAdicionales from "./Inputs/ServiciosAdicionales"
 import { useContext } from "react"
 import { CotizadorContext, CotizadorProvider } from "./Context"
-import { API_GAS } from "../../Globals/GAS"
+import { API_GAS , API_CNVT } from "../../Globals/GAS"
 
 
 function Cotizador () {
     const context = useContext(CotizadorContext);
+
     const mySubmit = (e) => {
         e.preventDefault();
 
@@ -25,25 +26,36 @@ function Cotizador () {
             } 
         }
 
-        console.log(params)
-        // const url = 'https://corsproxy.io/?'+encodeURIComponent(API_GAS);
-        // https://cors-anywhere.herokuapp.com/
-        // fetch(`https://corsproxy.io/?${API_GAS}?type=cot`,{
-        fetch(API_GAS,{
-            redirect : 'follow',
-            // mode : 'no-cors' ,
-            method : 'POST' ,
-            headers : {
-                'Content-Type' : '"text/plain;charset=utf-8'
-                // 'Origin' : '*',
-            },
-            body : JSON.stringify(params)
-        })
-            // .then(response => console.log(response))
-            .then(response => response.json())
-            .then(data => console.log('Respuesta : ' , data))
-            .catch(error => console.log('Ocurrió un error: ' , error))
+        const data = JSON.stringify(params);
+        console.log(data);
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("POST", API_CNVT,true);
+        xmlhttp.setRequestHeader('Content-Type', 'application/json')
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var response = JSON.parse(this.responseText);
+                console.log(this.responseText);
+                grabaOK(response);
+            }
+        };
+        xmlhttp.onerror = function () {
+            console.log("Error ajax");
+        };
+        xmlhttp.send(data);
+
     }
+
+    const grabaOK = (response) => {
+        if(response.status=="success"){
+            //acciones si fue correcto
+            alert(response.data);
+        }else{
+            //acciones si fue erroneo
+            alert("Error");
+        }
+    }
+
     return(
             <form 
                 className="row g-3 needs-validation" 
@@ -81,6 +93,7 @@ function Cotizador () {
             </form> 
     )
 }
+
 
 
 export default Cotizador

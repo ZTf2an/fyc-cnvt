@@ -13,15 +13,47 @@ async function conectar () {
 )()
 
 // let url2 = 'https://script.google.com/macros/s/AKfycbwbX9K2gfWQkcxSkcZQavjJpoIATCpB1ztaDNldcQruShV0SQqINUtR75eqGP3taGr-Qg/exec'
-let url2 = 'https://script.google.com/macros/s/AKfycbz9zPUbK51kusXd3NirymwtTATmyKXiLSu6eaa24eEQh8F7MyFsOS7cTKb8QZLtGMvsMQ/exec'
+// let url2 = 'https://script.google.com/macros/s/AKfycbz9zPUbK51kusXd3NirymwtTATmyKXiLSu6eaa24eEQh8F7MyFsOS7cTKb8QZLtGMvsMQ/exec'
+let url2 = 'https://script.google.com/macros/s/AKfycbywAqOck0l_1kw1Bdi_xKGZaHDavXUfx0_XgHlCublvoIlmuGKqv-hQ3angjomaN8rFnA/exec'
 
+let obj = {
+    "inputNombreCliente": "CONJUNTO PRUEBA 1",
+    "inputFecha": "2024-09-07",
+    "inputCorreo": "correoelectronicodelcliente@prueba1.com",
+    "inputNumeroTelefonico": "3001231456",
+    "flexCheckMVirtual": "on",
+    "flexCheckMPresencialT": "on",
+    "flexCheckMPresencialC": "on",
+    "flexCheckMMixta": "on",
+    "inputPredios": "100",
+    "inputValor": "945000",
+    "inputDescuento": "10",
+    "inputIncremento": "",
+    "inputValorAcoVirtual": "500.000",
+    "inputValorAcoPresencial": "0",
+    "inputValorControles": "0",
+    "inputValorAcoMixta": "800.000",
+    "inputSerActa": "on",
+    "inputSerSonido": "on",
+    "inputSerCabinas": "2",
+    "inputSerMicrofonos": "4",
+    "inputSerPatinadores": "2",
+    "inputSerVotacion": "on",
+    "inputSerLogisticos": "2",
+    "inputSerFilmacion": "on",
+    "inputSerVideoBeam1": "on",
+    "inputSerVideoBeam": "1",
+    "inputSerTelon": "1",
+    "inputSerCircuitoCerrado": "on",
+    "inputSerSalones": "2"
+}
+// ?type=cot
 fetch(`${url2}?type=cot`,{
     method : 'POST' ,
-    // mode : 'no-cors' ,
     headers : {
         'Content-Type' : 'application/json'
     },
-    body : JSON.stringify([{ "" : "" ,"nombre" : 'nadie' , "contrasena" : "nadie28"}])
+    body : JSON.stringify(obj)
 })
     // .then(response => console.log(response))
     .then(response => response.json())
