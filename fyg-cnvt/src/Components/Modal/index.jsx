@@ -3,7 +3,7 @@ import { CotizadorProvider } from "../Cotizador/Context"
 
 function Modal () {
     return (
-        <div className="modal fade" id="registroModal" >
+        <div className="modal" id="registroModal" tabIndex="-1" aria-labelledby="registroModal" aria-hidden="true">
             <div className="modal-dialog modal-fullscreen">
                 <div className="modal-content">
                 <div className="modal-header">

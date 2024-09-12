@@ -4,23 +4,6 @@ import { calcularValor } from "../../Utils/calcularValor";
 export const CotizadorContext = createContext()
 
 export const CotizadorProvider = ({children}) => {
-    // Estados Referentes a Modalidad - debe reconocer que hay almenos una modalidad seleccionada
-    const DefaultModes = {
-        v : false,
-        pt : false,
-        pc : false,
-        m : false
-    }
-    const [modesSelected, setModesSelected] = useState(DefaultModes);
-    useEffect(()=>{
-        if (!modesSelected.m && !modesSelected.pc && !modesSelected.pt && !modesSelected.v) {
-            setOneMinimalModeSelected(false)
-        } else {
-            setOneMinimalModeSelected(true)
-        }
-        
-    },[modesSelected]);
-    const [oneMinimalModeSelected , setOneMinimalModeSelected] = useState(true);
 
     // Descuento e incremento
     const [descuentoIsChecked , setDescuentoIsChecked] = useState(false);
@@ -52,8 +35,6 @@ export const CotizadorProvider = ({children}) => {
 
     return(
         <CotizadorContext.Provider value={{
-            modesSelected , setModesSelected,
-            oneMinimalModeSelected , setOneMinimalModeSelected ,
             descuentoIsChecked , setDescuentoIsChecked ,
             incrementoIsChecked , setIncrementoIsChecked ,
             defaultValor , setDefaultValor ,

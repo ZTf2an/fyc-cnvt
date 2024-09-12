@@ -1,15 +1,16 @@
-import Cliente from "./Inputs/Cliente"
-import Email from "./Inputs/Email"
-import Fecha from "./Inputs/Fecha"
-import Tel from "./Inputs/Tel"
-import Modalidades from "./Inputs/Modalidades"
-import PrediosValor from "./Inputs/PrediosValor"
-import DescInc from "./Inputs/DescInc"
-import ValoresAdicionales from "./Inputs/ValoresAdicionales"
-import ServiciosAdicionales from "./Inputs/ServiciosAdicionales"
-import { useContext } from "react"
-import { CotizadorContext, CotizadorProvider } from "./Context"
-import { API_GAS , API_CNVT } from "../../Globals/API"
+import { useContext } from "react";
+import { CotizadorContext, CotizadorProvider } from "./Context";
+import { API_CNVT } from "../../Globals/API";
+import {Modal} from 'bootstrap'
+import Cliente from "./Inputs/Cliente";
+import Email from "./Inputs/Email";
+import Fecha from "./Inputs/Fecha";
+import Tel from "./Inputs/Tel";
+import Modalidades from "./Inputs/Modalidades";
+import PrediosValor from "./Inputs/PrediosValor";
+import DescInc from "./Inputs/DescInc";
+import ValoresAdicionales from "./Inputs/ValoresAdicionales";
+import ServiciosAdicionales from "./Inputs/ServiciosAdicionales";
 
 
 function Cotizador () {
@@ -18,17 +19,35 @@ function Cotizador () {
     const mySubmit = (e) => {
         e.preventDefault();
 
-        let params = {}
-
-        for (let i = 0 ; i < e.target.length ; i++) {
-            if (e.target[i].name != "") {
-                params[e.target[i].name] = e.target[i].value
-            } 
-        }
-
+        let params = parsedParams(e.target)
         const data = JSON.stringify(params);
-        console.log(data);
+        
+        if(!e.target.checkValidity()) {
+            e.preventDefault();
+            e.stopPropagation();
+        } else {
+            postData(data, () => {
+                e.target.reset();
+                const modal = Modal.getInstance('#registroModal');
+                modal.hide();
+            })
+        }
+        e.target.classList.add('was-validated')
+    }
 
+    const parsedParams = (arr) => {
+        let params = {};
+
+        for (let i = 0 ; i < arr.length ; i++) {
+            if (arr[i].name != "") {
+                params[arr[i].name] = arr[i].value;
+            }; 
+        };
+
+        return params
+    }
+    
+    const postData = (data , cb) => {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.open("POST", API_CNVT,true);
         xmlhttp.setRequestHeader('Content-Type', 'application/json')
@@ -37,22 +56,24 @@ function Cotizador () {
                 var response = JSON.parse(this.responseText);
                 console.log(this.responseText);
                 grabaOK(response);
+                cb();
             }
         };
         xmlhttp.onerror = function () {
             console.log("Error ajax");
         };
         xmlhttp.send(data);
-
     }
 
     const grabaOK = (response) => {
         if(response.status=="success"){
             //acciones si fue correcto
             alert(response.msj);
+            // myModal.hide()
         }else{
             //acciones si fue erroneo
             alert("Error");
+            return false
         }
     }
 
@@ -61,17 +82,13 @@ function Cotizador () {
                 className="row g-3 needs-validation" 
                 id="crearRegistro" 
                 noValidate
-                onSubmit={e => mySubmit(e)}
+                onSubmit={mySubmit}
             >
                 <Cliente/>
                 <Fecha/>
                 <Email/>
                 <Tel />
-                <Modalidades 
-                    filled={context.oneMinimalModeSelected} 
-                    changer={context.setModesSelected} 
-                    modeState={context.modesSelected}
-                /> 
+                <Modalidades/> 
                 <PrediosValor 
                     prediosChange={context.setNumeroPredios}
                     defaultValor={context.defaultValor}
