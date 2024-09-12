@@ -32,7 +32,7 @@ function TableRow ({row , edit}) {
                 <div className="d-flex justify-content-between">
                     <HiOutlineMail className="icon-msg fs-3 mx-1 pointer" />
                     <FaRegEdit className="icon-edit fs-4 ms-1 pointer" />
-                    <RiDeleteBin6Fill className="icon-del fs-4 mx-1 pointer" />
+                    <RiDeleteBin6Fill className="icon-del fs-4 mx-1 pointer" onClick={e => edit(row.id , {active:false} , 'eliminar')}/>
                 </div>
             </td>
             <td>
