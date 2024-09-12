@@ -1,11 +1,12 @@
 import { useContext } from "react";
 import { RegistroContext } from "../../Context";
+import { API_CNVT } from "../../Globals/API";
 import TableRow from "./TableRow";
 import Loader from "../Loader";
 import './TableRegistro.css'
 
 function TableRegistro () {
-    const { data , loading } = useContext(RegistroContext);
+    const { data , setData , loading , editRow } = useContext(RegistroContext);
 
     return (
         <>
@@ -25,7 +26,7 @@ function TableRegistro () {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map( row => row.active && <TableRow key={row.id} row={row}/>)}
+                    {data.map( row => row.active && <TableRow key={row.id} row={row} edit={editRow}/>)}
                 </tbody>
             </table>
             {loading && <Loader/>}

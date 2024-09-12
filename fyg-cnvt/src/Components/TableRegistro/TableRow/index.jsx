@@ -4,8 +4,9 @@ import { HiOutlineMail } from "react-icons/hi";
 import { PiFilePdf } from "react-icons/pi";
 import { SiGoogledocs } from "react-icons/si";
 
-function TableRow ({row}) {
+function TableRow ({row , edit}) {
     const fecha = new Date(row.fecha);
+
     return(
         <tr className={row.aceptado ? "table-success" : undefined }>
             <td>{row.cliente}</td>                            
@@ -35,10 +36,10 @@ function TableRow ({row}) {
                 </div>
             </td>
             <td>
-                <div className="d-flex justify-content-center"  onClick={e => console.log('click')}>
+                <div className="d-flex justify-content-center" >
                     {row.aceptado ? 
                         <FaCheckSquare className="icon-check fs-4 pointer"/> : 
-                        <FaRegCheckSquare className="icon-check fs-4 pointer" />
+                        <FaRegCheckSquare className="icon-check fs-4 pointer" onClick={e => edit(row.id , {aceptado : true} , 'aceptar')}/>
                     }
                 </div>
             </td>

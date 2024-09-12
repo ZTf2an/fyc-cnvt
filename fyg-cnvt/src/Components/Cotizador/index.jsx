@@ -49,7 +49,7 @@ function Cotizador () {
     const grabaOK = (response) => {
         if(response.status=="success"){
             //acciones si fue correcto
-            alert(response.data);
+            alert(response.msj);
         }else{
             //acciones si fue erroneo
             alert("Error");

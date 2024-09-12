@@ -5,12 +5,12 @@ export const RegistroContext = createContext();
 
 export const RegistroProvider= ({children}) => {
     const [loading , setLoading] = useState(true);
-    const [data , setdata] = useState([]);
+    const [data , setData] = useState([]);
     
     useEffect(()=>{
         fetch(API_CNVT)
         .then(response=> response.json())
-        .then(data => setdata(data.reverse()))
+        .then(data => setData(data.reverse()))
         .catch(error => console.log('Ha ocurrido un error :'+error));
     },[]);
 
@@ -20,6 +20,37 @@ export const RegistroProvider= ({children}) => {
         }
     },[data])
 
+    const editType = {
+        "aceptar" : (nombreCliente) => (`¿Está seguro de que quiere enviar a ${nombreCliente} a la pagina de Cobranza?`),
+        "rechazar" : (nombreCliente) => (`¿Está seguro de que quiere eliminar a ${nombreCliente} de la pagina de cobranza?`),
+    }
+    
+    const editRow = (id , changes , type) => {
+        const dataRow = data.find(row => row.id == id);
+        const msj = editType[type](dataRow.cliente);
+        const response = confirm(msj);
+        console.log(response)
+        
+        if (response) {
+            const newData = [...data];
+            const dataIndex = newData.findIndex(row => row.id == id);
+            const row = newData[dataIndex]
+            newData[dataIndex] = {...row, ...changes}
+            console.log(newData[dataIndex])
+            setData(newData)
+            
+            fetch(`${API_CNVT}/${id}`,{
+                method : 'PATCH',
+                headers : {
+                    'Content-Type': 'application/json'
+                },
+                body : JSON.stringify(changes) 
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.log(error))
+        }
+    }
 
     const [modalRegistroIsOpen , setModalRegistroIsOpen ] = useState(false);
 
@@ -27,9 +58,10 @@ export const RegistroProvider= ({children}) => {
 
     return (
         <RegistroContext.Provider value={{
-            data, setdata,
+            data, setData,
             modalRegistroIsOpen , setModalRegistroIsOpen ,
-            loading
+            loading,
+            editRow
         }}>
             {children}
         </RegistroContext.Provider>
