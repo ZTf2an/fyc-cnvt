@@ -1,6 +1,6 @@
 import { FaSearch } from "react-icons/fa";
 
-function Searcher () {
+function Searcher ({change , searchValue}) {
     return (
         <>
             <div className="input-group input-group-lg">
@@ -13,6 +13,8 @@ function Searcher () {
                     aria-label="Sizing example input" 
                     aria-describedby="inputGroup-sizing-lg" 
                     placeholder="Buscar..."
+                    value={searchValue}
+                    onChange={e=>change(e.target.value)}
                 />
             </div>
         </>

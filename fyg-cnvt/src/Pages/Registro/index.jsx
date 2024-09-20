@@ -6,7 +6,7 @@ import Searcher from "../../Components/Searcher";
 import Modal from "../../Components/Modal";
 
 function Registro ({data}) {
-    const {modalRegistroIsOpen , setModalRegistroIsOpen} = useContext(RegistroContext)
+    const {searchValue , setSearchValue} = useContext(RegistroContext)
     return (
         <>
             <div className="mb-2 d-flex">
@@ -20,7 +20,7 @@ function Registro ({data}) {
                 <IoMdAddCircleOutline className="fs-4 me-2"/>
                 Nuevo
                 </button>
-                <Searcher />
+                <Searcher change={setSearchValue} searchValue={searchValue}/>
             </div>
             <TableRegistro />
             <Modal />

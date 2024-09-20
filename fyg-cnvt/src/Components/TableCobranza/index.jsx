@@ -5,7 +5,7 @@ import './TableCobranza.css'
 import Loader from "../Loader";
 
 function TableCobranza () {
-    const { data , loading , editRow} = useContext(RegistroContext);
+    const { data , loading , editRow , searchedData} = useContext(RegistroContext);
 
     return (
         <>
@@ -28,7 +28,7 @@ function TableCobranza () {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map( row => row.aceptado && <TableRow key={row.id} row={row} edit={editRow}/>)}
+                    {searchedData.map( row => row.aceptado && <TableRow key={row.id} row={row} edit={editRow}/>)}
                 </tbody>
             </table>
             {loading ? <Loader/> : !(data.find(row => (row.aceptado))) && 'No hay datos'}

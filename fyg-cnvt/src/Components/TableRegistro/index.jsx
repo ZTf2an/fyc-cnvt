@@ -6,7 +6,7 @@ import Loader from "../Loader";
 import './TableRegistro.css'
 
 function TableRegistro () {
-    const { data , setData , loading , editRow } = useContext(RegistroContext);
+    const { data , searchedData , loading , editRow } = useContext(RegistroContext);
 
     return (
         <>
@@ -26,7 +26,7 @@ function TableRegistro () {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map( row => row.active && <TableRow key={row.id} row={row} edit={editRow}/>)}
+                    {searchedData.map( row => row.active && <TableRow key={row.id} row={row} edit={editRow}/>)}
                 </tbody>
             </table>
             {loading && <Loader/>}

@@ -6,14 +6,45 @@ export const RegistroContext = createContext();
 export const RegistroProvider= ({children}) => {
     const [loading , setLoading] = useState(true);
     const [data , setData] = useState([]);
+
+    const [searchValue , setSearchValue] = useState('');
+    
+    // Formatea Data con 2 objetos adicionales para Searcher
+    const formatedData = data.map(item => {
+        const fecha = new Date(item.fecha)
+        const registroData = [
+            item.cliente , 
+            fecha.toLocaleDateString('es-ES', {month : 'short' , day :'numeric' }) , 
+            item.predios , 
+            item.email , 
+            item.tel
+        ].join(' ');
+        const cobranzaData = [
+            item.cliente ,
+            item.nit ,
+            item.modalidad ,
+            fecha,
+            item.predios ,
+            item.email ,
+            item.tel
+        ].join(' ')
+        return {...item , registroData : registroData , cobranzaData : cobranzaData}
+        }
+    );
+    
+    const searchedData = formatedData.filter(
+        item => item.registroData.toLowerCase().includes(searchValue.toLowerCase()) || 
+        item.cobranzaData.toLowerCase().includes(searchValue.toLowerCase())
+    )     
     
     useEffect(()=>{
         fetch(API_CNVT)
         .then(response=> response.json())
         .then(data => setData(data.reverse()))
-        .catch(error => console.log('Ha ocurrido un error :'+error));
+        .catch(error => console.log('Ha ocurrido un error :' + error));
     },[]);
 
+    // 
     useEffect(()=>{
         if ( data.length != 0) {
             setLoading(false)
@@ -53,6 +84,7 @@ export const RegistroProvider= ({children}) => {
         }
     }
 
+
     const [modalRegistroIsOpen , setModalRegistroIsOpen ] = useState(false);
 
     // useEffect(() => {} , [])
@@ -60,9 +92,11 @@ export const RegistroProvider= ({children}) => {
     return (
         <RegistroContext.Provider value={{
             data, setData,
+            searchedData,
             modalRegistroIsOpen , setModalRegistroIsOpen ,
             loading,
-            editRow
+            editRow,
+            searchValue , setSearchValue
         }}>
             {children}
         </RegistroContext.Provider>
