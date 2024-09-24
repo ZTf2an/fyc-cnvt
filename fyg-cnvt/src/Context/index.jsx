@@ -5,6 +5,7 @@ export const RegistroContext = createContext();
 
 export const RegistroProvider= ({children}) => {
     const [loading , setLoading] = useState(true);
+    const [serverError , setServerError] = useState(false);
     const [data , setData] = useState([]);
 
     const [searchValue , setSearchValue] = useState('');
@@ -41,7 +42,7 @@ export const RegistroProvider= ({children}) => {
         fetch(API_CNVT)
         .then(response=> response.json())
         .then(data => setData(data.reverse()))
-        .catch(error => console.log('Ha ocurrido un error :' + error));
+        .catch(error => setServerError(true));
     },[]);
 
     // 
@@ -94,7 +95,7 @@ export const RegistroProvider= ({children}) => {
             data, setData,
             searchedData,
             modalRegistroIsOpen , setModalRegistroIsOpen ,
-            loading,
+            loading, serverError,
             editRow,
             searchValue , setSearchValue
         }}>
