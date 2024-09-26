@@ -7,13 +7,27 @@ import { TbCashRegister } from "react-icons/tb";
 
 function TableRow({row , edit}) {
     const fecha = new Date(row.fecha);
+    const valoresSegunModalidad = {
+        "P-tarjetas" : row.valorP ,
+        "P-Controles" : row.valorPC ,
+        "Virtual" : row.valorV ,
+        "Mixta" : row.valorM ,
+    }
     return (
         <tr key={row.id} className={row.pagado && "success"}>
             <td>{row.cliente}</td>                            
             <td>{row.nit}</td>                            
-            <td>$500.000</td>                            
+            <td>{row.modalidad? `$${valoresSegunModalidad[row.modalidad].toLocaleString('es-CO')}` : 'Por definir' }</td>                            
             <td>
-                <select className="form-select form-select-sm" aria-label=".form-select-sm">
+                <select 
+                    className="form-select form-select-sm" 
+                    aria-label=".form-select-sm" 
+                    defaultValue={row.modalidad} 
+                    onChange={e => {
+                        edit(row.id , {modalidad : e.target.value} , 'modalidad')}
+
+                    }
+                >
                     <option dafault="true">selecciona</option>
                     <option >P-tarjetas</option>
                     <option >P-Controles</option>

@@ -53,6 +53,7 @@ export const RegistroProvider= ({children}) => {
     },[data])
 
     const editType = {
+        "modalidad" : (nombreCliente) => (`Está cambiando la modalidad de ${nombreCliente}`),
         "aceptar" : (nombreCliente) => (`¿Está seguro de que quiere enviar a ${nombreCliente} a la pagina de Cobranza?`),
         "rechazar" : (nombreCliente) => (`¿Está seguro de que quiere eliminar a ${nombreCliente} de la pagina de cobranza?`),
         "eliminar" : (nombreCliente) => (`¿Está seguro de que quiere eliminar a ${nombreCliente}`),

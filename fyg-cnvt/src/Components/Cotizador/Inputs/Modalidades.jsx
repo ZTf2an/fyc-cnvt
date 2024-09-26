@@ -28,7 +28,7 @@ function Modalidades () {
                     name="flexCheckMPresencialT" 
                     className="form-check-input" 
                     checked={presencialT} 
-                    value={virtual ? 'on' : 'off'} 
+                    value={presencialT ? 'on' : 'off'} 
                     onChange={e => setPresencialT(e.target.checked)}
                 />
                 <label htmlFor="flexCheckMPresencialT">Presencial con Tarjetas</label>
@@ -40,7 +40,7 @@ function Modalidades () {
                     name="flexCheckMPresencialC" 
                     className="form-check-input" 
                     checked={presencialC} 
-                    value={virtual ? 'on' : 'off'} 
+                    value={presencialC ? 'on' : 'off'} 
                     onChange={e => setpresencialC(e.target.checked)}
                 />
                 <label htmlFor="flexCheckMPresencialC">Presencial con Controles</label>
@@ -52,7 +52,7 @@ function Modalidades () {
                     name="flexCheckMMixta" 
                     className="form-check-input" 
                     checked={mixta} 
-                    value={virtual ? 'on' : 'off'} 
+                    value={mixta ? 'on' : 'off'} 
                     onChange={e => setMixta(e.target.checked)}
                 />
                 <label htmlFor="flexCheckMMixta">Mixta</label>
