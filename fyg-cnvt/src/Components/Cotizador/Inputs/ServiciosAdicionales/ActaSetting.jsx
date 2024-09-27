@@ -13,6 +13,7 @@ function ActaSetting ( ){
                         name="inputSerActa" 
                         onClick={ e => setActaIsChecked(!actaIsChecked)}
                         checked={actaIsChecked}
+                        value={actaIsChecked ? 'on' : 'off'}
                         onChange={e=>e}
                     />
                 </span>

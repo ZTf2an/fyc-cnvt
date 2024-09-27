@@ -26,7 +26,6 @@ export const RegistroProvider= ({children}) => {
             item.modalidad ,
             fecha,
             item.predios ,
-            item.email ,
             item.tel
         ].join(' ')
         return {...item , registroData : registroData , cobranzaData : cobranzaData}

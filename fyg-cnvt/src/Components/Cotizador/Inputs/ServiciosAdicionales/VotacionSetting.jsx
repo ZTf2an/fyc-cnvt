@@ -22,6 +22,7 @@ function VotacionSetting () {
                         className="form-check-input mt-0" 
                         onClick={e=>setChecked(!checked)} 
                         onChange={e=>e} 
+                        value={checked ? 'on' : 'off'}
                         name="inputSerVotacion" 
                         checked={checked}
                     />

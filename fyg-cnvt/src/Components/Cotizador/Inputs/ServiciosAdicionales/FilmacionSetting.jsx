@@ -13,6 +13,7 @@ function FilmacionSetting() {
                         name="inputSerFilmacion" 
                         onClick={e => setChecked(!checked)}
                         checked={checked}
+                        value={checked ? 'on' : 'off'}
                         onChange={e=>e}
                     />
                 </span>

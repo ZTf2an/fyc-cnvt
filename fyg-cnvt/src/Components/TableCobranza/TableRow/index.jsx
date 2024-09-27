@@ -37,7 +37,7 @@ function TableRow({row , edit}) {
             </td>                            
             <td>{fecha.toLocaleDateString('es-ES', {month : 'short' , day :'numeric' })}</td>
             <td className="text-end">{row.predios}</td>
-            <td>{row.email}</td>
+            <td hidden>{row.email}</td>
             <td>{row.tel}</td>
             <td>
                 <div className="d-flex justify-content-center">

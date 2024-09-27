@@ -24,6 +24,7 @@ function SonidoSetting () {
                         className="form-check-input mt-0" 
                         name="inputSerSonido" 
                         onClick={e=>setChecked(!checked)} 
+                        value={checked ? 'on' : 'off'}
                         onChange={e=>e}
                         checked={checked}
                     />

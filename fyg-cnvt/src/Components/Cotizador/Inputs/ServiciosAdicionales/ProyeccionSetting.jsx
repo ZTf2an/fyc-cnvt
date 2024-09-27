@@ -21,6 +21,7 @@ function ProyeccionSetting() {
                         type="checkbox" 
                         className="form-check-input mt-0" 
                         onClick={e=>setChecked(!checked)} 
+                        value={checked ? 'on' : 'off'}
                         onChange={e=>e}
                         name="inputSerVideoBeam1" 
                         checked={checked}
