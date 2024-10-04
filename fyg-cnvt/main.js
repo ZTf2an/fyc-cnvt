@@ -1,8 +1,8 @@
-import { app, BrowserWindow } from 'electron';
-import express from 'express';
-import routerApi from './serverRoutes/server.js';
+import { app, BrowserWindow, Menu } from 'electron';
+import server from './server/index.js'
+
 // const cors = require('cors')
-const server = express();
+
 const port = 3000;
 
 function createWindow() {
@@ -12,26 +12,12 @@ function createWindow() {
         webPreferences : {
             nodeIntegration : true,
             contextIsolation : false,
+            devTools : false 
         },
     });
 
     win.loadURL('http://localhost:5173');
 }
-
-server.use(express.json())
-server.use((req , res , next) => {
-    res.header('Access-Control-Allow-Origin' , '*');
-    res.header('Access-Control-Allow-Headers' , '*');
-    res.header('Access-Control-Allow-Methods' , '*');
-    next();
-})
-
-server.get('/',(req , res)=> {
-    res.send('Hola mi server en express')
-})
-
-routerApi(server);
-
 
 app.whenReady()
     .then(() => {
@@ -44,6 +30,10 @@ app.whenReady()
 
 app.on('window-all-closed' , () => {
     if (process.platform !== 'darwin') app.quit();
+});
+
+app.on('ready' , () => {
+    Menu.setApplicationMenu(null);
 });
 
 app.on('activate', () => {
