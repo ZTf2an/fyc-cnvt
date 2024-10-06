@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu } from 'electron';
+import { app, BrowserWindow, Menu , shell} from 'electron';
 import server from './server/index.js'
 
 // const cors = require('cors')
@@ -16,6 +16,11 @@ function createWindow() {
         },
     });
 
+    win.webContents.setWindowOpenHandler(({url}) => {
+        shell.openExternal(url);
+        return { action : 'deny'}
+    })
+    
     win.loadURL('http://localhost:5173');
 }
 

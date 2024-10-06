@@ -1,5 +1,4 @@
-import { useContext } from "react";
-import { CotizadorContext, CotizadorProvider } from "./Context";
+import {useCotizador } from "./useCotizador";
 import { API_CNVT } from "../../Globals/API";
 import {Modal} from 'bootstrap'
 import Cliente from "./Inputs/Cliente";
@@ -14,7 +13,7 @@ import ServiciosAdicionales from "./Inputs/ServiciosAdicionales";
 
 
 function Cotizador () {
-    const context = useContext(CotizadorContext);
+    const context = useCotizador();
 
     const mySubmit = (e) => {
         e.preventDefault();

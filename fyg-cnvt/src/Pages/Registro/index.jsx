@@ -4,8 +4,9 @@ import { RegistroContext } from "../../Context";
 import TableRegistro from "../../Components/TableRegistro";
 import Searcher from "../../Components/Searcher";
 import Modal from "../../Components/Modal";
+import EditModal from "../../Components/EditModal";
 
-function Registro ({data}) {
+function Registro () {
     const {searchValue , setSearchValue} = useContext(RegistroContext)
     return (
         <>
@@ -24,6 +25,7 @@ function Registro ({data}) {
             </div>
             <TableRegistro />
             <Modal />
+            <EditModal regTarget={null}/>
         </>
     )
 }

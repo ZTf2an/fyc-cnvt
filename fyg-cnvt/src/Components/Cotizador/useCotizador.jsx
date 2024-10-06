@@ -1,9 +1,8 @@
-import { createContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { calcularValor } from "../../Utils/calcularValor";
 
-export const CotizadorContext = createContext()
 
-export const CotizadorProvider = ({children}) => {
+export const useCotizador = () => {
 
     // Descuento e incremento
     const [descuentoIsChecked , setDescuentoIsChecked] = useState(false);
@@ -14,6 +13,8 @@ export const CotizadorProvider = ({children}) => {
     const [numeroPredios , setNumeroPredios] = useState(0);
     const [descuentoCoef , setDescuentoCoef] = useState(0);
     const [incrementoCoef , setIncrementoCoef] = useState(0);
+
+    // Incremento y Descuento alternables
     useEffect(()=>{
         if (descuentoIsChecked) {
             setIncrementoIsChecked(false);
@@ -34,15 +35,13 @@ export const CotizadorProvider = ({children}) => {
 
 
     return(
-        <CotizadorContext.Provider value={{
+        {
             descuentoIsChecked , setDescuentoIsChecked ,
             incrementoIsChecked , setIncrementoIsChecked ,
             defaultValor , setDefaultValor ,
             numeroPredios , setNumeroPredios ,
             incrementoCoef , setIncrementoCoef ,
             descuentoCoef , setDescuentoCoef
-        }}>
-            {children}
-        </CotizadorContext.Provider>
+        }
     )
 }
