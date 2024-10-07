@@ -7,7 +7,7 @@ import Modal from "../../Components/Modal";
 import EditModal from "../../Components/EditModal";
 
 function Registro () {
-    const {searchValue , setSearchValue} = useContext(RegistroContext)
+    const {searchValue , setSearchValue , registroToEdit } = useContext(RegistroContext)
     return (
         <>
             <div className="mb-2 d-flex">
@@ -25,7 +25,7 @@ function Registro () {
             </div>
             <TableRegistro />
             <Modal />
-            <EditModal regTarget={null}/>
+            <EditModal regTarget={registroToEdit}/>
         </>
     )
 }

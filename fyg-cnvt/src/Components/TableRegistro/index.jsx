@@ -6,7 +6,7 @@ import Loader from "../Loader";
 import './TableRegistro.css'
 
 function TableRegistro () {
-    const { data , searchedData , loading , editRow ,serverError } = useContext(RegistroContext);
+    const { data , searchedData , loading , editRow ,serverError , setRegistroToEdit } = useContext(RegistroContext);
 
     return (
         <>
@@ -26,7 +26,7 @@ function TableRegistro () {
                     </tr>
                 </thead>
                 <tbody>
-                    {searchedData.map( row => row.active && <TableRow key={row.id} row={row} edit={editRow}/>)}
+                    {searchedData.map( row => row.active && <TableRow key={row.id} row={row} edit={editRow} setRegistroToEdit={setRegistroToEdit}/>)}
                 </tbody>
             </table>
             {serverError ? 'No hay comunicacion con el servidor 😯' : loading && <Loader/>}

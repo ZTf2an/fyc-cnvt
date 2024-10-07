@@ -1,6 +1,6 @@
 import {useCotizador } from "./useCotizador";
-import { API_CNVT } from "../../Globals/API";
 import {Modal} from 'bootstrap'
+import {postData , parsedParams} from '../../useServerHooks/useCreate'
 import Cliente from "./Inputs/Cliente";
 import Email from "./Inputs/Email";
 import Fecha from "./Inputs/Fecha";
@@ -10,10 +10,18 @@ import PrediosValor from "./Inputs/PrediosValor";
 import DescInc from "./Inputs/DescInc";
 import ValoresAdicionales from "./Inputs/ValoresAdicionales";
 import ServiciosAdicionales from "./Inputs/ServiciosAdicionales";
+import { useEffect } from "react";
 
 
-function Cotizador () {
+function Cotizador ({object}) {
     const context = useCotizador();
+
+    useEffect(()=> {
+        context.setDescuentoIsChecked(Boolean(object?.descuento));
+        context.setDescuentoCoef(object?.descuento || 0);
+        context.setDefaultValor(object?.valorP || 0);
+        context.setNumeroPredios(object?.predios)
+    },[object])
 
     const mySubmit = (e) => {
         e.preventDefault();
@@ -33,49 +41,7 @@ function Cotizador () {
         }
         e.target.classList.add('was-validated')
     }
-
-    const parsedParams = (arr) => {
-        let params = {};
-
-        for (let i = 0 ; i < arr.length ; i++) {
-            if (arr[i].name != "") {
-                params[arr[i].name] = arr[i].value;
-            }; 
-        };
-
-        return params
-    }
     
-    const postData = (data , cb) => {
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("POST", API_CNVT,true);
-        xmlhttp.setRequestHeader('Content-Type', 'application/json')
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                var response = JSON.parse(this.responseText);
-                console.log(this.responseText);
-                grabaOK(response);
-                cb();
-            }
-        };
-        xmlhttp.onerror = function () {
-            console.log("Error ajax");
-        };
-        xmlhttp.send(data);
-    }
-
-    const grabaOK = (response) => {
-        if(response.status=="success"){
-            //acciones si fue correcto
-            alert(response.msj);
-            // myModal.hide()
-        }else{
-            //acciones si fue erroneo
-            alert("Error");
-            return false
-        }
-    }
-
     return(
             <form 
                 className="row g-3 needs-validation" 
@@ -83,15 +49,21 @@ function Cotizador () {
                 noValidate
                 onSubmit={mySubmit}
             >
-                <Cliente/>
-                <Fecha/>
-                <Email/>
-                <Tel />
-                <Modalidades/> 
+                <Cliente value={object?.cliente}/>
+                <Fecha value={object?.fecha}/>
+                <Email value={object?.email}/>
+                <Tel value={object?.tel}/>
+                <Modalidades 
+                    valueV={object?.modalidadV}
+                    valueM={object?.modalidadM}
+                    valueP={object?.modalidadP}
+                    valuePC={object?.modalidadPC}
+                />
                 <PrediosValor 
                     prediosChange={context.setNumeroPredios}
                     defaultValor={context.defaultValor}
                     changeDefaultValor={context.setDefaultValor}
+                    prediosDefault={context.numeroPredios}
                 />
                 <DescInc 
                     descChec={context.descuentoIsChecked}
@@ -103,7 +75,12 @@ function Cotizador () {
                     incrementar={context.setIncrementoCoef}
                     incremento={context.incrementoCoef}
                 />
-                <ValoresAdicionales />
+                <ValoresAdicionales value={
+                    [object?.valorAcomVirtual ,
+                    object?.valorAcomMixta ,
+                    object?.valorAdicPresencial ,
+                    object?.valorControles]
+                    }/>
                 <ServiciosAdicionales />
                     
             </form> 

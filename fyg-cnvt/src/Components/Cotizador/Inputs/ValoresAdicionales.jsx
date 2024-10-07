@@ -1,4 +1,4 @@
-function ValoresAdicionales () {
+function ValoresAdicionales ({value}) {
     return (
     <div className="col-md-4 mb-3">
         <div className="accordion">
@@ -14,7 +14,7 @@ function ValoresAdicionales () {
                         <input 
                             className="form-control text-end" 
                             type="number" 
-                            value="500.000" 
+                            defaultValue={value[0]} 
                             name="inputValorAcoVirtual" 
                             onChange={e => console.log(e)}
                             required
@@ -23,7 +23,7 @@ function ValoresAdicionales () {
                         <input 
                             className="form-control text-end" 
                             type="number" 
-                            value="0" 
+                            defaultValue={value[2]} 
                             name="inputValorAcoPresencial"
                             onChange={e => console.log(e)} 
                             required
@@ -32,7 +32,7 @@ function ValoresAdicionales () {
                         <input 
                             className="form-control text-end" 
                             type="number" 
-                            value="0" 
+                            defaultValue={value[3]} 
                             name="inputValorControles"
                             onChange={e => console.log(e)} 
                             required
@@ -41,7 +41,8 @@ function ValoresAdicionales () {
                         <input 
                             className="form-control text-end" 
                             type="number" 
-                            value="800.000" name="inputValorAcoMixta"
+                            defaultValue={value[1]} 
+                            name="inputValorAcoMixta"
                             onChange={e => console.log(e)}
                         />
                     </div>

@@ -3,16 +3,11 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 import { HiOutlineMail } from "react-icons/hi";
 import { PiFilePdf } from "react-icons/pi";
 import { SiGoogledocs } from "react-icons/si";
-import {Modal} from "bootstrap"
 
-function TableRow ({row , edit}) {
+function TableRow ({row , edit , setRegistroToEdit}) {
     const fecha = new Date(row.fecha);
 
-    const openEditor = (row) => {
-        const editModal = new Modal.getOrCreateInstance('#editModal');    // no funcionando aún...    
-        editModal.show();
-        console.log(row.id)
-    }
+    
 
     return(
         <tr className={row.aceptado ? "table-success" : undefined }>
@@ -38,7 +33,7 @@ function TableRow ({row , edit}) {
             <td>
                 <div className="d-flex justify-content-between">
                     <HiOutlineMail className="icon-msg fs-3 mx-1 pointer" />
-                    <FaRegEdit className="icon-edit fs-4 ms-1 pointer" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"/>
+                    <FaRegEdit className="icon-edit fs-4 ms-1 pointer" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => setRegistroToEdit(row)}/>
                     <RiDeleteBin6Fill className="icon-del fs-4 mx-1 pointer" onClick={e => edit(row.id , {active:false} , 'eliminar')}/>
                 </div>
             </td>

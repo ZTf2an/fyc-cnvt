@@ -1,5 +1,13 @@
 
-function PrediosValor ({prediosChange ,  defaultValor , changeDefaultValor}) {
+function PrediosValor ({prediosChange ,  defaultValor , changeDefaultValor , prediosDefault}) {
+    const formatNumber = (input) => {
+        if (isNaN(input)) {
+            return ""
+        } else {
+            return input
+        }
+    };
+
     return (
         <div className="col-md-6">
             <div className=" mb-3">
@@ -10,6 +18,7 @@ function PrediosValor ({prediosChange ,  defaultValor , changeDefaultValor}) {
                     id="inputPredios" 
                     name="inputPredios" 
                     placeholder="Ej: 100" 
+                    value={formatNumber(prediosDefault)}
                     onChange={e => {
                         prediosChange(e.target.value);
                     }}
@@ -27,7 +36,7 @@ function PrediosValor ({prediosChange ,  defaultValor , changeDefaultValor}) {
                     id="inputValor" 
                     name="inputValor" 
                     placeholder="Normalmente automatico" 
-                    value={defaultValor}
+                    value={formatNumber(defaultValor)}
                     onChange={e=>changeDefaultValor(e.target.value)}
                     required
                 />
