@@ -13,7 +13,7 @@ import ServiciosAdicionales from "./Inputs/ServiciosAdicionales";
 import { useEffect } from "react";
 
 
-function Cotizador ({object}) {
+function Cotizador ({object , formName}) {
     const context = useCotizador();
 
     useEffect(()=> {
@@ -25,7 +25,17 @@ function Cotizador ({object}) {
 
     const mySubmit = (e) => {
         e.preventDefault();
+        switch (e.target.id) {
+            case "crearRegistro" :
+                crearRegistro(e);
+                break;
+            case "editarRegistro" :
+                editarRegistro();
+                break;
+        };
+    };
 
+    const crearRegistro = (e) => {
         let params = parsedParams(e.target)
         const data = JSON.stringify(params);
         
@@ -40,12 +50,16 @@ function Cotizador ({object}) {
             })
         }
         e.target.classList.add('was-validated')
-    }
+    };
+
+    const editarRegistro = () => {
+        console.log('editando Registro')        
+    };
     
     return(
             <form 
                 className="row g-3 needs-validation" 
-                id="crearRegistro" 
+                id={formName} 
                 noValidate
                 onSubmit={mySubmit}
             >
