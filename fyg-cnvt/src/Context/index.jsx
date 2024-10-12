@@ -8,6 +8,7 @@ export const RegistroProvider= ({children}) => {
     const [serverError , setServerError] = useState(false);
     const [data , setData] = useState([]);
     const [registroToEdit , setRegistroToEdit] = useState({});
+    const [editModalIsOpen , setEditModalIsOpen] = useState(false)
 
     const [searchValue , setSearchValue] = useState('');
     
@@ -114,7 +115,8 @@ export const RegistroProvider= ({children}) => {
             loading, serverError,
             editRow,
             searchValue , setSearchValue ,
-            registroToEdit , setRegistroToEdit
+            registroToEdit , setRegistroToEdit ,
+            editModalIsOpen , setEditModalIsOpen
         }}>
             {children}
         </RegistroContext.Provider>
