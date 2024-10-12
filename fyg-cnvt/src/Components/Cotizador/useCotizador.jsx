@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { calcularValor } from "../../Utils/calcularValor";
 
 
@@ -32,7 +32,6 @@ export const useCotizador = () => {
         }
         setDefaultValor(calcularValor(numeroPredios , descuentoCoef , incrementoCoef))
     },[numeroPredios , descuentoCoef , incrementoCoef , descuentoIsChecked , incrementoIsChecked])
-
 
     return(
         {

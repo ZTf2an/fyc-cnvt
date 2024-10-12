@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {useCotizador } from "./useCotizador";
 import {Modal} from 'bootstrap'
 import {postData , parsedParams} from '../../useServerHooks/useCreate'
@@ -10,11 +11,44 @@ import PrediosValor from "./Inputs/PrediosValor";
 import DescInc from "./Inputs/DescInc";
 import ValoresAdicionales from "./Inputs/ValoresAdicionales";
 import ServiciosAdicionales from "./Inputs/ServiciosAdicionales";
-import { useEffect } from "react";
+import { API_CNVT } from "../../Globals/API";
 
 
-function Cotizador ({object , formName}) {
+function Cotizador ({object , formName , edit}) {
     const context = useCotizador();
+
+    const objectParams = (params) => {
+        const servicesJson = { 
+            acta : {isRequired : params.inputSerActa=='on'} , 
+            filmacion : {isRequired : params.inputSerFilmacion=='on'} , 
+            votacion : { isRequired : params.inputSerVotacion=='on' , logisticos : params.inputSerLogisticos},
+            sonido : {isRequired : params.inputSerSonido=='on' , cabinas : params.inputSerCabinas , microfonos : params.inputSerMicrofonos , patinadores : params.inputSerPatinadores} ,
+            proyeccion : {isRequired : params.inputSerVideoBeam1=='on' , videobeam : params.inputSerVideoBeam , telon : params.inputSerTelon} ,
+            cctv : {isRequired : params.inputSerCircuitoCerrado=='on' , salones : params.inputSerSalones} 
+          };
+
+        return { cliente : params.inputNombreCliente ,
+            fecha : params.inputFecha , 
+            predios : params.inputPredios ,
+            email : params.inputCorreo ,
+            tel : params.inputNumeroTelefonico ,
+            modalidadP : params.flexCheckMPresencialT=='on' ,
+            modalidadPC : params.flexCheckMPresencialC=='on' ,
+            modalidadV : params.flexCheckMVirtual=='on' ,
+            modalidadM : params.flexCheckMMixta=='on' ,
+            valorP : params.inputValor ,
+            valorPC : params.inputValor ,
+            valorV : params.inputValor ,
+            valorM : params.inputValor ,
+            valorAcomVirtual : params.inputValorAcoVirtual ,
+            valorAcomMixta : params.inputValorAcoMixta ,
+            valorAdicPresencial : params.inputValorAcoPresencial ,
+            valorControles : params.inputValorControles ,
+            descuento : params.inputDescuento ,
+            incremento : params.inputIncremento , 
+            servicios : JSON.stringify(servicesJson)
+        }
+    }
 
     useEffect(()=> {
         context.setDescuentoIsChecked(Boolean(object?.descuento));
@@ -30,7 +64,7 @@ function Cotizador ({object , formName}) {
                 crearRegistro(e);
                 break;
             case "editarRegistro" :
-                editarRegistro();
+                editarRegistro(e);
                 break;
         };
     };
@@ -52,8 +86,11 @@ function Cotizador ({object , formName}) {
         e.target.classList.add('was-validated')
     };
 
-    const editarRegistro = () => {
-        console.log('editando Registro')        
+    const editarRegistro = (e) => {
+        let params = objectParams(parsedParams(e.target));
+        // console.log(params);
+        edit(object.id , params , 'lote')
+
     };
     
     return(

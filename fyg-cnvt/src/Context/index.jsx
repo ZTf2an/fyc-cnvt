@@ -57,6 +57,7 @@ export const RegistroProvider= ({children}) => {
         "aceptar" : (nombreCliente) => (`¿Está seguro de que quiere enviar a ${nombreCliente} a la pagina de Cobranza?`),
         "rechazar" : (nombreCliente) => (`¿Está seguro de que quiere eliminar a ${nombreCliente} de la pagina de cobranza?`),
         "eliminar" : (nombreCliente) => (`¿Está seguro de que quiere eliminar a ${nombreCliente}`),
+        "lote" : (nombreCliente) => (`¿Está seguro de que quiere guardar los cambios hechos a ${nombreCliente}`)
     }
     
     const editRow = (id , changes , type) => {
@@ -68,23 +69,37 @@ export const RegistroProvider= ({children}) => {
         if (response) {
             const newData = [...data];
             const dataIndex = newData.findIndex(row => row.id == id);
-            const row = newData[dataIndex]
+            const row = newData[dataIndex];
             newData[dataIndex] = {...row, ...changes}
             console.log(newData[dataIndex])
             setData(newData)
-            
-            fetch(`${API_CNVT}/${id}`,{
-                method : 'PATCH',
-                headers : {
-                    'Content-Type': 'application/json'
-                },
-                body : JSON.stringify(changes) 
-            })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.log(error))
-        }
-    }
+
+            if (type === 'lote') {
+                fetch(`${API_CNVT}/${id}`,{
+                    method : 'PUT' ,
+                    headers : {
+                        'Content-Type': 'application/json'
+                    },
+                    body : JSON.stringify(changes)
+                })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.log(error))
+
+            } else {
+                fetch(`${API_CNVT}/${id}`,{
+                    method : 'PATCH',
+                    headers : {
+                        'Content-Type': 'application/json'
+                    },
+                    body : JSON.stringify(changes) 
+                })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.log(error))
+            };
+        };
+    };
 
 
     const [modalRegistroIsOpen , setModalRegistroIsOpen ] = useState(false);
