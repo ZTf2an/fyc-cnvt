@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import { BsPencilSquare } from "react-icons/bs";
 import ItemModifier from "../../../ItemModifier"
 
-function ProyeccionSetting() {
+function ProyeccionSetting({value}) {
     const [checked , setChecked] = useState(true);
     const [editIsClosed , setEditIsClosed] = useState(true);
+
+    useEffect(()=>{
+        if(value !== undefined){
+            setChecked(value.isRequired);
+        };
+    },[value]);
 
     return (
         <div className="col-md-4 border-end border-start">

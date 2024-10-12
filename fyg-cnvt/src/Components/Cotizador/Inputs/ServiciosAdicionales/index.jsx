@@ -5,7 +5,12 @@ import ProyeccionSetting from "./ProyeccionSetting"
 import SonidoSetting from "./SonidoSetting"
 import VotacionSetting from "./VotacionSetting"
 
-function ServiciosAdicionales () {
+function ServiciosAdicionales ({value}) {
+    let object = {};
+    if (value != undefined) {
+        // console.log(JSON.parse(value))
+        object = JSON.parse(value)
+    }
     return (
         <div className="col-md-8 mb-3">
             <div className="accordion">
@@ -18,12 +23,12 @@ function ServiciosAdicionales () {
                     <div id="collapseTwo" className="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                         <div className="accordion-body">
                             <div className="row g-3">
-                                <ActaSetting/>
-                                <SonidoSetting/>
-                                <VotacionSetting />
-                                <FilmacionSetting />
-                                <ProyeccionSetting />
-                                <CircuitoSetting />
+                                <ActaSetting value={object?.acta?.isRequired}/>
+                                <SonidoSetting value={object?.proyeccion}/>
+                                <VotacionSetting value={object?.votacion}/>
+                                <FilmacionSetting value={object?.filmacion?.isRequired}/>
+                                <ProyeccionSetting value={object?.proyeccion}/>
+                                <CircuitoSetting value={object?.cctv}/>
                             </div>
                         </div>
                     </div>

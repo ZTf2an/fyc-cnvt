@@ -102,7 +102,7 @@ function Cotizador ({object , formName , edit , modalIsOpen}) {
                     object?.valorAdicPresencial ,
                     object?.valorControles]
                     }/>
-                <ServiciosAdicionales />
+                <ServiciosAdicionales value={object?.servicios}/>
                     
             </form> 
     )

@@ -1,10 +1,16 @@
 import { BsPencilSquare } from "react-icons/bs";
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import ItemModifier from "../../../ItemModifier"
 
-function VotacionSetting () {
-    const [checked , setChecked] = useState(true)
-    const [editIsClosed , setEditIsClosed] = useState(true)
+function VotacionSetting ({value}) {
+    const [checked , setChecked] = useState(true);
+    const [editIsClosed , setEditIsClosed] = useState(true);
+
+    useEffect(()=>{
+        if(value !== undefined){
+            setChecked(value.isRequired);
+        };
+    },[value]);
 
     return (
         <div className="col-md-4 border-end border-start">

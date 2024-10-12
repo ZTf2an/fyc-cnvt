@@ -1,7 +1,14 @@
-import { useState } from "react"
+import { useState , useEffect} from "react"
 
-function FilmacionSetting() {
+function FilmacionSetting({value}) {
     const [checked , setChecked] = useState(true);
+    
+    useEffect(()=>{
+        if(value !== undefined){
+            setChecked(value);
+        };
+    },[value]);
+
     return (
         <div className="col-md-4 border-end">
             <div className="input-group">

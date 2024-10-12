@@ -1,7 +1,15 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-function ActaSetting ( ){
-    const [actaIsChecked , setActaIsChecked] = useState(true)
+function ActaSetting ({value}){
+    const [actaIsChecked , setActaIsChecked] = useState(true);
+    // console.log(value);
+
+    useEffect(()=>{
+        if(value !== undefined){
+            setActaIsChecked(value);
+        };
+    },[value]);
+
     return (
         <div className="col-md-4 border-end">
             <div className="input-group">
