@@ -5,7 +5,7 @@ import { PiFilePdf } from "react-icons/pi";
 import { SiGoogledocs } from "react-icons/si";
 import { TbCashRegister } from "react-icons/tb";
 
-function TableRow({row , edit}) {
+function TableRow({row , edit , openEditor}) {
     const fecha = new Date(row.fecha);
     const valoresSegunModalidad = {
         "P-tarjetas" : row.valorP ,
@@ -64,7 +64,7 @@ function TableRow({row , edit}) {
             <td>
                 <div className="d-flex justify-content-between">
                     <HiOutlineMail className="icon-msg fs-3 mx-1 pointer" />
-                    <FaRegEdit className="icon-edit fs-4 ms-1 pointer" />
+                    <FaRegEdit className="icon-edit fs-4 ms-1 pointer" onClick={e => openEditor(true)}/>
                     <RiDeleteBin6Fill className="icon-del fs-4 mx-1 pointer" onClick={e => {edit(row.id , {aceptado : false} , 'rechazar')}}/>
                 </div>
             </td>

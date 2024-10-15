@@ -4,15 +4,17 @@ import { API_CNVT } from "../Globals/API";
 export const RegistroContext = createContext();
 
 export const RegistroProvider= ({children}) => {
+    //Carga de datos al inicio de la aplicacion.
     const [loading , setLoading] = useState(true);
     const [serverError , setServerError] = useState(false);
     const [data , setData] = useState([]);
-    const [registroToEdit , setRegistroToEdit] = useState({});
-    // console.log(registroToEdit)
-    const [editModalIsOpen , setEditModalIsOpen] = useState(false)
 
-    const [searchValue , setSearchValue] = useState('');
+    //Registro que se editará cuando se da click al botón de editar
+    const [registroToEdit , setRegistroToEdit] = useState({});
+    const [editModalIsOpen , setEditModalIsOpen] = useState(false);
+    const [editSideIsOpen , setEditSideIsOpen] = useState(false);
     
+
     // Formatea Data con 2 objetos adicionales para Searcher
     const formatedData = data.map(item => {
         const fecha = new Date(item.fecha)
@@ -34,25 +36,24 @@ export const RegistroProvider= ({children}) => {
         return {...item , registroData : registroData , cobranzaData : cobranzaData}
         }
     );
-    
+
+    //Valor a Buscar en el Searcher - Logica del buscador
+    const [searchValue , setSearchValue] = useState('');
     const searchedData = formatedData.filter(
         item => item.registroData.toLowerCase().includes(searchValue.toLowerCase()) || 
         item.cobranzaData.toLowerCase().includes(searchValue.toLowerCase())
-    )     
+    );    
     
+    //Extrae la data de la hoja Sheets - la url es del servidor local http://localhost:3000
     useEffect(()=>{
         fetch(API_CNVT)
         .then(response=> response.json())
-        .then(data => setData(data.reverse()))
+        .then(data => {
+            setData(data.reverse());
+            setLoading(false);
+        })
         .catch(error => setServerError(true));
     },[]);
-
-    // 
-    useEffect(()=>{
-        if ( data.length != 0) {
-            setLoading(false)
-        }
-    },[data])
 
     const editType = {
         "modalidad" : (nombreCliente) => (`Está cambiando la modalidad de ${nombreCliente}`),
@@ -117,7 +118,8 @@ export const RegistroProvider= ({children}) => {
             editRow,
             searchValue , setSearchValue ,
             registroToEdit , setRegistroToEdit ,
-            editModalIsOpen , setEditModalIsOpen
+            editModalIsOpen , setEditModalIsOpen,
+            editSideIsOpen , setEditSideIsOpen
         }}>
             {children}
         </RegistroContext.Provider>
