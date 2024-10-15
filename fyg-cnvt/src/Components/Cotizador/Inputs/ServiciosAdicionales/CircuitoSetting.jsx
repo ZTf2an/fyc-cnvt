@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsPencilSquare } from "react-icons/bs";
 import ItemModifier from "../../../ItemModifier"
 
-function CircuitoSetting() {
+function CircuitoSetting({value}) {
     const [checked , setChecked] = useState(false);
     const [editIsClosed , setEditIsClosed] = useState(true);
+    const [salones , setSalones] = useState(2);
+
+    useEffect(()=>{
+        if(value !== undefined){
+            setChecked(value.isRequired);
+            setSalones(parseInt(value.salones));
+        }
+    },[value])
 
     return (
         <div className="col-md-4 border-end border-start">
@@ -25,14 +33,18 @@ function CircuitoSetting() {
                     <input 
                         type="checkbox" 
                         className="form-check-input mt-0" 
-                        onClick={e=>setChecked(!checked)} 
+                        onClick={e=>setChecked(!checked)}
                         name="inputSerCircuitoCerrado"
+                        value={checked ? 'on' : 'off'}
+                        checked={checked}
+                        onChange={e=>e}
+                        
                     />
                 </span>
             </div>
             <div name="contenedor-circuitoCerrado" className="esconder-mostrar-contenedor" hidden={editIsClosed}>
                 <div className="row mb-1">
-                    <ItemModifier item={"Salones"} defaultLot={2}/>
+                    <ItemModifier item={"Salones"} textHelp={"Salones"} amount={salones} setAmount={setSalones}/>
                 </div>
             </div>                    
         </div>

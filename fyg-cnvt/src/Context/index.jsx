@@ -8,6 +8,7 @@ export const RegistroProvider= ({children}) => {
     const [serverError , setServerError] = useState(false);
     const [data , setData] = useState([]);
     const [registroToEdit , setRegistroToEdit] = useState({});
+    // console.log(registroToEdit)
     const [editModalIsOpen , setEditModalIsOpen] = useState(false)
 
     const [searchValue , setSearchValue] = useState('');
@@ -72,7 +73,7 @@ export const RegistroProvider= ({children}) => {
             const dataIndex = newData.findIndex(row => row.id == id);
             const row = newData[dataIndex];
             newData[dataIndex] = {...row, ...changes}
-            // console.log(newData[dataIndex])
+            console.log(newData[dataIndex])
             setData(newData)
 
             if (type === 'lote') {

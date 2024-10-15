@@ -10,9 +10,13 @@ function TableRegistro () {
 
     return (
         <>
-        <div className="my-3">
-            <table className='table table-striped table-bordered align-middle rounded'>
-                <thead className="table-primary position-sticky">
+        <div className="my-3 table-wrapper" >
+            <table 
+                className='table table-striped table-bordered align-middle overflow-auto'
+            >
+                <thead 
+                    className="table-primary "
+                >
                     <tr>
                         <th className="p-3" scope="col">Cliente</th>
                         <th className="p-3" width="5%" scope="col">Fecha</th>
@@ -25,7 +29,7 @@ function TableRegistro () {
                         <th className="p-3" width="1" scope="col">Acepta</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody >
                     {searchedData.map( 
                         row => row.active && <TableRow 
                             key={row.id} 

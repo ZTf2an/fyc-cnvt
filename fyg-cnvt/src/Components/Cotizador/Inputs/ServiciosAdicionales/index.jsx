@@ -8,7 +8,6 @@ import VotacionSetting from "./VotacionSetting"
 function ServiciosAdicionales ({value}) {
     let object = {};
     if (value != undefined) {
-        // console.log(JSON.parse(value))
         object = JSON.parse(value)
     }
     return (
@@ -24,7 +23,7 @@ function ServiciosAdicionales ({value}) {
                         <div className="accordion-body">
                             <div className="row g-3">
                                 <ActaSetting value={object?.acta?.isRequired}/>
-                                <SonidoSetting value={object?.proyeccion}/>
+                                <SonidoSetting value={object?.sonido}/>
                                 <VotacionSetting value={object?.votacion}/>
                                 <FilmacionSetting value={object?.filmacion?.isRequired}/>
                                 <ProyeccionSetting value={object?.proyeccion}/>

@@ -4,13 +4,19 @@ import { BsPlusCircleFill , BsDashCircleFill } from "react-icons/bs";
 import ItemModifier from "../../../ItemModifier"
 
 function SonidoSetting ({value}) {
+    // console.log(value)
     const [checked , setChecked] = useState(true);
     const [editIsClosed , setEditIsClosed] = useState(true);
+    const [defaultCabinas , setDefaultCabinas] = useState(4);
+    const [defaultMicrofonos , setDefaultMicrofonos] = useState(4);
+    const [defaultLogisticos , setDefaultLogisticos] = useState(4);
     
-
     useEffect(()=>{
         if(value !== undefined){
             setChecked(value.isRequired);
+            setDefaultCabinas(parseInt(value.cabinas));
+            setDefaultMicrofonos(parseInt(value.microfonos));
+            setDefaultLogisticos(parseInt(value.patinadores));
         };
     },[value]);
 
@@ -39,12 +45,12 @@ function SonidoSetting ({value}) {
             </div>
             <div name="contenedor-sonido" className="esconder-mostrar-contenedor" hidden={editIsClosed}>
                 <div className="row mb-1">
-                    <ItemModifier item={"Cabinas"} defaultLot={2}/>
+                    <ItemModifier item={"🔈"} textHelp={"Cabinas"} amount={defaultCabinas} setAmount={setDefaultCabinas}/>
                 </div>
                 <div className="row mb-1">
-                    <ItemModifier item={"Microfonos"} defaultLot={4} />
+                    <ItemModifier item={"🎤"} textHelp={"Microfonos"} amount={defaultMicrofonos} setAmount={setDefaultMicrofonos} />
                 </div>
-                    <ItemModifier item={"Patinadores"} defaultLot={2} />
+                    <ItemModifier item={"🙋🏽‍♂️"} textHelp={"Patinadores"} amount={defaultLogisticos} setAmount={setDefaultLogisticos}/>
             </div>
         </div>
     )

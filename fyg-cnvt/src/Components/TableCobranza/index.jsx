@@ -9,7 +9,7 @@ function TableCobranza () {
 
     return (
         <>
-        <div className="my-3">
+        <div className="my-3 table-wrapper">
             <table className='table table-striped table-bordered align-middle rounded'>
                 <thead className="table-primary position-sticky">
                     <tr>

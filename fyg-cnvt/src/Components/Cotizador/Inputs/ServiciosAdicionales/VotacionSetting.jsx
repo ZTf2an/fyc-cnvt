@@ -5,10 +5,12 @@ import ItemModifier from "../../../ItemModifier"
 function VotacionSetting ({value}) {
     const [checked , setChecked] = useState(true);
     const [editIsClosed , setEditIsClosed] = useState(true);
+    const [defaultLogisticos , setDefaultLogisticos] = useState(4);
 
     useEffect(()=>{
         if(value !== undefined){
             setChecked(value.isRequired);
+            setDefaultLogisticos(parseInt(value.logisticos))
         };
     },[value]);
 
@@ -36,7 +38,7 @@ function VotacionSetting ({value}) {
             </div>
             <div name="contenedor-votacion" className="esconder-mostrar-contenedor" hidden={editIsClosed}>
                 <div className="row mb-1">
-                    <ItemModifier item={"Logisticos"} defaultLot={2}/>
+                    <ItemModifier item={"🕴🏽"} textHelp={"Logisticos"} amount={defaultLogisticos} setAmount={setDefaultLogisticos}/>
                 </div>
             </div>
         </div>

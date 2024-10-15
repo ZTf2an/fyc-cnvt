@@ -5,10 +5,14 @@ import ItemModifier from "../../../ItemModifier"
 function ProyeccionSetting({value}) {
     const [checked , setChecked] = useState(true);
     const [editIsClosed , setEditIsClosed] = useState(true);
+    const [videoBeam , setVideoBeam] = useState(1);
+    const [telon , setTelon] = useState(1)
 
     useEffect(()=>{
         if(value !== undefined){
             setChecked(value.isRequired);
+            setVideoBeam(parseInt(value.videobeam));
+            setTelon(parseInt(value.telon));
         };
     },[value]);
 
@@ -36,10 +40,10 @@ function ProyeccionSetting({value}) {
             </div>
             <div name="contenedor-videoBeam" className="esconder-mostrar-contenedor" hidden={editIsClosed}>
                 <div className="row mb-1">
-                    <ItemModifier item={"Video Beam"} defaultLot={1} />
+                    <ItemModifier item={"📽️"} textHelp={"Video Beam"} amount={videoBeam} setAmount={setVideoBeam}/>
                 </div>
                 <div className="row mb-1">
-                    <ItemModifier item={"Telon"} defaultLot={1}/>
+                    <ItemModifier item={"Te..."} textHelp={"Telon"} amount={videoBeam} setAmount={setTelon}/>
                 </div>
             </div>                      
         </div>

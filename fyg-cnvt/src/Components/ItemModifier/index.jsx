@@ -1,14 +1,14 @@
 import { useState } from "react"
 import { BsPlusCircleFill , BsDashCircleFill } from "react-icons/bs";
 
-function ItemModifier ({item , defaultLot}) {
-    const [amount , setAmount] = useState(defaultLot)
+function ItemModifier ({item , amount , setAmount , textHelp}) {
+
     return (
-        <div className="input-group">
-            <span className="input-group-text">
+        <div className="input-group" title={textHelp}>
+            <span className="input-group-text" >
                 {item}
             </span>
-            <input className="form-control" type="number" value={amount} name={`inputSer${item.replace(/\s/g,'')}`} onChange={e=>e}/>
+            <input className="form-control" type="number" value={amount} name={`inputSer${textHelp.replace(/\s/g,'')}`} onChange={e=>e} disabled/>
             <button 
                 className="btn btn-outline-secondary restar-1 d-flex align-items-center" 
                 onClick={e=> setAmount(amount-1)} 

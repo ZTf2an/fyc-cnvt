@@ -1,3 +1,23 @@
+.table-wrapper {
+    max-height: calc(100vh - 145px); /* Altura máxima de la tabla */
+    overflow-y: auto; /* Habilita el scroll vertical */
+    border: 1px solid #ccc; /* Borde de la tabla */
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+thead th {
+    position: sticky; /* Hace que el thead sea fijo */
+    top: 0; /* Fija la parte superior */
+    background-color: #f1f1f1; /* Fondo del thead */
+    z-index: 10; /* Asegura que el thead esté por encima */
+}
 .pointer {
     cursor : pointer
 }
