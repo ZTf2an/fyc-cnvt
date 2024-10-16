@@ -1,10 +1,25 @@
 import { useContext } from "react";
 import { RegistroContext } from "../../Context";
 import Cotizador from "../Cotizador";
-import { Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter, Button } from 'react-bootstrap';
+import { Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter, Button, Stack , Row, Container } from 'react-bootstrap';
+import { API_CNVT } from "../../Globals/API";
+import { response } from "express";
 
 function EditModal({ regTarget }) {
     const { editRow , editModalIsOpen , setEditModalIsOpen} = useContext(RegistroContext);
+
+    const editPdf = (target) => {
+      
+      fetch(`${API_CNVT}/pdf/${target.id}`,{
+        method : 'PATCH',
+        headers : {
+          'Content-Type': 'application/json'
+        },
+        body : target.docs
+      }).then(response => response.json())
+      .then(data => console.log(data))
+      .catch(e => console.log(e))
+    };
   
     return (
       <>
@@ -16,12 +31,22 @@ function EditModal({ regTarget }) {
             <Cotizador object={regTarget} formName={"editarRegistro"} edit={editRow} modalIsOpen={setEditModalIsOpen}/>
           </ModalBody>
           <ModalFooter>
-            <Button variant="secondary" onClick={() => setEditModalIsOpen(false)}>
-              Cerrar
-            </Button>
-            <Button variant="primary" type="submit" form="editarRegistro">
-              Guardar Cambios
-            </Button>
+            <Container fluid>
+              <Stack direction="horizontal" className="w-full" gap={3}>
+                <Button variant="outline-danger" onClick={() => editPdf(regTarget)}>
+                  Actualizar PDF
+                </Button>
+                <Button variant="outline-info" onClick={() => setEditModalIsOpen(false)}>
+                  Actualizar Docs
+                </Button>
+                <Button variant="secondary" className="ms-auto" onClick={() => setEditModalIsOpen(false)}>
+                  Cerrar
+                </Button>
+                <Button variant="primary" type="submit" form="editarRegistro">
+                  Guardar Cambios
+                </Button>
+              </Stack>
+            </Container>
           </ModalFooter>
         </Modal>
       </>
