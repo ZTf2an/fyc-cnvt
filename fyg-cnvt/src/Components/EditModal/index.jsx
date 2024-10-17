@@ -3,7 +3,6 @@ import { RegistroContext } from "../../Context";
 import Cotizador from "../Cotizador";
 import { Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter, Button, Stack , Row, Container } from 'react-bootstrap';
 import { API_CNVT } from "../../Globals/API";
-import { response } from "express";
 
 function EditModal({ regTarget }) {
     const { editRow , editModalIsOpen , setEditModalIsOpen} = useContext(RegistroContext);
@@ -15,7 +14,20 @@ function EditModal({ regTarget }) {
         headers : {
           'Content-Type': 'application/json'
         },
-        body : target.docs
+        body : JSON.stringify({url : target.docs})
+      }).then(response => response.json())
+      .then(data => console.log(data))
+      .catch(e => console.log(e))
+    };
+
+    const updateDocs = (target) => {
+      
+      fetch(`${API_CNVT}/docs/COTIZACION/${target.id}`,{
+        method : 'PATCH',
+        headers : {
+          'Content-Type': 'application/json'
+        },
+        body : JSON.stringify(target)
       }).then(response => response.json())
       .then(data => console.log(data))
       .catch(e => console.log(e))
@@ -36,7 +48,7 @@ function EditModal({ regTarget }) {
                 <Button variant="outline-danger" onClick={() => editPdf(regTarget)}>
                   Actualizar PDF
                 </Button>
-                <Button variant="outline-info" onClick={() => setEditModalIsOpen(false)}>
+                <Button variant="outline-info" onClick={() => updateDocs(regTarget)}>
                   Actualizar Docs
                 </Button>
                 <Button variant="secondary" className="ms-auto" onClick={() => setEditModalIsOpen(false)}>
