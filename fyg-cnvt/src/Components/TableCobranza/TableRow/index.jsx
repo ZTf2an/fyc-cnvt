@@ -41,16 +41,26 @@ function TableRow({row , edit , openEditor}) {
             <td>{row.tel}</td>
             <td>
                 <div className="d-flex justify-content-center">
-                    <a href={row.pdf} target="_blank">
-                        <PiFilePdf className="pdf-icon fs-4 pointer"/>
-                    </a>
+                    {row.pdfCuenta ? 
+                        <a href={row.pdfCuetna} target="_blank">
+                            <PiFilePdf className="pdf-icon fs-4 pointer"/>
+                        </a> :
+                        <a target="_blank">
+                            <PiFilePdf className="pdf-icon fs-4 icon-disabled"/>
+                        </a> 
+                    }
                 </div>
             </td>
             <td>
                 <div className="d-flex justify-content-center">
-                    <a href={row.docs} target="_blank">
-                        <SiGoogledocs className="g-docs-icon fs-4 pointer"/>
-                    </a>
+                    {row.docsCuenta ? 
+                        <a href={row.docsCuenta} target="_blank">
+                            <SiGoogledocs className="g-docs-icon fs-4 pointer"/>
+                        </a> : 
+                        <a target="_blank" aria-disabled={true}>
+                            <SiGoogledocs className="g-docs-icon fs-4 icon-disabled"/>
+                        </a> 
+                    }
                 </div>
             </td>
             <td>

@@ -5,10 +5,12 @@ import { Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter, Button, Stack ,
 import { API_CNVT } from "../../Globals/API";
 
 function EditModal({ regTarget }) {
-    const { editRow , editModalIsOpen , setEditModalIsOpen} = useContext(RegistroContext);
+    const { editRow , editModalIsOpen , setEditModalIsOpen } = useContext(RegistroContext);
 
     const editPdf = (target) => {
-      
+      editRow(target.id , {pdf : 'load'} , 'pdf' , false);
+      setEditModalIsOpen(false);
+
       fetch(`${API_CNVT}/pdf/${target.id}`,{
         method : 'PATCH',
         headers : {
@@ -16,12 +18,15 @@ function EditModal({ regTarget }) {
         },
         body : JSON.stringify({url : target.docs})
       }).then(response => response.json())
-      .then(data => console.log(data))
+      .then(data => {
+        editRow(target.id , {pdf : data.url} , 'none' , false)
+        console.log(data)
+      })
       .catch(e => console.log(e))
     };
 
     const updateDocs = (target) => {
-      
+        
       fetch(`${API_CNVT}/docs/COTIZACION/${target.id}`,{
         method : 'PATCH',
         headers : {
@@ -29,7 +34,9 @@ function EditModal({ regTarget }) {
         },
         body : JSON.stringify(target)
       }).then(response => response.json())
-      .then(data => console.log(data))
+      .then(data => {       
+        console.log(data)
+      })
       .catch(e => console.log(e))
     };
   

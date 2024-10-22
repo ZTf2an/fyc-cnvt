@@ -59,16 +59,19 @@ export const RegistroProvider= ({children}) => {
         "modalidad" : (nombreCliente) => (`Está cambiando la modalidad de ${nombreCliente}`),
         "aceptar" : (nombreCliente) => (`¿Está seguro de que quiere enviar a ${nombreCliente} a la pagina de Cobranza?`),
         "rechazar" : (nombreCliente) => (`¿Está seguro de que quiere eliminar a ${nombreCliente} de la pagina de cobranza?`),
-        "eliminar" : (nombreCliente) => (`¿Está seguro de que quiere eliminar a ${nombreCliente}`),
-        "lote" : (nombreCliente) => (`¿Está seguro de que quiere guardar los cambios hechos a ${nombreCliente}`)
+        "eliminar" : (nombreCliente) => (`¿Está seguro de que quiere eliminar a ${nombreCliente}?`),
+        "lote" : (nombreCliente) => (`¿Está seguro de que quiere guardar los cambios hechos a ${nombreCliente}?`),
+        "pdf" : (nombreCliente => (`Está seguro de que quiere generar nuevamente el pdf de ${nombreCliente}?`)),
+        "none": (nombreCliente)=>('none')
     }
     
-    const editRow = (id , changes , type) => {
+    const editRow = (id , changes , type , changesToServer = true) => {
         const dataRow = data.find(row => row.id == id);
         const msj = editType[type](dataRow.cliente);
-        const response = confirm(msj);
+        const response = msj == 'none' ? true : confirm(msj) ;
         console.log(response)
-        
+
+    
         if (response) {
             const newData = [...data];
             const dataIndex = newData.findIndex(row => row.id == id);
@@ -77,31 +80,37 @@ export const RegistroProvider= ({children}) => {
             console.log(newData[dataIndex])
             setData(newData)
 
-            if (type === 'lote') {
-                fetch(`${API_CNVT}/${id}`,{
-                    method : 'PUT' ,
-                    headers : {
-                        'Content-Type': 'application/json'
-                    },
-                    body : JSON.stringify(changes)
-                })
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch(error => console.log(error))
+            if ( changesToServer ){
 
-            } else {
-                fetch(`${API_CNVT}/${id}`,{
-                    method : 'PATCH',
-                    headers : {
-                        'Content-Type': 'application/json'
-                    },
-                    body : JSON.stringify(changes) 
-                })
-                .then(response => response.json())
-                .then(data => console.log(data))
-                .catch(error => console.log(error))
-            };
+                if (type === 'lote') {
+                    fetch(`${API_CNVT}/${id}`,{
+                        method : 'PUT' ,
+                        headers : {
+                            'Content-Type': 'application/json'
+                        },
+                        body : JSON.stringify(changes)
+                    })
+                    .then(response => response.json())
+                    .then(data => console.log(data))
+                    .catch(error => console.log(error))
+
+                } else {
+                    fetch(`${API_CNVT}/${id}`,{
+                        method : 'PATCH',
+                        headers : {
+                            'Content-Type': 'application/json'
+                        },
+                        body : JSON.stringify(changes) 
+                    })
+                    .then(response => response.json())
+                    .then(data => console.log(data))
+                    .catch(error => console.log(error))
+                };
+
+            }
         };
+        
+        
     };
 
 

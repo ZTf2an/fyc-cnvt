@@ -83,3 +83,8 @@ thead th {
 .success {
     background-color: #079907;
 }
+
+.icon-disabled{
+    color : #7c7c7c ;
+    cursor: not-allowed;
+}

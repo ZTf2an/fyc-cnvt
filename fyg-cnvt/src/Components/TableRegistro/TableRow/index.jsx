@@ -1,3 +1,4 @@
+import { Spinner } from "react-bootstrap";
 import { FaCheckSquare , FaRegCheckSquare ,FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { HiOutlineMail } from "react-icons/hi";
@@ -21,16 +22,30 @@ function TableRow ({row , edit , setRegistroToEdit , modalIsOpen }) {
             <td>{row.tel}</td>
             <td>
                 <div className="d-flex justify-content-center">
-                    <a href={row.pdf} target="_blank">
-                        <PiFilePdf className="pdf-icon fs-4 pointer"/>
-                    </a>
+                    {row.pdf ? 
+                        (row.pdf === 'load' ?
+                        <Spinner animation="border" variant="secondary">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner> :
+                        <a href={row.pdf} target="_blank">
+                            <PiFilePdf className="pdf-icon fs-4 pointer"/>
+                        </a> ):
+                        <a target="_blank" title="no hay PDF">
+                            <PiFilePdf className="pdf-icon fs-4 icon-disabled"/>
+                        </a> 
+                    }
                 </div>
             </td>
             <td>
                 <div className="d-flex justify-content-center">
-                    <a href={row.docs} target="_blank">
-                        <SiGoogledocs className="g-docs-icon fs-4 pointer"/>
-                    </a>
+                    {row.docs ? 
+                        <a href={row.docs} target="_blank">
+                            <SiGoogledocs className="g-docs-icon fs-4 pointer"/>
+                        </a> : 
+                        <a target="_blank" aria-disabled={true} title="No hay docs">
+                            <SiGoogledocs className="g-docs-icon fs-4 icon-disabled"/>
+                        </a> 
+                    }
                 </div>
             </td>
             <td>

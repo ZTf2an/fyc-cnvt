@@ -2,6 +2,7 @@ import { useState , useContext} from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { RegistroContext } from '../../Context';
+import EditorForm from '../EditorForm';
 
 function SideMenu() {
     const{editSideIsOpen , setEditSideIsOpen} = useContext(RegistroContext);
@@ -17,8 +18,12 @@ function SideMenu() {
                 <Offcanvas.Title>Edita el Registro</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                Aqui irán todos los vainos
+                    <EditorForm/>
                 </Offcanvas.Body>
+                    <div className='m-2'>
+                        <Button variant="outline-danger" className='me-2'>Actualizar PDF</Button>
+                        <Button variant="info" >Generar Cuenta de Cobro</Button>
+                    </div>
             </Offcanvas>
         </>
     );

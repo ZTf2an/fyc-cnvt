@@ -1,10 +1,10 @@
 import {response, Router} from "express";
-// const API_GAS = 'https://script.google.com/macros/s/AKfycbwuJD1i_5S42OQG_gCtVANZFh0SjhlvBy3GANCs7CAVJUYV4fzv2I5uCsNUp6Pota8-4g/exec';
 // const API_GAS = 'https://script.google.com/macros/s/AKfycbzhiL4IE3JZudFUjMNX0AW6nwT6egYdhG9p0h-ZxNdF6xvbiEN0MjcFG4Ly8XHP30L59g/exec'; //4.8.1
 // const API_GAS = 'https://script.google.com/macros/s/AKfycbw9Niqw-bZdFoBA8iUqLcxjXc4um-zQnNTvuQh4XVBe3JcAqgKIXDrkSwmLYNzIkfscDg/exec'; //4.8.2
 // const API_GAS = 'https://script.google.com/macros/s/AKfycbyUlKIgKLfMhDI7_KJ1QGSnsL9Apmq2R50AwIKM4SKVbZbsC1Bp-ddGBAnjM9UmFSMeSA/exec'; //4.8.3 genera el pdf
 // const API_GAS = 'https://script.google.com/macros/s/AKfycbx0XAGOBoTq1NlDxtuRHmnemDKhmqK-sLfE-6FjFthWYnh6HSv2XQcGdRHEjULrwio_ig/exec'; //4.8.4 actualiza el pdf
-const API_GAS = 'https://script.google.com/macros/s/AKfycbxK_noTf21WDhgIKbLkF1IGUElNmxb9s1aNSNm-TI6k1Eva72s_trf7ZmpN1_XUlkvuyw/exec'; //4.8.5 actualiza el docs
+// const API_GAS = 'https://script.google.com/macros/s/AKfycbxK_noTf21WDhgIKbLkF1IGUElNmxb9s1aNSNm-TI6k1Eva72s_trf7ZmpN1_XUlkvuyw/exec'; //4.8.5 actualiza el docs
+const API_GAS = 'https://script.google.com/macros/s/AKfycbxnppsgeX0DosU4vSZKab8E_984cbTFnivPGE0bCnBH2gWuXP-jyWWweaMsKyJAEXRbXA/exec'; //4.8.5.2 devuelve el url del pdf
 
 const registrosRouter = Router();
 
@@ -38,7 +38,7 @@ registrosRouter.patch('/pdf/:id' , (req , res) => {
     const body = req.body;
 
     const requestBody = {id:id , data : body};
-    console.log(requestBody)
+    // console.log(requestBody)
 
     fetch(API_GAS+'?type=createpdf&doctype=COTIZACION', {
         method : 'POST',
@@ -48,10 +48,14 @@ registrosRouter.patch('/pdf/:id' , (req , res) => {
         body : JSON.stringify(requestBody)
     })
         .then(response => response.json())
-        .then(data => res.json({
-            status : data.status,
-            msj : data.msj
-        }))
+        .then(data => {
+            res.json({
+                status : data.status,
+                msj : data.msj ,
+                url : data.url
+            })
+            console.log(data)
+        })
         .catch( e => res.send(e));
 })
 
@@ -73,7 +77,8 @@ registrosRouter.patch('/docs/:type/:id' , (req , res) => {
         .then(response => response.json())
         .then(data => res.json({
             status : data.status,
-            msj : data.msj
+            msj : data.msj ,
+            url : data.url
         }))
         .catch( e => res.send(e));
         // .catch( e => console.log(e));
