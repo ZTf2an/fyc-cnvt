@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { RegistroContext } from '../../Context';
 import EditorForm from '../EditorForm';
+import { parsedParams } from '../../useServerHooks/useCreate';
 
 function SideMenu() {
     const{editSideIsOpen , setEditSideIsOpen} = useContext(RegistroContext);
@@ -20,9 +21,10 @@ function SideMenu() {
                 <Offcanvas.Body>
                     <EditorForm/>
                 </Offcanvas.Body>
-                    <div className='m-2'>
-                        <Button variant="outline-danger" className='me-2'>Actualizar PDF</Button>
-                        <Button variant="info" >Generar Cuenta de Cobro</Button>
+                    <div className='m-2 hstack gap-3'>
+                            <Button variant="outline-danger">Actualizar PDF</Button>
+                            <Button variant="outline-info" className='me-auto' title='Generar Cuenta de Cobro'>Generar Cuenta</Button>
+                            <Button variant="info" type='submit' form='CobranzaEditor'>Guardar Cambios</Button>
                     </div>
             </Offcanvas>
         </>

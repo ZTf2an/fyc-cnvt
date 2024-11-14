@@ -5,14 +5,24 @@ import { PiFilePdf } from "react-icons/pi";
 import { SiGoogledocs } from "react-icons/si";
 import { TbCashRegister } from "react-icons/tb";
 
-function TableRow({row , edit , openEditor}) {
-    const fecha = new Date(row.fecha);
+function TableRow({row , edit , openEditor , registroToEdit}) {
+
+    const preFecha = new Date(row.fecha);
+    const fecha = new Date(preFecha.getUTCFullYear(), preFecha.getUTCMonth(), preFecha.getUTCDate());
+    
     const valoresSegunModalidad = {
         "P-tarjetas" : row.valorP ,
         "P-Controles" : row.valorPC ,
         "Virtual" : row.valorV ,
         "Mixta" : row.valorM ,
-    }
+    };
+
+    const openSideEditor = (e) => {
+        openEditor(true);
+        registroToEdit(row);
+        // console.log(row)
+    };
+
     return (
         <tr key={row.id} className={row.pagado && "success"}>
             <td>{row.cliente}</td>                            
@@ -74,7 +84,7 @@ function TableRow({row , edit , openEditor}) {
             <td>
                 <div className="d-flex justify-content-between">
                     <HiOutlineMail className="icon-msg fs-3 mx-1 pointer" />
-                    <FaRegEdit className="icon-edit fs-4 ms-1 pointer" onClick={e => openEditor(true)}/>
+                    <FaRegEdit className="icon-edit fs-4 ms-1 pointer" onClick={openSideEditor}/>
                     <RiDeleteBin6Fill className="icon-del fs-4 mx-1 pointer" onClick={e => {edit(row.id , {aceptado : false} , 'rechazar')}}/>
                 </div>
             </td>

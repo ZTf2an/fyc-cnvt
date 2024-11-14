@@ -5,7 +5,7 @@ import './TableCobranza.css'
 import Loader from "../Loader";
 
 function TableCobranza () {
-    const { data , loading , editRow , searchedData , serverError , setEditSideIsOpen} = useContext(RegistroContext);
+    const { data , loading , editRow , searchedData , serverError , setEditSideIsOpen , setRegistroToEdit} = useContext(RegistroContext);
 
     return (
         <>
@@ -28,7 +28,9 @@ function TableCobranza () {
                     </tr>
                 </thead>
                 <tbody>
-                    {searchedData.map( row => row.aceptado && <TableRow key={row.id} row={row} edit={editRow} openEditor={setEditSideIsOpen}/>)}
+                    {searchedData.map( 
+                        row => (row.aceptado && row.active) && <TableRow key={row.id} row={row} edit={editRow} openEditor={setEditSideIsOpen} registroToEdit={setRegistroToEdit}/>)
+                    }
                 </tbody>
             </table>
             {/* {} */}

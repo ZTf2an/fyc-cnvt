@@ -6,8 +6,9 @@ import { PiFilePdf } from "react-icons/pi";
 import { SiGoogledocs } from "react-icons/si";
 
 function TableRow ({row , edit , setRegistroToEdit , modalIsOpen }) {
-    const fecha = new Date(row.fecha);
-
+    const preFecha = new Date(row.fecha);
+    const fecha = new Date(preFecha.getUTCFullYear(), preFecha.getUTCMonth(), preFecha.getUTCDate());
+    
     const openModal = () => {
         setRegistroToEdit(row);
         modalIsOpen(true)

@@ -22,6 +22,7 @@ function createWindow() {
     })
     
     win.loadURL('http://localhost:5173');
+    // win.loadURL('https://conectivatefyg.netlify.app/');
 }
 
 app.whenReady()

@@ -8,9 +8,10 @@ export const RegistroProvider= ({children}) => {
     const [loading , setLoading] = useState(true);
     const [serverError , setServerError] = useState(false);
     const [data , setData] = useState([]);
-
+   
     //Registro que se editará cuando se da click al botón de editar
     const [registroToEdit , setRegistroToEdit] = useState({});
+    // console.log(JSON.stringify(registroToEdit) + 'desde context')
     const [editModalIsOpen , setEditModalIsOpen] = useState(false);
     const [editSideIsOpen , setEditSideIsOpen] = useState(false);
     
@@ -81,7 +82,7 @@ export const RegistroProvider= ({children}) => {
             setData(newData)
 
             if ( changesToServer ){
-
+                console.log('Se están enviando los datos al servidor')
                 if (type === 'lote') {
                     fetch(`${API_CNVT}/${id}`,{
                         method : 'PUT' ,

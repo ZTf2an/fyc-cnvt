@@ -1,11 +1,15 @@
 import { API_CNVT } from "../Globals/API";
+import { sumarMinuto } from "../Utils/sumarMinuto";
 
 const parsedParams = (arr) => {
     let params = {};
 
     for (let i = 0 ; i < arr.length ; i++) {
         if (arr[i].name != "") {
-            params[arr[i].name] = arr[i].value;
+            // params[arr[i].name] = arr[i].value;
+            params[arr[i].name] = (arr[i].name == 'fecha') ? sumarMinuto(arr[i].value) : arr[i].value;
+            
+            arr[i].name == 'fecha' && console.log(sumarMinuto(arr[i].value))
         }; 
     };
 

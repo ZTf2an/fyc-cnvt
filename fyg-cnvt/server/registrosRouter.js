@@ -4,8 +4,8 @@ import {response, Router} from "express";
 // const API_GAS = 'https://script.google.com/macros/s/AKfycbyUlKIgKLfMhDI7_KJ1QGSnsL9Apmq2R50AwIKM4SKVbZbsC1Bp-ddGBAnjM9UmFSMeSA/exec'; //4.8.3 genera el pdf
 // const API_GAS = 'https://script.google.com/macros/s/AKfycbx0XAGOBoTq1NlDxtuRHmnemDKhmqK-sLfE-6FjFthWYnh6HSv2XQcGdRHEjULrwio_ig/exec'; //4.8.4 actualiza el pdf
 // const API_GAS = 'https://script.google.com/macros/s/AKfycbxK_noTf21WDhgIKbLkF1IGUElNmxb9s1aNSNm-TI6k1Eva72s_trf7ZmpN1_XUlkvuyw/exec'; //4.8.5 actualiza el docs
-const API_GAS = 'https://script.google.com/macros/s/AKfycbxnppsgeX0DosU4vSZKab8E_984cbTFnivPGE0bCnBH2gWuXP-jyWWweaMsKyJAEXRbXA/exec'; //4.8.5.2 devuelve el url del pdf
-
+// const API_GAS = 'https://script.google.com/macros/s/AKfycbxnppsgeX0DosU4vSZKab8E_984cbTFnivPGE0bCnBH2gWuXP-jyWWweaMsKyJAEXRbXA/exec'; //4.8.5.2 devuelve el url del pdf
+const API_GAS = 'https://script.google.com/macros/s/AKfycbwLRlVsi-oHEUklkA1eqk0Y4dcOT3Rti5Z73Wu7g9djF-ETgZr3OD6jW48rkQYbuci5nA/exec' //4.8.5.2.1 solucion en problema con la fecha
 const registrosRouter = Router();
 
 registrosRouter.get('/',(req , res)=> {

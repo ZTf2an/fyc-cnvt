@@ -58,9 +58,8 @@ function Cotizador ({object , formName , edit , modalIsOpen}) {
         let params = objectParams(parsedParams(e.target));
         // console.log(params);
         edit(object.id , params , 'lote');
-        modalIsOpen(false)
-        e.target.reset()
-
+        modalIsOpen(false);
+        e.target.reset();
     };
     
     return(
