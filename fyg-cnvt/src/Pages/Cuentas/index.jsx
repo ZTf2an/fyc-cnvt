@@ -6,7 +6,7 @@ import SideMenu from '../../Components/sideEditor';
 
 
 function Cuentas () {
-    const {searchValue , setSearchValue} = useContext(RegistroContext)
+    const {searchValue , setSearchValue} = useContext(RegistroContext);
     return (
         <>
             <Searcher change={setSearchValue} searchValue={searchValue}/>

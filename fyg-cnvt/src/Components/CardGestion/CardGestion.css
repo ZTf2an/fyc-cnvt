@@ -1,0 +1,6 @@
+.cardItemTitle {
+    cursor : pointer
+}
+.cardItemTitle:hover {
+    text-decoration: underline;
+}

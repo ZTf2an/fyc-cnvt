@@ -18,7 +18,8 @@ export const RegistroProvider= ({children}) => {
 
     // Formatea Data con 2 objetos adicionales para Searcher
     const formatedData = data.map(item => {
-        const fecha = new Date(item.fecha)
+        const preFecha = new Date(item.fecha);
+        const fecha = new Date(preFecha.getUTCFullYear(), preFecha.getUTCMonth(), preFecha.getUTCDate());
         const registroData = [
             item.cliente , 
             fecha.toLocaleDateString('es-ES', {month : 'short' , day :'numeric' }) , 
