@@ -52,7 +52,7 @@ function EditModal({ regTarget }) {
           <ModalFooter>
             <Container fluid>
               <Stack direction="horizontal" className="w-full" gap={3}>
-                <Button variant="outline-danger" onClick={() => editPdf(regTarget)}>
+                <Button variant="outline-danger" hidden={!regTarget.docs} onClick={() => editPdf(regTarget)}>
                   Actualizar PDF
                 </Button>
                 <Button variant="outline-info" onClick={() => updateDocs(regTarget)}>

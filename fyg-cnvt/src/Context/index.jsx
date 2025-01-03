@@ -64,6 +64,7 @@ export const RegistroProvider= ({children}) => {
         "eliminar" : (nombreCliente) => (`¿Está seguro de que quiere eliminar a ${nombreCliente}?`),
         "lote" : (nombreCliente) => (`¿Está seguro de que quiere guardar los cambios hechos a ${nombreCliente}?`),
         "pdf" : (nombreCliente => (`Está seguro de que quiere generar nuevamente el pdf de ${nombreCliente}?`)),
+        "modoCTA" : (nombreCliente => (`Está seguro de que quiere cambiar el porcentaje de cuenta de ${nombreCliente}?`)),
         "none": (nombreCliente)=>('none')
     }
     

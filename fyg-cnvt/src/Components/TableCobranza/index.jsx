@@ -20,7 +20,7 @@ function TableCobranza () {
                         <th className="p-3" width="5%" scope="col">Fecha</th>
                         <th className="p-3" width="3%" scope="col">Predios</th>
                         <th className="p-3" width="6%" scope="col" hidden>Email</th>
-                        <th className="p-3" width="4%" scope="col">tel</th>
+                        <th className="p-3" width="4%" scope="col">Cuenta%</th>
                         <th className="p-3" width="1" scope="col">Pdf</th>
                         <th className="p-3" width="1" scope="col">Doc</th>
                         <th className="p-3" width="5%" scope="col">Pago</th>

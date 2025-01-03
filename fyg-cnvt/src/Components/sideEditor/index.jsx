@@ -7,7 +7,8 @@ import { parsedParams } from '../../useServerHooks/useCreate';
 
 function SideMenu() {
     const{editSideIsOpen , setEditSideIsOpen} = useContext(RegistroContext);
-    // const [show, setShow] = useState(false);
+    
+    const {registroToEdit , editRow } = useContext(RegistroContext);
 
     const handleClose = () => setEditSideIsOpen(false);
     // const handleShow = () => setEditSideIsOpen(true);
@@ -19,10 +20,10 @@ function SideMenu() {
                 <Offcanvas.Title>Edita el Registro</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                    <EditorForm/>
+                    <EditorForm reg={registroToEdit} editRow={editRow}/>
                 </Offcanvas.Body>
                     <div className='m-2 hstack gap-3'>
-                            <Button variant="outline-danger">Actualizar PDF</Button>
+                            <Button variant="outline-danger" hidden={!registroToEdit.docsCuenta}>Actualizar PDF</Button>
                             <Button variant="outline-info" className='me-auto' title='Generar Cuenta de Cobro'>Generar Cuenta</Button>
                             <Button variant="info" type='submit' form='CobranzaEditor'>Guardar Cambios</Button>
                     </div>

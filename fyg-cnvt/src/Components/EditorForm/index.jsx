@@ -4,8 +4,7 @@ import { RegistroContext } from '../../Context'
 import { parsedParams } from '../../useServerHooks/useCreate';
 import formatedDate from '../../Utils/formatDate';
 
-function EditorForm () {
-    const {registroToEdit : reg , editRow } = useContext(RegistroContext);
+function EditorForm ({reg , editRow}) {
 
     const guardarCambios = (e) => {
         e.preventDefault();

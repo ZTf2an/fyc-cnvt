@@ -57,7 +57,7 @@ function CardGestion ({info}) {
         <Card.Body>
             <Stack direction="horizontal" gap={3}>
                 <div className="me-auto">{fecha.toLocaleDateString('es-ES', {month : 'short' , day :'numeric' })}</div>
-                <input type="color"/>
+                <input type="color" defaultValue={'#FFFFFF'}/>
             </Stack>
         </Card.Body>
     </Card>

@@ -48,7 +48,21 @@ function TableRow({row , edit , openEditor , registroToEdit}) {
             <td>{fecha.toLocaleDateString('es-ES', {month : 'short' , day :'numeric' })}</td>
             <td className="text-end">{row.predios}</td>
             <td hidden>{row.email}</td>
-            <td>{row.tel}</td>
+            <td>
+                <select 
+                    className="form-select form-select-sm"
+                    aria-label=".form-select-sm"
+                    defaultValue={row.modoCTA}
+                    onChange={e => {
+                        edit(row.id , {modoCTA : e.target.value} , 'modoCTA')}
+                    }
+                >
+                    <option dafault="true">selecciona</option>
+                    <option dafault="true">50</option>
+                    <option dafault="true">100</option>
+                </select>
+                
+            </td>
             <td>
                 <div className="d-flex justify-content-center">
                     {row.pdfCuenta ? 
