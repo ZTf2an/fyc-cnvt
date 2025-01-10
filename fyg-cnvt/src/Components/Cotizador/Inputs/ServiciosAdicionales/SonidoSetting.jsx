@@ -7,8 +7,8 @@ function SonidoSetting ({value}) {
     // console.log(value)
     const [checked , setChecked] = useState(true);
     const [editIsClosed , setEditIsClosed] = useState(true);
-    const [defaultCabinas , setDefaultCabinas] = useState(4);
-    const [defaultMicrofonos , setDefaultMicrofonos] = useState(4);
+    const [defaultCabinas , setDefaultCabinas] = useState(2);
+    const [defaultMicrofonos , setDefaultMicrofonos] = useState(3);
     const [defaultLogisticos , setDefaultLogisticos] = useState(4);
     
     useEffect(()=>{

@@ -14,7 +14,7 @@ import ValoresAdicionales from "./Inputs/ValoresAdicionales";
 import ServiciosAdicionales from "./Inputs/ServiciosAdicionales";
 
 
-function Cotizador ({object , formName , edit , modalIsOpen}) {
+function Cotizador ({object , formName , edit , modalIsOpen , disableButton , sendMail}) {
     const context = useCotizador();
     // console.log(object)
 
@@ -38,17 +38,20 @@ function Cotizador ({object , formName , edit , modalIsOpen}) {
     };
 
     const crearRegistro = (e) => {
-        let params = parsedParams(e.target)
+        let params = parsedParams(e.target);
+        params["sendMail"] = sendMail;
         const data = JSON.stringify(params);
         
         if(!e.target.checkValidity()) {
             e.preventDefault();
             e.stopPropagation();
         } else {
+            disableButton(true);
             postData(data, () => {
+                window.location.reload();
+                // const modal = Modal.getInstance('#crearRegistro');
+                // modal.hide();
                 e.target.reset();
-                const modal = Modal.getInstance('#crearRegistro');
-                modal.hide();
             })
         }
         e.target.classList.add('was-validated')
@@ -100,9 +103,11 @@ function Cotizador ({object , formName , edit , modalIsOpen}) {
                     object?.valorAcomMixta ,
                     object?.valorAdicPresencial ,
                     object?.valorControles]
-                    }/>
+                    }
+                    valorControles={context.valorControles}
+                    setValorControles={context.setValorControles} 
+                    />
                 <ServiciosAdicionales value={object?.servicios}/>
-                    
             </form> 
     )
 }

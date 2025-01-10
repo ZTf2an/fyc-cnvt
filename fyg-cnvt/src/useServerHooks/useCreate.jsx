@@ -9,7 +9,7 @@ const parsedParams = (arr) => {
             // params[arr[i].name] = arr[i].value;
             params[arr[i].name] = (arr[i].name == 'fecha') ? sumarMinuto(arr[i].value) : arr[i].value;
             
-            arr[i].name == 'fecha' && console.log(sumarMinuto(arr[i].value))
+            arr[i].name == 'fecha' && console.log(sumarMinuto(arr[i].value));
         }; 
     };
 
@@ -19,7 +19,7 @@ const parsedParams = (arr) => {
 const postData = (data , cb) => {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("POST", API_CNVT,true);
-    xmlhttp.setRequestHeader('Content-Type', 'application/json')
+    xmlhttp.setRequestHeader('Content-Type', 'application/json');
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var response = JSON.parse(this.responseText);
@@ -31,6 +31,7 @@ const postData = (data , cb) => {
     xmlhttp.onerror = function () {
         console.log("Error ajax");
     };
+    // console.log(data);
     xmlhttp.send(data);
 }
 

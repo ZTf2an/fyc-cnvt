@@ -2,6 +2,10 @@ import routerApi from './router.js';
 import express from 'express';
 const server = express();
 
+
+const port = 3000;
+
+
 server.use(express.json())
 server.use((req , res , next) => {
     res.header('Access-Control-Allow-Origin' , '*');
@@ -16,4 +20,9 @@ server.get('/',(req , res)=> {
 
 routerApi(server);
 
-export default server;
+// siguientes lineas para node
+server.listen(port, () => {
+console.log('Mi port '+ port);
+});
+
+// export default server;

@@ -6,7 +6,7 @@ import Loader from "../Loader";
 import './TableRegistro.css'
 
 function TableRegistro () {
-    const { data , searchedData , loading , editRow ,serverError , setRegistroToEdit , setEditModalIsOpen } = useContext(RegistroContext);
+    const { data , searchedData , loading , editRow ,serverError , setRegistroToEdit , setEditModalIsOpen , sendMail } = useContext(RegistroContext);
 
     return (
         <>
@@ -37,6 +37,7 @@ function TableRegistro () {
                             edit={editRow} 
                             setRegistroToEdit={setRegistroToEdit}
                             modalIsOpen={setEditModalIsOpen}
+                            reenviarCorreo={sendMail}
                         />)}
                 </tbody>
             </table>

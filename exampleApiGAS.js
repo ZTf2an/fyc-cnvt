@@ -12,8 +12,7 @@ async function conectar () {
     }
 )()
 
-// let url2 = 'https://script.google.com/macros/s/AKfycbwbX9K2gfWQkcxSkcZQavjJpoIATCpB1ztaDNldcQruShV0SQqINUtR75eqGP3taGr-Qg/exec'
-// let url2 = 'https://script.google.com/macros/s/AKfycbz9zPUbK51kusXd3NirymwtTATmyKXiLSu6eaa24eEQh8F7MyFsOS7cTKb8QZLtGMvsMQ/exec'
+
 let url2 = 'https://script.google.com/macros/s/AKfycbywAqOck0l_1kw1Bdi_xKGZaHDavXUfx0_XgHlCublvoIlmuGKqv-hQ3angjomaN8rFnA/exec'
 
 let obj = {
@@ -59,3 +58,10 @@ fetch(`${url2}?type=cot`,{
     .then(response => response.json())
     .then(data => console.log('Respuesta : ' , data))
     .catch(error => console.error('Ocurrió un error: ' , error))
+
+
+
+
+fetch('http://18.224.40.203:3000/')
+    .then(response => response.text())
+    .then(data=>console.log(data))

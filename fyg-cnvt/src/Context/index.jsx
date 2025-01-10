@@ -1,6 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 import { API_CNVT } from "../Globals/API";
 
+const API_GAS_CNVT = "https://script.google.com/macros/s/AKfycbxzFhVltIEbuKQMW_orQ0Z1oRn2dwTrZ-oPTGBMJA7oSPIbpVumzozoYvFe_CE7iYWMmA/exec"
+
 export const RegistroContext = createContext();
 
 export const RegistroProvider= ({children}) => {
@@ -72,7 +74,7 @@ export const RegistroProvider= ({children}) => {
         const dataRow = data.find(row => row.id == id);
         const msj = editType[type](dataRow.cliente);
         const response = msj == 'none' ? true : confirm(msj) ;
-        console.log(response)
+        console.log(response);
 
     
         if (response) {
@@ -121,6 +123,24 @@ export const RegistroProvider= ({children}) => {
 
     // useEffect(() => {} , [])
 
+    // Util reenviar los correos
+    const sendMail = (obj , type) => {
+        console.log(obj.id);
+        if (confirm("Está por enviar el correo de "+obj.cliente)) {
+            fetch(`${API_CNVT}/sendmail/${type}/${obj.id}`,{
+                method : 'PUT' ,
+                headers : {
+                    'Content-Type': 'application/json'
+                },
+                body : JSON.stringify(obj)
+            })
+            .then(response => response.json())
+            .then(data => alert(data.msj))
+            .catch(error => console.log(error))
+        }
+        
+    }
+
     return (
         <RegistroContext.Provider value={{
             data, setData,
@@ -128,6 +148,7 @@ export const RegistroProvider= ({children}) => {
             modalRegistroIsOpen , setModalRegistroIsOpen ,
             loading, serverError,
             editRow,
+            sendMail,
             searchValue , setSearchValue ,
             registroToEdit , setRegistroToEdit ,
             editModalIsOpen , setEditModalIsOpen,

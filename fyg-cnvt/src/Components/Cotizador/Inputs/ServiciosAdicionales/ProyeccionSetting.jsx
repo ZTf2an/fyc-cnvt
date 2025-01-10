@@ -43,7 +43,7 @@ function ProyeccionSetting({value}) {
                     <ItemModifier item={"📽️"} textHelp={"Video Beam"} amount={videoBeam} setAmount={setVideoBeam}/>
                 </div>
                 <div className="row mb-1">
-                    <ItemModifier item={"Te..."} textHelp={"Telon"} amount={videoBeam} setAmount={setTelon}/>
+                    <ItemModifier item={"Te..."} textHelp={"Telon"} amount={telon} setAmount={setTelon}/>
                 </div>
             </div>                      
         </div>

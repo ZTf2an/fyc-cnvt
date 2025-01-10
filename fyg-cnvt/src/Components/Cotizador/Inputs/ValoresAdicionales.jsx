@@ -1,4 +1,7 @@
-function ValoresAdicionales ({value}) {
+
+
+function ValoresAdicionales ({value , valorControles , setValorControles}) {
+
     return (
     <div className="col-md-4 mb-3">
         <div className="accordion">
@@ -14,7 +17,7 @@ function ValoresAdicionales ({value}) {
                         <input 
                             className="form-control text-end" 
                             type="number" 
-                            defaultValue={value[0]} 
+                            defaultValue={value[0] || 500000} 
                             name="inputValorAcoVirtual" 
                             onChange={e => console.log(e)}
                             required
@@ -23,7 +26,7 @@ function ValoresAdicionales ({value}) {
                         <input 
                             className="form-control text-end" 
                             type="number" 
-                            defaultValue={value[2]} 
+                            defaultValue={value[2] || 0} 
                             name="inputValorAcoPresencial"
                             onChange={e => console.log(e)} 
                             required
@@ -32,16 +35,16 @@ function ValoresAdicionales ({value}) {
                         <input 
                             className="form-control text-end" 
                             type="number" 
-                            defaultValue={value[3]} 
+                            value={value[3] || valorControles} 
                             name="inputValorControles"
-                            onChange={e => console.log(e)} 
+                            onChange={e => setValorControles(e.target.value)} 
                             required
                         />
                         <label className="form-label"> Valor de acompañamiento <strong>Mixta</strong></label>
                         <input 
                             className="form-control text-end" 
                             type="number" 
-                            defaultValue={value[1]} 
+                            defaultValue={value[1] || 800000} 
                             name="inputValorAcoMixta"
                             onChange={e => console.log(e)}
                         />

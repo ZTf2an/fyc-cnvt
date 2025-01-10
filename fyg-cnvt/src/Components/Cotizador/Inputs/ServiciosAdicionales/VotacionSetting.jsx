@@ -39,6 +39,12 @@ function VotacionSetting ({value}) {
             <div name="contenedor-votacion" className="esconder-mostrar-contenedor" hidden={editIsClosed}>
                 <div className="row mb-1">
                     <ItemModifier item={"🕴🏽"} textHelp={"Logisticos"} amount={defaultLogisticos} setAmount={setDefaultLogisticos}/>
+                    {/* <div className="input-group mt-1" title={"Controles"}>
+                        <span className="input-group-text" >
+                            {"📟"}
+                        </span>
+                        <input className="form-control" type="number" value={controles} name={`inputSerControles`} onChange={e=>e}/>
+                    </div> */}
                 </div>
             </div>
         </div>

@@ -5,14 +5,14 @@ import { HiOutlineMail } from "react-icons/hi";
 import { PiFilePdf } from "react-icons/pi";
 import { SiGoogledocs } from "react-icons/si";
 
-function TableRow ({row , edit , setRegistroToEdit , modalIsOpen }) {
+function TableRow ({row , edit , setRegistroToEdit , modalIsOpen , reenviarCorreo }) {
     const preFecha = new Date(row.fecha);
     const fecha = new Date(preFecha.getUTCFullYear(), preFecha.getUTCMonth(), preFecha.getUTCDate());
     
     const openModal = () => {
         setRegistroToEdit(row);
         modalIsOpen(true)
-    }    
+    };
 
     return(
         <tr className={row.aceptado ? "table-success" : undefined }>
@@ -51,7 +51,7 @@ function TableRow ({row , edit , setRegistroToEdit , modalIsOpen }) {
             </td>
             <td>
                 <div className="d-flex justify-content-between">
-                    <HiOutlineMail className="icon-msg fs-3 mx-1 pointer" />
+                    <HiOutlineMail className="icon-msg fs-3 mx-1 pointer" type="button" onClick={e => reenviarCorreo(row , 'cot')}/>
                     <FaRegEdit className="icon-edit fs-4 ms-1 pointer" type="button" onClick={openModal}/>
                     <RiDeleteBin6Fill className="icon-del fs-4 mx-1 pointer" onClick={e => edit(row.id , {active:false} , 'eliminar')}/>
                 </div>
