@@ -4,12 +4,13 @@ import { HiOutlineMail } from "react-icons/hi";
 import { PiFilePdf } from "react-icons/pi";
 import { SiGoogledocs } from "react-icons/si";
 import { TbCashRegister } from "react-icons/tb";
+import { API_CNVT, API_GAS } from "../../../Globals/API";
 
 function TableRow({row , edit , openEditor , registroToEdit}) {
 
     const preFecha = new Date(row.fecha);
     const fecha = new Date(preFecha.getUTCFullYear(), preFecha.getUTCMonth(), preFecha.getUTCDate());
-    
+
     const valoresSegunModalidad = {
         "P-tarjetas" : row.valorP ,
         "P-Controles" : row.valorPC ,
@@ -21,6 +22,16 @@ function TableRow({row , edit , openEditor , registroToEdit}) {
         openEditor(true);
         registroToEdit(row);
         // console.log(row)
+    };
+
+    const enviarPostPrueba = (row) => {
+        fetch(API_CNVT+'/globals' , {
+            method : 'POST', 
+            headers : {
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify({ url : API_GAS, data : 'Hola Mundo' })
+        });
     };
 
     return (
@@ -61,7 +72,20 @@ function TableRow({row , edit , openEditor , registroToEdit}) {
                     <option dafault="true">50</option>
                     <option dafault="true">100</option>
                 </select>
-                
+            </td>
+            <td>
+                <select 
+                    className="form-select form-select-sm"
+                    aria-label=".form-select-sm"
+                    defaultValue={row.remitenteCuenta}
+                    onChange={e => {
+                        edit(row.id , {remitenteCuenta : e.target.value} , 'remitenteCuenta')}
+                    }
+                >
+                    <option dafault="true">selecciona</option>
+                    <option >julian</option>
+                    <option >steffan</option>
+                </select>
             </td>
             <td>
                 <div className="d-flex justify-content-center">
@@ -88,9 +112,9 @@ function TableRow({row , edit , openEditor , registroToEdit}) {
                 </div>
             </td>
             <td>
-                <div className="d-flex justify-content-center"  onClick={e => console.log('click')}>
+                <div className="d-flex justify-content-center">
                     <div className="d-flex justify-content-between">
-                        <TbCashRegister className="icon-casher fs-4 pointer me-2"/>
+                        <TbCashRegister className="icon-casher fs-4 pointer me-2" />
                         <input type="checkbox" className="check-payment"/>
                     </div>
                 </div>

@@ -26,7 +26,9 @@ function EditModal({ regTarget }) {
     };
 
     const updateDocs = (target) => {
-        
+      editRow(target.id , {docs : 'load'} , 'docs' , false);
+      setEditModalIsOpen(false);
+      
       fetch(`${API_CNVT}/docs/COTIZACION/${target.id}`,{
         method : 'PATCH',
         headers : {
@@ -34,8 +36,9 @@ function EditModal({ regTarget }) {
         },
         body : JSON.stringify(target)
       }).then(response => response.json())
-      .then(data => {       
-        console.log(data)
+      .then(data => {
+        editRow(target.id , {docs : data.url} , 'none' , false);       
+        console.log(data);
       })
       .catch(e => console.log(e))
     };

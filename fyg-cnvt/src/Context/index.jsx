@@ -66,7 +66,9 @@ export const RegistroProvider= ({children}) => {
         "eliminar" : (nombreCliente) => (`¿Está seguro de que quiere eliminar a ${nombreCliente}?`),
         "lote" : (nombreCliente) => (`¿Está seguro de que quiere guardar los cambios hechos a ${nombreCliente}?`),
         "pdf" : (nombreCliente => (`Está seguro de que quiere generar nuevamente el pdf de ${nombreCliente}?`)),
+        "docs" : (nombreCliente => (`Está seguro de que quiere generar nuevamente la cotización con los nuevos datos, de ${nombreCliente}?`)),
         "modoCTA" : (nombreCliente => (`Está seguro de que quiere cambiar el porcentaje de cuenta de ${nombreCliente}?`)),
+        "remitenteCuenta" : (nombreCliente => (`Está por cambiar el nombre de la cuenta de cobro que se enviará a ${nombreCliente}?`)),
         "none": (nombreCliente)=>('none')
     }
     

@@ -39,10 +39,15 @@ function TableRow ({row , edit , setRegistroToEdit , modalIsOpen , reenviarCorre
             </td>
             <td>
                 <div className="d-flex justify-content-center">
-                    {row.docs ? 
-                        <a href={row.docs} target="_blank">
-                            <SiGoogledocs className="g-docs-icon fs-4 pointer"/>
-                        </a> : 
+                    {row.docs ?
+                        (row.docs === 'load' ?
+                            <Spinner animation="border" variant="secondary">
+                                <span className="visually-hidden">Loading...</span>
+                            </Spinner> :
+                            <a href={row.docs} target="_blank">
+                                <SiGoogledocs className="g-docs-icon fs-4 pointer"/>
+                            </a> 
+                        ) :
                         <a target="_blank" aria-disabled={true} title="No hay docs">
                             <SiGoogledocs className="g-docs-icon fs-4 icon-disabled"/>
                         </a> 
