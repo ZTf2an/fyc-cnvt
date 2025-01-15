@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Card, ListGroup, Stack } from "react-bootstrap";
+import { Card, ListGroup, Stack , Table } from "react-bootstrap";
 import "./CardGestion.css"
 
 function CardGestion ({info}) {
@@ -46,11 +46,27 @@ function CardGestion ({info}) {
             <ListGroup.Item>
                 <div className="cardItemTitle" onClick={e => setOpenedElement(toggleElement(4))}>Informes</div>
                 <div hidden={openedElement != 4}>
-                    <ul>
-                        <li>Acta</li>
-                        <li>Carpeta</li>
-                        <li>Duración</li>
-                    </ul>
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>Acta</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th>Carpeta</th>
+                                <th>
+                                    {info.driveFolder ? "" : ""}
+                                </th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                <th>Duración</th>
+                                <th>{info.duracion && info.duracion+'h'}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </Table>
                 </div>
             </ListGroup.Item>
         </ListGroup>

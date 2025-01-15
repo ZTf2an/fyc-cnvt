@@ -7,7 +7,7 @@ import { SiGoogledocs } from "react-icons/si";
 import { TbCashRegister } from "react-icons/tb";
 import { API_CNVT, API_GAS } from "../../../Globals/API";
 
-function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo}) {
+function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , setEditorType}) {
 
     const preFecha = new Date(row.fecha);
     const fecha = new Date(preFecha.getUTCFullYear(), preFecha.getUTCMonth(), preFecha.getUTCDate());
@@ -22,22 +22,27 @@ function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo}) {
     const openSideEditor = (e) => {
         openEditor(true);
         registroToEdit(row);
+        setEditorType('Form');
         // console.log(row)
     };
 
-    const enviarPostPrueba = (row) => {
-        fetch(API_CNVT+'/globals' , {
-            method : 'POST', 
-            headers : {
-                'Content-Type' : 'application/json'
-            },
-            body : JSON.stringify({ url : API_GAS, data : 'Hola Mundo' })
-        });
+    const openSidePayments = (e) => {
+        openEditor(true);
+        registroToEdit(row);
+        setEditorType('Payment');
+    };
+
+    const togglePagado = (e) => {
+        const pagoBolean = e.target.checked;
+        const response = edit(row.id , {pagado : pagoBolean} , 'checkPago');
+        if (!response) {
+            e.target.checked = !pagoBolean;
+        };
     };
 
     return (
-        <tr key={row.id} className={row.pagado && "success"}>
-            <td>{row.cliente}</td>                            
+        <tr key={row.id} className={row.pagado && "table-success"}>
+            <td title={`Correo : ${row.email} \nPredios : ${row.predios}`}>{row.cliente}</td>                            
             <td>{row.nit}</td>                            
             <td>{row.modalidad? `$${valoresSegunModalidad[row.modalidad].toLocaleString('es-CO')}` : 'Por definir' }</td>                            
             <td>
@@ -58,7 +63,31 @@ function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo}) {
                 </select>
             </td>                            
             <td>{fecha.toLocaleDateString('es-ES', {month : 'short' , day :'numeric' })}</td>
-            <td className="text-end">{row.predios}</td>
+            <td>
+                <select 
+                    className="form-select form-select-sm"
+                    aria-label=".form-select-sm"
+                    defaultValue={row.duracion}
+                    onChange={e => {
+                        edit(row.id , {duracion : e.target.value} , 'modoCTA')}
+                    }
+                    title="Selecciona las horas que tuvo la asamblea"
+                >
+                    <option dafault="true">seleccione</option>
+                    <option>-5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                    <option>13</option>
+                    <option>14</option>
+                    <option>15</option>
+                    <option>16</option>
+                </select>
+            </td>
             <td hidden>{row.email}</td>
             <td>
                 <select 
@@ -125,8 +154,8 @@ function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo}) {
             <td>
                 <div className="d-flex justify-content-center">
                     <div className="d-flex justify-content-between">
-                        <TbCashRegister className="icon-casher fs-4 pointer me-2" />
-                        <input type="checkbox" className="check-payment"/>
+                        <TbCashRegister className="icon-casher fs-4 pointer me-2" onClick={openSidePayments}/>
+                        <input type="checkbox" defaultChecked={row.pagado} className="check-payment" onClick={e => togglePagado(e)}/>
                     </div>
                 </div>
             </td>

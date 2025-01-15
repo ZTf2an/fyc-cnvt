@@ -5,7 +5,10 @@ import './TableCobranza.css'
 import Loader from "../Loader";
 
 function TableCobranza () {
-    const { data , loading , editRow , searchedData , serverError , setEditSideIsOpen , setRegistroToEdit , sendMail} = useContext(RegistroContext);
+    const { 
+        data , loading , editRow , searchedData , serverError , 
+        setEditSideIsOpen , setRegistroToEdit , sendMail , editSideType , setEditSideType
+    } = useContext(RegistroContext);
 
     return (
         <>
@@ -14,11 +17,11 @@ function TableCobranza () {
                 <thead className="table-primary position-sticky">
                     <tr>
                         <th className="p-3" scope="col">Cliente</th>
-                        <th className="p-3" scope="col">Nito</th>
+                        <th className="p-3" scope="col">Nit</th>
                         <th className="p-3" width="3%" scope="col">valor</th>
                         <th className="p-3" width="3%" scope="col">Modalidad</th>
                         <th className="p-3" width="5%" scope="col">Fecha</th>
-                        <th className="p-3" width="3%" scope="col">Predios</th>
+                        <th className="p-3" width="3%" scope="col">Duracion</th>
                         <th className="p-3" width="6%" scope="col" hidden>Email</th>
                         <th className="p-3" width="4%" scope="col">Cuenta%</th>
                         <th className="p-3" width="4%" scope="col">Cta%N</th>
@@ -36,6 +39,7 @@ function TableCobranza () {
                                 row={row} 
                                 edit={editRow} 
                                 openEditor={setEditSideIsOpen} 
+                                setEditorType={setEditSideType}
                                 registroToEdit={setRegistroToEdit}
                                 reenviarCorreo={sendMail}
                             />)

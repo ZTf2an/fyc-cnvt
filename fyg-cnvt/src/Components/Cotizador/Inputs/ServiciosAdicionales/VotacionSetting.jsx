@@ -5,7 +5,7 @@ import ItemModifier from "../../../ItemModifier"
 function VotacionSetting ({value}) {
     const [checked , setChecked] = useState(true);
     const [editIsClosed , setEditIsClosed] = useState(true);
-    const [defaultLogisticos , setDefaultLogisticos] = useState(4);
+    const [defaultLogisticos , setDefaultLogisticos] = useState(2);
 
     useEffect(()=>{
         if(value !== undefined){

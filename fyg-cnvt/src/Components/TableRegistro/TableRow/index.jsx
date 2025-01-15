@@ -19,7 +19,7 @@ function TableRow ({row , edit , setRegistroToEdit , modalIsOpen , reenviarCorre
             <td>{row.cliente}</td>                            
             <td>{fecha.toLocaleDateString('es-ES', {month : 'short' , day :'numeric' })}</td>
             <td className="text-end">{row.predios}</td>
-            <td>{row.email}</td>
+            <td className="text-truncate" style={{maxWidth : '250px'}} title={row.email}>{row.email}</td>
             <td>{row.tel}</td>
             <td>
                 <div className="d-flex justify-content-center">

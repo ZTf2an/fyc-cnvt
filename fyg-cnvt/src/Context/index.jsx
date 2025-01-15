@@ -14,6 +14,7 @@ export const RegistroProvider= ({children}) => {
     // console.log(JSON.stringify(registroToEdit) + 'desde context')
     const [editModalIsOpen , setEditModalIsOpen] = useState(false);
     const [editSideIsOpen , setEditSideIsOpen] = useState(false);
+    const [editSideType , setEditSideType] = useState('Form')
     
 
     // Formatea Data con 2 objetos adicionales para Searcher
@@ -68,6 +69,7 @@ export const RegistroProvider= ({children}) => {
         "docsCuenta" : (nombreCliente => (`Está seguro de que quiere generar Cuenta de cobro con los nuevos datos, de ${nombreCliente}?`)),
         "modoCTA" : (nombreCliente => (`Está seguro de que quiere cambiar el porcentaje de cuenta de ${nombreCliente}?`)),
         "remitenteCuenta" : (nombreCliente => (`Está por cambiar el nombre de la cuenta de cobro que se enviará a ${nombreCliente}?`)),
+        "checkPago" : (nombreCliente => (`Está seguro que ${nombreCliente} Ha pagado el servicio completamente?`)),
         "none": (nombreCliente)=>('none')
     }
     
@@ -113,10 +115,9 @@ export const RegistroProvider= ({children}) => {
                     .catch(error => console.log(error))
                 };
 
-            }
+            };
         };
-        
-        
+        return response
     };
 
 
@@ -153,7 +154,8 @@ export const RegistroProvider= ({children}) => {
             searchValue , setSearchValue ,
             registroToEdit , setRegistroToEdit ,
             editModalIsOpen , setEditModalIsOpen,
-            editSideIsOpen , setEditSideIsOpen
+            editSideIsOpen , setEditSideIsOpen ,
+            editSideType , setEditSideType
         }}>
             {children}
         </RegistroContext.Provider>

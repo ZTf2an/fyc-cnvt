@@ -1,14 +1,14 @@
-import { useState , useContext} from 'react';
+import { useContext} from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { RegistroContext } from '../../Context';
 import EditorForm from '../EditorForm';
-import { parsedParams } from '../../useServerHooks/useCreate';
 import { API_CNVT, API_GAS } from '../../Globals/API';
 import generarCuenta from '../../useServerHooks/useCuentaDeCobro/useGenerateCuenta';
+import PaymentForm from '../PaymentForm';
 
 function SideMenu() {
-    const{editSideIsOpen , setEditSideIsOpen} = useContext(RegistroContext);
+    const{editSideIsOpen , setEditSideIsOpen , editSideType } = useContext(RegistroContext);
     const {registroToEdit , editRow } = useContext(RegistroContext);
 
     const handleClose = () => setEditSideIsOpen(false);
@@ -43,21 +43,35 @@ function SideMenu() {
 
     return (
         <>
-            <Offcanvas show={editSideIsOpen} onHide={handleClose} placement={'end'} style={{width : '600px'}} >
+            <Offcanvas show={editSideIsOpen} onHide={handleClose} placement={'end'} style={{width : `${editSideType == 'Form' ? "600px" : "400px"}`}} >
                 <Offcanvas.Header closeButton>
-                <Offcanvas.Title>Edita el Registro</Offcanvas.Title>
+                <Offcanvas.Title>
+                    {editSideType == 'Form' ?
+                         "Edita el Registro" :
+                         "Anota los Pagos"
+                    }
+                </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
-                    <EditorForm reg={registroToEdit} editRow={editRow}/>
+                    {editSideType == 'Form' ? 
+                        <EditorForm reg={registroToEdit} editRow={editRow}/> : 
+                        <PaymentForm />
+                    }
                 </Offcanvas.Body>
-                    <div className='m-2 hstack gap-3'>
+                    {editSideType == 'Form' ?
+                        <div className='m-2 hstack gap-3'>
                             <Button variant="outline-danger" hidden={!registroToEdit.docsCuenta} onClick={e => generarpdf(registroToEdit)}>Actualizar PDF</Button>
                             <Button variant="outline-info" className='me-auto' title='Generar Cuenta de Cobro' onClick={e => generarCuenta(registroToEdit , editRow , handleClose)}>Generar Cuenta</Button>
                             <Button variant="info" type='submit' form='CobranzaEditor'>Guardar Cambios</Button>
-                    </div>
+                        </div> :
+                        <div className='m-2 hstack gap-3' hidden={true}>
+                            <Button variant="info" type='submit' form='PaymentForm'>Guardar Cambios</Button>
+                        </div>
+                        
+                    }
             </Offcanvas>
         </>
     );
 }
 
-export default SideMenu
+export default SideMenu;
