@@ -1,3 +1,4 @@
+import { Spinner } from "react-bootstrap";
 import { FaCheckSquare , FaRegCheckSquare ,FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { HiOutlineMail } from "react-icons/hi";
@@ -6,7 +7,7 @@ import { SiGoogledocs } from "react-icons/si";
 import { TbCashRegister } from "react-icons/tb";
 import { API_CNVT, API_GAS } from "../../../Globals/API";
 
-function TableRow({row , edit , openEditor , registroToEdit}) {
+function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo}) {
 
     const preFecha = new Date(row.fecha);
     const fecha = new Date(preFecha.getUTCFullYear(), preFecha.getUTCMonth(), preFecha.getUTCDate());
@@ -90,22 +91,32 @@ function TableRow({row , edit , openEditor , registroToEdit}) {
             <td>
                 <div className="d-flex justify-content-center">
                     {row.pdfCuenta ? 
-                        <a href={row.pdfCuetna} target="_blank">
+                        (row.pdfCuenta == 'load' ?
+                        <Spinner animation="border" variant="secondary">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner> :
+                        
+                        <a href={row.pdfCuenta} target="_blank">
                             <PiFilePdf className="pdf-icon fs-4 pointer"/>
-                        </a> :
+                        </a> ) :
                         <a target="_blank">
                             <PiFilePdf className="pdf-icon fs-4 icon-disabled"/>
                         </a> 
+                        
                     }
                 </div>
             </td>
             <td>
                 <div className="d-flex justify-content-center">
                     {row.docsCuenta ? 
+                        (row.docsCuenta === 'load' ?
+                        <Spinner animation="border" variant="secondary">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner> :
                         <a href={row.docsCuenta} target="_blank">
                             <SiGoogledocs className="g-docs-icon fs-4 pointer"/>
-                        </a> : 
-                        <a target="_blank" aria-disabled={true}>
+                        </a> ):
+                        <a target="_blank" title="no hay PDF">
                             <SiGoogledocs className="g-docs-icon fs-4 icon-disabled"/>
                         </a> 
                     }
@@ -121,7 +132,7 @@ function TableRow({row , edit , openEditor , registroToEdit}) {
             </td>
             <td>
                 <div className="d-flex justify-content-between">
-                    <HiOutlineMail className="icon-msg fs-3 mx-1 pointer" />
+                    <HiOutlineMail className="icon-msg fs-3 mx-1 pointer" onClick={ e => reenviarCorreo(row , 'cta')}/>
                     <FaRegEdit className="icon-edit fs-4 ms-1 pointer" onClick={openSideEditor}/>
                     <RiDeleteBin6Fill className="icon-del fs-4 mx-1 pointer" onClick={e => {edit(row.id , {aceptado : false} , 'rechazar')}}/>
                 </div>

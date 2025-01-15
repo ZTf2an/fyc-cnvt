@@ -1,9 +1,11 @@
 import {Router} from "express";
 
 // const API_GAS = 'https://script.google.com/macros/s/AKfycbwLRlVsi-oHEUklkA1eqk0Y4dcOT3Rti5Z73Wu7g9djF-ETgZr3OD6jW48rkQYbuci5nA/exec' //4.8.5.2.1 solucion en problema con la fecha
-const API_GAS = 'https://script.google.com/macros/s/AKfycbw_9ePoNYTxejY0ZE7CQdobwOGMfcDUfoV0SltQy5nxnAwcybUgwUNuJ_5kaOVZJe_krA/exec' //servidor de conectivate V1.0.6
+const API_GAS = 'https://script.google.com/macros/s/AKfycbwDbgSqDl7DWJbO1pUSZSNazVPQiCs9ZC-a5PEJe4rSIg5EkqgVMbnvV9jyR4nzYTVKaQ/exec' //servidor de conectivate V1.0.6
 
 const registrosRouter = Router();
+
+const PORT = 3000;
 
 registrosRouter.get('/',(req , res)=> {
     fetch(API_GAS)
@@ -32,36 +34,35 @@ registrosRouter.post('/',(req , res)=> {
 
 // 'POST' Para enviar la API en el parametro url desde front. 
 registrosRouter.post('/globals' , ( req , res ) => {
-    const {url , data} = req.body;
+    const {url , body} = req.body;
+    // console.log(body);
     
     fetch(url , {
         method : 'POST',
         headers : {
             'Content-Type' : 'application/json'
         },
-        body : JSON.stringify(data)
+        body : JSON.stringify(body)
     })
-        .then(response => response.json())
-        .then(data => res.json({
-            status : data.status,
-            msj : data.msj
-        }))
-        .catch( e => res.send(e));
-})
-
-registrosRouter.post('/globals' , ( req , res ) => {
-    const body = req.body;
-    const {url , data}= body;
-    console.log(url)
+    .then(response => response.text())
+    .then(data => res.json(data))
+    .catch( e => {
+        console.log(e);
+        res.send(e)
+    });
+        
 })
 
 registrosRouter.put('/sendmail/:type/:id',(req , res)=> {
     const { type , id } = req.params;
     const body = req.body;
-
+    
     const requestBody = {id:id , data : body};
+    
+    console.log('api : '+API_GAS+"?type=sendMail&docType="+type);
+    console.log(JSON.stringify(requestBody));
     // console.log(API_GAS+"?type=sendMail&docType="+type)
-    fetch(API_GAS+"?type=sendMail&doctype="+type, {
+    fetch(API_GAS+"?type=sendMail&docType="+type, {
         method : 'POST',
         headers : {
             'Content-Type' : 'application/json'

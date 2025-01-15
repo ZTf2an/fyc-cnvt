@@ -1,8 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { API_CNVT } from "../Globals/API";
 
-const API_GAS_CNVT = "https://script.google.com/macros/s/AKfycbxzFhVltIEbuKQMW_orQ0Z1oRn2dwTrZ-oPTGBMJA7oSPIbpVumzozoYvFe_CE7iYWMmA/exec"
-
 export const RegistroContext = createContext();
 
 export const RegistroProvider= ({children}) => {
@@ -67,6 +65,7 @@ export const RegistroProvider= ({children}) => {
         "lote" : (nombreCliente) => (`¿Está seguro de que quiere guardar los cambios hechos a ${nombreCliente}?`),
         "pdf" : (nombreCliente => (`Está seguro de que quiere generar nuevamente el pdf de ${nombreCliente}?`)),
         "docs" : (nombreCliente => (`Está seguro de que quiere generar nuevamente la cotización con los nuevos datos, de ${nombreCliente}?`)),
+        "docsCuenta" : (nombreCliente => (`Está seguro de que quiere generar Cuenta de cobro con los nuevos datos, de ${nombreCliente}?`)),
         "modoCTA" : (nombreCliente => (`Está seguro de que quiere cambiar el porcentaje de cuenta de ${nombreCliente}?`)),
         "remitenteCuenta" : (nombreCliente => (`Está por cambiar el nombre de la cuenta de cobro que se enviará a ${nombreCliente}?`)),
         "none": (nombreCliente)=>('none')
