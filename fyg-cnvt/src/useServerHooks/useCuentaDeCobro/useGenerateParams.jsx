@@ -8,7 +8,7 @@ function useGenerateParams (item) {
     
     return { valorNumerico : valor , valorEnLetra : translator.toWords(valor) , concepto : concepto}
     
-}
+};
 
 const valoresSegunModalidad = (row) => {
     let adicionalPorHorasExtra = 0;
@@ -19,13 +19,23 @@ const valoresSegunModalidad = (row) => {
         "Mixta" : row.valorM ,
     }
 
+    let valor = 0;
+
     if ( row.duracion ) {
         let horasExtra = parseInt(row.duracion) - 6;
         if (horasExtra > 0) {
             adicionalPorHorasExtra = horasExtra * 100000;
         };
     };
-    return parseInt(pricesMatrix[row.modalidad]) + adicionalPorHorasExtra;
+    
+    valor = obtenerPorcentaje(pricesMatrix[row.modalidad] , row.modoCTA);
+
+    return valor + adicionalPorHorasExtra;
+};
+
+const obtenerPorcentaje = (valorString , porcentajeString) => {
+    const coef = parseInt(porcentajeString) / 100;
+    return parseInt(valorString) * coef
 };
 
 const getConcepto = (item) => {

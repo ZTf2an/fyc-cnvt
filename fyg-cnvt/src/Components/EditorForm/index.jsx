@@ -10,10 +10,8 @@ function EditorForm ({reg , editRow}) {
         e.preventDefault();
 
         let params = parsedParams(e.target);
-        editRow(reg.id , params , 'lote' , false);
+        editRow(reg.id , params , 'lote' );
         // console.log(params)
-            
-        
     };
 
     return (
@@ -35,16 +33,20 @@ function EditorForm ({reg , editRow}) {
                 <Form.Control type="text" name='email' placeholder="name@example.com" defaultValue={reg.email}/>
             </Form.Group>
             <Form.Group className='mb-3' controlId='valorP'>
-                <Form.Label>Valor</Form.Label>
-                <Form.Control type="number" name='valorP' placeholder="500000" defaultValue={reg.valorP}/>
+                <Form.Label>Valor Presencial con tarjetas</Form.Label>
+                <Form.Control type="text" name='valorP' placeholder="500000" defaultValue={reg.valorP}/>
             </Form.Group>
-            <Form.Group className='mb-3' controlId='valorAcomVirtual'>
-                <Form.Label>Valor de Acompañamiento Virtual</Form.Label>
-                <Form.Control type="text" name='valorAcomVirtual' placeholder="500000" defaultValue={reg.valorAcomVirtual}/>
+            <Form.Group className='mb-3' controlId='valorPC'>
+                <Form.Label>Valor Presencial con Controles</Form.Label>
+                <Form.Control type="text" name='valorPC' placeholder="500000" defaultValue={reg.valorPC}/>
             </Form.Group>
-            <Form.Group className='mb-3' controlId='valorAdicPresencial'>
-                <Form.Label>Valor Presencial</Form.Label>
-                <Form.Control type="text" name='valorAdicPresencial' placeholder="500000" defaultValue={reg.valorAdicPresencial}/>
+            <Form.Group className='mb-3' controlId='valorV'>
+                <Form.Label>Valor Virtual</Form.Label>
+                <Form.Control type="number" name='valorV' placeholder="500000" defaultValue={reg.valorV}/>
+            </Form.Group>
+            <Form.Group className='mb-3' controlId='valorM'>
+                <Form.Label>Valor Mixta</Form.Label>
+                <Form.Control type="text" name='valorM' placeholder="500000" defaultValue={reg.valorM}/>
             </Form.Group>
         </Form>
     )
