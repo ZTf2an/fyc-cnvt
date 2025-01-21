@@ -9,7 +9,7 @@ function SonidoSetting ({value}) {
     const [editIsClosed , setEditIsClosed] = useState(true);
     const [defaultCabinas , setDefaultCabinas] = useState(2);
     const [defaultMicrofonos , setDefaultMicrofonos] = useState(3);
-    const [defaultLogisticos , setDefaultLogisticos] = useState(4);
+    const [defaultLogisticos , setDefaultLogisticos] = useState(2);
     
     useEffect(()=>{
         if(value !== undefined){

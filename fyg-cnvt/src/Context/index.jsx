@@ -70,6 +70,7 @@ export const RegistroProvider= ({children}) => {
         "modoCTA" : (nombreCliente => (`Está seguro de que quiere cambiar el porcentaje de cuenta de ${nombreCliente}?`)),
         "remitenteCuenta" : (nombreCliente => (`Está por cambiar el nombre de la cuenta de cobro que se enviará a ${nombreCliente}?`)),
         "checkPago" : (nombreCliente => (`Está seguro que ${nombreCliente} Ha pagado el servicio completamente?`)),
+        "createFolder" : (nombreCliente => (`Está seguro que quiere enviar informes a ${nombreCliente}?`)),
         "none": (nombreCliente)=>('none')
     }
     

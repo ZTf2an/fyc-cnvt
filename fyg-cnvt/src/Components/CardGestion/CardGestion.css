@@ -4,3 +4,16 @@
 .cardItemTitle:hover {
     text-decoration: underline;
 }
+.pointer {
+    cursor: pointer;
+}
+.icon-disabled{
+    color : #7c7c7c ;
+    cursor: not-allowed;
+}
+.folder-icon{
+    color : rgb(148, 138, 6);
+}
+.generateFolder-icon{
+    color : green;
+}

@@ -5,13 +5,13 @@ import { Col, Container, Row } from "react-bootstrap";
 import './MosaicoGestion.css'
 
 function MosaicoGestion () {
-    const {searchedData} = useContext(RegistroContext);
+    const {searchedData , editRow } = useContext(RegistroContext);
 
     return(
         <>
         <div className="cuadricula">
             {searchedData.map(
-                card => (card.aceptado && card.active) && <CardGestion key={card.id} info={card} />
+                card => (card.aceptado && card.active) && <CardGestion key={card.id} info={card} editRow={editRow}/>
             )}
         </div>
         </>
