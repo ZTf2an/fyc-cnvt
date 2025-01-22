@@ -17,7 +17,7 @@ const objectParams = (params) => {
         modalidadPC : params.flexCheckMPresencialC=='on' ,
         modalidadV : params.flexCheckMVirtual=='on' ,
         modalidadM : params.flexCheckMMixta=='on' ,
-        valorP : parseInt(params.inputValor) + parseInt(params.inputValorAcoVirtual) ,
+        valorP : parseInt(params.inputValor) + parseInt(params.valorAdicPresencial),
         valorPC : parseInt(params.inputValor) + parseInt(params.inputValorControles) ,
         valorV : params.inputValor ,
         valorM : parseInt(params.inputValor) + parseInt(params.inputValorAcoMixta) ,
