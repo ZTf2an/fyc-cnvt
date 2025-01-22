@@ -14,8 +14,11 @@ export const RegistroProvider= ({children}) => {
     // console.log(JSON.stringify(registroToEdit) + 'desde context')
     const [editModalIsOpen , setEditModalIsOpen] = useState(false);
     const [editSideIsOpen , setEditSideIsOpen] = useState(false);
-    const [editSideType , setEditSideType] = useState('Form')
-    
+    const [editSideType , setEditSideType] = useState('Form');
+
+    //Ordenar la data por fecha
+    const [orderContition , setOrderCondition] = useState('none');
+    const [orderIcon , setOrderIcon] = useState('');
 
     // Formatea Data con 2 objetos adicionales para Searcher
     const formatedData = data.map(item => {
@@ -40,12 +43,40 @@ export const RegistroProvider= ({children}) => {
         }
     );
 
+    // Ordenar la data por fecha - Logica del ordenador
+    if (orderContition === 'mayor') {
+        formatedData.sort((a,b) => {
+            const dateA = new Date(a.fecha);
+            const dateB = new Date(b.fecha);
+            return dateB - dateA;
+        });
+    } else if (orderContition === 'menor') {
+        formatedData.sort((a,b) => {
+            const dateA = new Date(a.fecha);
+            const dateB = new Date(b.fecha);
+            return dateA - dateB;
+        });
+    };
+
+    const ordenarFecha = (e) => {
+        if (e.target.value === 'none') {
+            setOrderCondition('mayor');
+            setOrderIcon('🔼');
+        } else if (e.target.value === 'mayor') {
+            setOrderCondition('menor');
+            setOrderIcon('🔽');
+        } else if (e.target.value === 'menor') {
+            setOrderCondition('none');
+            setOrderIcon('');
+        }
+    };
+
     //Valor a Buscar en el Searcher - Logica del buscador
     const [searchValue , setSearchValue] = useState('');
     const searchedData = formatedData.filter(
         item => item.registroData.toLowerCase().includes(searchValue.toLowerCase()) || 
         item.cobranzaData.toLowerCase().includes(searchValue.toLowerCase())
-    );    
+    );
     
     //Extrae la data de la hoja Sheets - la url es del servidor local http://localhost:3000
     useEffect(()=>{
@@ -148,6 +179,8 @@ export const RegistroProvider= ({children}) => {
         <RegistroContext.Provider value={{
             data, setData,
             searchedData,
+            orderContition , setOrderCondition,
+            orderIcon , setOrderIcon ,
             modalRegistroIsOpen , setModalRegistroIsOpen ,
             loading, serverError,
             editRow,
@@ -156,7 +189,8 @@ export const RegistroProvider= ({children}) => {
             registroToEdit , setRegistroToEdit ,
             editModalIsOpen , setEditModalIsOpen,
             editSideIsOpen , setEditSideIsOpen ,
-            editSideType , setEditSideType
+            editSideType , setEditSideType ,
+            ordenarFecha
         }}>
             {children}
         </RegistroContext.Provider>

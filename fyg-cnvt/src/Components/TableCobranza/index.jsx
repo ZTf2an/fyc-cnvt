@@ -1,4 +1,5 @@
 import { useContext , useState} from "react";
+import { Button } from "react-bootstrap";
 import { RegistroContext } from "../../Context";
 import TableRow from "./TableRow";
 import './TableCobranza.css'
@@ -7,7 +8,8 @@ import Loader from "../Loader";
 function TableCobranza () {
     const { 
         data , loading , editRow , searchedData , serverError , 
-        setEditSideIsOpen , setRegistroToEdit , sendMail , editSideType , setEditSideType
+        setEditSideIsOpen , setRegistroToEdit , sendMail , editSideType ,
+        setEditSideType , orderContition , setOrderCondition , orderIcon , setOrderIcon , ordenarFecha
     } = useContext(RegistroContext);
 
     return (
@@ -20,7 +22,7 @@ function TableCobranza () {
                         <th className="p-3" scope="col">Nit</th>
                         <th className="p-3" width="3%" scope="col">valor</th>
                         <th className="p-3" width="3%" scope="col">Modalidad</th>
-                        <th className="p-3" width="5%" scope="col">Fecha</th>
+                        <th className="p-3" width="5%" scope="col"><Button variant="outline-dark" value={orderContition} onClick={ordenarFecha}>Fecha{orderIcon}</Button></th>
                         <th className="p-3" width="3%" scope="col">Duracion</th>
                         <th className="p-3" width="6%" scope="col" hidden>Email</th>
                         <th className="p-3" width="4%" scope="col">Cuenta%</th>

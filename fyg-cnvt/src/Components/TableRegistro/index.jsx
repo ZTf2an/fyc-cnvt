@@ -1,12 +1,24 @@
-import { useContext } from "react";
+import { useContext , useState} from "react";
+import { Button } from "react-bootstrap";
 import { RegistroContext } from "../../Context";
-import { API_CNVT } from "../../Globals/API";
 import TableRow from "./TableRow";
 import Loader from "../Loader";
 import './TableRegistro.css'
 
 function TableRegistro () {
-    const { data , searchedData , loading , editRow ,serverError , setRegistroToEdit , setEditModalIsOpen , sendMail } = useContext(RegistroContext);
+    const { data , 
+        searchedData , 
+        loading , 
+        editRow ,
+        serverError , 
+        setRegistroToEdit , 
+        setEditModalIsOpen , 
+        sendMail ,
+        orderContition ,
+        setOrderCondition ,
+        ordenarFecha ,
+        orderIcon , setOrderIcon
+    } = useContext(RegistroContext);
 
     return (
         <>
@@ -19,7 +31,7 @@ function TableRegistro () {
                 >
                     <tr>
                         <th className="p-3" scope="col">Cliente</th>
-                        <th className="p-3" width="5%" scope="col">Fecha</th>
+                        <th className="p-3" width="5%" scope="col"><Button variant="outline-dark" value={orderContition} onClick={ordenarFecha}>Fecha{orderIcon}</Button></th>
                         <th className="p-3" width="3%" scope="col">Predios</th>
                         <th className="p-3" width="6%" scope="col">Email</th>
                         <th className="p-3" width="4%" scope="col">tel</th>

@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { Button } from "react-bootstrap";
 import { RegistroContext } from "../../Context";
 import Searcher from "../../Components/Searcher";
 import ModeSelector from "../../Components/ModeSelector";
@@ -7,7 +8,7 @@ import MosaicoGestion from "../../Components/MosaicoGestion";
 import './Gestion.css'
 
 function Gestion () {
-    const {searchValue , setSearchValue} = useContext(RegistroContext);
+    const {searchValue , setSearchValue , orderIcon , orderContition , ordenarFecha} = useContext(RegistroContext);
     const [itemsStyle , setItemsStyle] = useState('mosaico');
 
     return (
@@ -16,9 +17,16 @@ function Gestion () {
                 <Searcher change={setSearchValue} searchValue={searchValue}/>
                 <ModeSelector changeMode={setItemsStyle}/>
             </div>
-            <div className="contenedor">
+            <div className="contenedor position-relative">
                 {itemsStyle == 'mosaico' ? 
-                    <MosaicoGestion/> : 
+                    <>
+                        <div className="position-fixed top-10 end-0 mt-1 me-2em z-index-10">
+                            <Button variant="outline-dark" value={orderContition} onClick={ordenarFecha}>
+                                Fecha{orderIcon}
+                            </Button>
+                        </div>
+                        <MosaicoGestion/>
+                    </> : 
                     <TableGestion/>
                 }
             </div>
