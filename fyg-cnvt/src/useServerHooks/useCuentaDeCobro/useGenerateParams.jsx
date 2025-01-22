@@ -45,7 +45,7 @@ const getConcepto = (item) => {
     const date = new Date(item.fecha);
     if (item.modoCTA == '50') {
         if (toDate < date) {
-            concepto += "anticipo 50% por los sericios a realizar ";
+            concepto += "anticipo 50% por los servicios a realizar ";
         } else {
             concepto += "saldo 50% por los servicios realizados ";
         };
