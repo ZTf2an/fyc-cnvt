@@ -20,9 +20,12 @@ function Gestion () {
             <div className="contenedor position-relative">
                 {itemsStyle == 'mosaico' ? 
                     <>
-                        <div className="position-fixed top-10 end-0 mt-1 me-2em z-index-10">
-                            <Button variant="outline-dark" value={orderContition} onClick={ordenarFecha}>
+                        <div className="position-fixed d-flex flex-column gap-2 top-10 end-0 mt-1 me-2em z-index-10">
+                            <Button variant="outline-dark row" value={orderContition} onClick={ordenarFecha}>
                                 Fecha{orderIcon}
+                            </Button>
+                            <Button variant="outline-dark row" value={orderContition} onClick={e=> window.location.href = '/personal'}>
+                                Personal
                             </Button>
                         </div>
                         <MosaicoGestion/>

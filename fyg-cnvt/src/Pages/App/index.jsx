@@ -4,6 +4,7 @@ import Registro from '../Registro'
 import Cuentas from '../Cuentas'
 import Gestion from "../Gestion"
 import NotFound from '../NotFound'
+import Personal from '../Personal'
 import { RegistroProvider } from "../../Context"
 import Layout from "../../Components/Layout"
 
@@ -13,6 +14,7 @@ const AppRoutes = () => {
     { path : '/' , element : <Registro />},
     {path : '/cuentas', element : <Cuentas />},
     {path : '/gestion', element : <Gestion />},
+    {path : '/personal', element : <Personal />},
     {path : '/*' , element : <NotFound />}
   ]);
   return routes
