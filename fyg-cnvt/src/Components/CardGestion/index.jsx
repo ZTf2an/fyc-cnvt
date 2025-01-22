@@ -16,6 +16,8 @@ function CardGestion ({info , editRow}) {
         return openedElement == i ? 0 : i 
     };
 
+    const servicios =  JSON.parse(info.servicios);
+
     const modalidadColor = {
         'P-tarjetas' : 'info',
         'P-Controles' : 'success',
@@ -111,11 +113,15 @@ function CardGestion ({info , editRow}) {
                         <thead>
                             <tr>
                                 <th>Acta</th>
-                                <th></th>
-                                <th></th>
+                                <th colSpan={2}>
+                                    {servicios.acta.isRequired ?
+                                        'Requerido' :
+                                        'No Requerido'
+                                    }
+                                </th>
                             </tr>
                             <tr>
-                                <th>Carpeta</th>
+                            <th>Carpeta</th>
                                 <th>
                                     <div className="d-flex justify-content-center fs-4">
                                         {!info.driveFolder ? 
