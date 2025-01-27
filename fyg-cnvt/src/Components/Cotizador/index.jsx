@@ -47,10 +47,8 @@ function Cotizador ({object , formName , edit , modalIsOpen , disableButton , se
             e.stopPropagation();
         } else {
             disableButton(true);
-            postData(data, () => {
+            postData(params, () => {
                 window.location.reload();
-                // const modal = Modal.getInstance('#crearRegistro');
-                // modal.hide();
                 e.target.reset();
             })
         }

@@ -1,4 +1,4 @@
-import { API_CNVT } from "../Globals/API";
+import { API_CNVT, API_GAS } from "../Globals/API";
 import { sumarMinuto } from "../Utils/sumarMinuto";
 
 const parsedParams = (arr) => {
@@ -18,13 +18,13 @@ const parsedParams = (arr) => {
 
 const postData = (data , cb) => {
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST", API_CNVT,true);
+    xmlhttp.open("POST", API_CNVT+'/globals',true);
     xmlhttp.setRequestHeader('Content-Type', 'application/json');
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var response = JSON.parse(this.responseText);
-            console.log(this.responseText);
-            grabaOK(response);
+            console.log(response);
+            grabaOK(JSON.parse(response));
             cb();
         }
     };
@@ -32,7 +32,7 @@ const postData = (data , cb) => {
         console.log("Error ajax");
     };
     // console.log(data);
-    xmlhttp.send(data);
+    xmlhttp.send(JSON.stringify({url : API_GAS+'?type=cot' , body : data}));
 }
 
 const grabaOK = (response) => {
