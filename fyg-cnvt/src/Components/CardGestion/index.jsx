@@ -10,13 +10,13 @@ function CardGestion ({info , editRow}) {
     const preFecha = new Date(info.fecha);
     const fecha = new Date(preFecha.getUTCFullYear(), preFecha.getUTCMonth(), preFecha.getUTCDate());
 
+    const inventario = JSON.parse(info.servicios);
+
     const [openedElement , setOpenedElement] = useState(0);
 
     const toggleElement = (i) => {
         return openedElement == i ? 0 : i 
     };
-
-    const servicios =  JSON.parse(info.servicios);
 
     const modalidadColor = {
         'P-tarjetas' : 'info',
@@ -93,10 +93,34 @@ function CardGestion ({info , editRow}) {
                     </ul>
                 </div>
             </ListGroup.Item>
-            <ListGroup.Item hidden>
-                Inventario
-            </ListGroup.Item>
             <ListGroup.Item>
+                <div className="cardItemTitle" onClick={e => setOpenedElement(toggleElement(2))}>Inventario</div>
+                <div hidden={openedElement != 2}>
+                    <ul>
+                        <li className={(inventario.sonido.cabinas <= 0 || !inventario.sonido.isRequired) && "text-decoration-line-through"}>
+                            {inventario.sonido.cabinas} Cabinas
+                        </li>
+                        <li className={(inventario.sonido.microfonos <= 0 || !inventario.sonido.isRequired) && "text-decoration-line-through"}>
+                            {inventario.sonido.microfonos} Microfonos
+                        </li>
+                        <li className={(!inventario.sonido.isRequired) && "text-decoration-line-through"}>
+                            Consola / Amplificador
+                        </li> 
+                        <li className={(!inventario.filmacion.isRequired) && "text-decoration-line-through"}>
+                            {inventario.filmacion && 1} Camara
+                        </li>
+                        <li className={(inventario.proyeccion.videobeam <= 0 || !inventario.proyeccion.isRequired) && "text-decoration-line-through"}>
+                            {inventario.proyeccion.videobeam} Video Beam
+                        </li>
+                        <li className={(inventario.sonido.telon <= 0 || !inventario.proyeccion.isRequired) && "text-decoration-line-through"}>
+                            {inventario.proyeccion.telon} Telón</li>
+                        <li className={(inventario.votacion.logisticos <= 0 || !inventario.votacion.isRequired || info.modalidad !== 'P-tarjetas') && "text-decoration-line-through"}>
+                            {inventario.votacion.logisticos} Lectores
+                        </li>
+                    </ul>
+                </div>
+            </ListGroup.Item>
+            <ListGroup.Item hidden>
                 <div className="cardItemTitle" onClick={e => setOpenedElement(toggleElement(3))}>Logisticos</div>
                 <div hidden={openedElement != 3}>
                     <ol>
@@ -114,7 +138,7 @@ function CardGestion ({info , editRow}) {
                             <tr>
                                 <th>Acta</th>
                                 <th colSpan={2}>
-                                    {servicios.acta.isRequired ?
+                                    {inventario.acta.isRequired ?
                                         'Requerido' :
                                         'No Requerido'
                                     }
