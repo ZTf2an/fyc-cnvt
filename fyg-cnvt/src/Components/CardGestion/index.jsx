@@ -96,7 +96,7 @@ function CardGestion ({info , editRow}) {
             <ListGroup.Item>
                 <div className="cardItemTitle" onClick={e => setOpenedElement(toggleElement(2))}>Inventario</div>
                 <div hidden={openedElement != 2}>
-                    <ul>
+                    { info.modalidad !== 'Virtual' ? <ul>
                         <li className={(inventario.sonido.cabinas <= 0 || !inventario.sonido.isRequired) && "text-decoration-line-through"}>
                             {inventario.sonido.cabinas} Cabinas
                         </li>
@@ -117,7 +117,7 @@ function CardGestion ({info , editRow}) {
                         <li className={(inventario.votacion.logisticos <= 0 || !inventario.votacion.isRequired || info.modalidad !== 'P-tarjetas') && "text-decoration-line-through"}>
                             {inventario.votacion.logisticos} Lectores
                         </li>
-                    </ul>
+                    </ul> : <p> - La asamblea es Virtual. No requiere equipo Alguno</p>}
                 </div>
             </ListGroup.Item>
             <ListGroup.Item hidden>

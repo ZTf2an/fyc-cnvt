@@ -1,7 +1,7 @@
 import {Router} from "express";
 
 // const API_GAS = 'https://script.google.com/macros/s/AKfycbwLRlVsi-oHEUklkA1eqk0Y4dcOT3Rti5Z73Wu7g9djF-ETgZr3OD6jW48rkQYbuci5nA/exec' //4.8.5.2.1 solucion en problema con la fecha
-const API_GAS = 'https://script.google.com/macros/s/AKfycbwDbgSqDl7DWJbO1pUSZSNazVPQiCs9ZC-a5PEJe4rSIg5EkqgVMbnvV9jyR4nzYTVKaQ/exec' //servidor de conectivate V1.0.6
+const API_GAS = 'https://script.google.com/macros/s/AKfycbzG5bk4vnX6ix2QSM3sqUP-97U59jI2Tc2-Ix35ZGX_ag4yP8zG1ObTucRv6AsDECxWOw/exec' //servidor de conectivate V1.0.6
 
 const registrosRouter = Router();
 
