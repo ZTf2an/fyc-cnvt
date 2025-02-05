@@ -9,7 +9,7 @@ import './Gestion.css'
 
 function Gestion () {
     const {searchValue , setSearchValue , orderIcon , orderContition , ordenarFecha} = useContext(RegistroContext);
-    const [itemsStyle , setItemsStyle] = useState('mosaico');
+    const [itemsStyle , setItemsStyle] = useState('lista');
 
     return (
         <>

@@ -15,6 +15,7 @@ export const RegistroProvider= ({children}) => {
     const [editModalIsOpen , setEditModalIsOpen] = useState(false);
     const [editSideIsOpen , setEditSideIsOpen] = useState(false);
     const [editSideType , setEditSideType] = useState('Form');
+    const [editGestionModalIsOpen , setEditGestionModalIsOpen] = useState(false);
 
     //Ordenar la data por fecha
     const [orderContition , setOrderCondition] = useState('none');
@@ -92,7 +93,7 @@ export const RegistroProvider= ({children}) => {
     const editType = {
         "modalidad" : (nombreCliente) => (`Está cambiando la modalidad de ${nombreCliente}`),
         "aceptar" : (nombreCliente) => (`¿Está seguro de que quiere enviar a ${nombreCliente} a la pagina de Cobranza?`),
-        "rechazar" : (nombreCliente) => (`¿Está seguro de que quiere eliminar a ${nombreCliente} de la pagina de cobranza?`),
+        "rechazar" : (nombreCliente) => (`¿Está seguro de que quiere eliminar a ${nombreCliente} de la pagina de cobranza y Gestión?`),
         "eliminar" : (nombreCliente) => (`¿Está seguro de que quiere eliminar a ${nombreCliente}?`),
         "lote" : (nombreCliente) => (`¿Está seguro de que quiere guardar los cambios hechos a ${nombreCliente}?`),
         "pdf" : (nombreCliente => (`Está seguro de que quiere generar nuevamente el pdf de ${nombreCliente}?`)),
@@ -190,6 +191,7 @@ export const RegistroProvider= ({children}) => {
             editModalIsOpen , setEditModalIsOpen,
             editSideIsOpen , setEditSideIsOpen ,
             editSideType , setEditSideType ,
+            editGestionModalIsOpen , setEditGestionModalIsOpen ,
             ordenarFecha
         }}>
             {children}

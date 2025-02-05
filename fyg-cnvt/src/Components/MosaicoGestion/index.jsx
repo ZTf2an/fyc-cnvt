@@ -10,9 +10,11 @@ function MosaicoGestion () {
     return(
         <>
         <div className="cuadricula">
-            {searchedData.map(
+            {searchedData.length ? searchedData.map(
                 card => (card.aceptado && card.active) && <CardGestion key={card.id} info={card} editRow={editRow}/>
-            )}
+            ) :
+            "Ningun dato coincide con la busqueda"
+            }
         </div>
         </>
     )

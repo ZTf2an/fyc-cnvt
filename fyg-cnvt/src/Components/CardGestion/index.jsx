@@ -65,16 +65,17 @@ function CardGestion ({info , editRow}) {
             .catch(err => alert(`Error : ${err}`))
         };
         return response
-    }
+    };
 
     return (<>
     <Card style={{ width: '18rem' , marginTop:'5px'}}>
         <Card.Body className="position-relative">
             <Card.Title>{info.cliente}</Card.Title>
             <div className="position-absolute d-flex gap-1 bottom-0 end-0 m-1">
-                <div className={`mt-2 border border-2 border-${modalidadColor[info.modalidad]} rounded-pill text-wrap ps-1 pe-1`} style={{ height : '22px' , fontSize : '12px'}}>
+                {info.modalidad &&
+                <div className={`mt-2 border border-2 border-${modalidadColor[info.modalidad]||'null'} rounded-pill text-wrap ps-1 pe-1`} style={{ height : '22px' , fontSize : '12px'}}>
                     {info.modalidad}
-                </div>
+                </div>}
                 <div className={`border border-2 border-danger p-1 rounded-pill`}>
                     <strong>{info.predios}</strong>
                 </div>

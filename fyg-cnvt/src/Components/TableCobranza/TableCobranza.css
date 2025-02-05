@@ -15,7 +15,7 @@ th, td {
 thead th {
     position: sticky; /* Hace que el thead sea fijo */
     top: 0; /* Fija la parte superior */
-    background-color: #f1f1f1; /* Fondo del thead */
+    /* background-color: #ffffff; Fondo del thead */
     z-index: 10; /* Asegura que el thead esté por encima */
 }
 .pointer {
@@ -87,4 +87,8 @@ thead th {
 .icon-disabled{
     color : #7c7c7c ;
     cursor: not-allowed;
+}
+
+.th-green {
+    background-color: #079907 !important;
 }

@@ -16,7 +16,7 @@ function TableCobranza () {
         <>
         <div className="my-3 table-wrapper">
             <table className='table table-striped table-bordered align-middle rounded'>
-                <thead className="table-primary position-sticky">
+                <thead className="table-danger position-sticky">
                     <tr>
                         <th className="p-3" scope="col">Cliente</th>
                         <th className="p-3" scope="col">Nit</th>

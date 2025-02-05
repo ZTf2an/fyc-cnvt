@@ -1,19 +1,26 @@
 import { useContext } from "react";
+import { Button , Modal } from "react-bootstrap";
 import { RegistroContext } from "../../Context";
 import Loader from "../Loader";
 import TableRow from "./TableRow";
+import GestionEditModal from "../GestionEditModal";
 import './TableGestion.css';
 
 function TableGestion () {
-    const { data , searchedData , serverError , loading } = useContext(RegistroContext);
+    const { data , searchedData , serverError ,
+          loading , orderContition , setRegistroToEdit ,
+          orderIcon , ordenarFecha , editRow ,
+          setEditGestionModalIsOpen
+        } = useContext(RegistroContext);
     return (
         <>
-        <div className="my-3">
+        <GestionEditModal/>
+        <div>
             <table className='table table-hover table-bordered align-middle rounded'>
-                <thead className="table-primary position-sticky">
+                <thead className="table-warning position-sticky">
                     <tr>
                         <th className="p-3" scope="col">Cliente</th>
-                        <th className="p-3" width="5%" scope="col">Fecha</th>
+                        <th className="p-3" width="8%" scope="col"><Button variant="outline-dark" value={orderContition} onClick={ordenarFecha}>Fecha{orderIcon}</Button></th>
                         <th className="p-3" width="3%" scope="col">Modalidad</th>
                         <th className="p-3" width="3%" scope="col">Predios</th>
                         <th className="p-3" width="4%" scope="col">tel</th>
@@ -24,7 +31,13 @@ function TableGestion () {
                 <tbody>
                     {searchedData.map( 
                         row => (row.aceptado && row.active) && 
-                            <TableRow key={row.id} row={row}/>
+                            <TableRow 
+                                key={row.id} 
+                                row={row}
+                                editRow={editRow}
+                                openModal={setEditGestionModalIsOpen}
+                                registroToEdit={setRegistroToEdit}
+                            />
                     )}
                 </tbody>
             </table>
