@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { API_CNVT } from "../Globals/API";
+import { API_CNVT, API_GAS } from "../Globals/API";
 
 export const RegistroContext = createContext();
 
@@ -162,17 +162,19 @@ export const RegistroProvider= ({children}) => {
     const sendMail = (obj , type) => {
         console.log(obj.id);
         if (confirm("Está por enviar el correo de "+obj.cliente)) {
-            fetch(`${API_CNVT}/sendmail/${type}/${obj.id}`,{
-                method : 'PUT' ,
+           fetch(`${API_CNVT}/globals`,{
+                method : 'POST',
                 headers : {
-                    'Content-Type': 'application/json'
+                     'Content-Type': 'application/json'
                 },
-                body : JSON.stringify(obj)
+                body : JSON.stringify({url : `${API_GAS}?type=sendMail&docType=${type}` , body : {data:obj}})
             })
-            .then(response => response.json())
-            .then(data => alert(data.msj))
-            .catch(error => console.log(error))
-        }
+              .then(response => response.json())
+              .then(data => alert(JSON.parse(data).msj))
+              .catch(error => console.log(error))
+        } else {
+            return false;
+        };
         
     }
 
