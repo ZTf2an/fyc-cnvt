@@ -1,25 +1,23 @@
-import { Table , InputGroup , Form , Button} from "react-bootstrap";
+import { Table , InputGroup , Form , Button, Modal} from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
-import Searcher from "../../Components/Searcher";
+import { TfiReload } from "react-icons/tfi";
+import ModalLogisticos from "./ModalLogisticos";
+import { useState } from "react";
+import { getData } from "../../useServerHooks/useLogisticos/read";
 function Personal (){
-    let logisticosData ;
+    const [modalLogisticosIsOpen , setModalLogisticosIsOpen] = useState(false);
+    const [dataLoading , setDataLoading] = useState(false);
+    const [logisticosData , setLogisticosData] = useState([]) ;
     
     //En proyecto
+    const actualizarData = () => {
+        setDataLoading(true);         
+        getData((r)=> {
+            setLogisticosData(r);
+            setDataLoading(false);
+        });
+    };
 
-    /*
-        fetch(API_CNVT+'/globals' , {
-            method : 'POST',
-            headers : {
-                'Content-Type': 'application/json'
-            },
-            body : JSON.stringify({url : `${API_GAS}?type=personal`})
-        })
-        .then(response => response.json())
-        .then(data => {
-            logisticosData = JSON.parse(data);
-        })
-        .catch(err => alert(`Error : ${err}`));
-    */
     return (
         <div>
             <InputGroup className="mb-3">
@@ -29,7 +27,10 @@ function Personal (){
                 aria-label="Buscador"
                 aria-describedby="Buscador"
                 />
-                <Button variant="primary" id="button-addon2">
+                <Button variant="secondary" id="button-addon2" title="Actualizar Datos" onClick={actualizarData}>
+                    <TfiReload className="fs-4"/>
+                </Button>
+                <Button variant="primary" id="button-addon2" onClick={e => setModalLogisticosIsOpen(true)}>
                     Agregar
                 </Button>
             </InputGroup>
@@ -38,32 +39,31 @@ function Personal (){
                     <tr>
                         <th>Nombre</th>
                         <th>Telefono</th>
-                        <th>Habilidades</th>
-                        <th>Eventos Asistidos</th>
+                        <th>Localidad</th>
+                        <th hidden>Habilidades</th>
+                        <th hidden>Eventos Asistidos</th>
+                        <th>Antiguedad</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Steffan Pardo</td>
-                        <td>3003631311</td>
-                        <td>lider Integral, lider Votación , lider Sonido, logistico, Redactor </td>
-                        <td>340</td>
-                        <td>🖋️🧻</td>
-                    </tr>
-                    {/* {logisticosData.map((item , i) => {
+                    {logisticosData.map((item , i) => {
                         return (
                             <tr key={i}>
                                 <td>{item.nombre}</td>
-                                <td>{item.correo}</td>
-                                <td>{item.telefono}</td>
-                                <td>{item.fechaIngreso}</td>
+                                <td>{item.celular}</td>
+                                <td>{item.localidad}</td>
+                                <td hidden>{item.poderes}</td>
+                                <td>{item.categoria}</td>
                                 <td>{item.fechaRetiro}</td>
                             </tr>
                         )
-                    })} */}
+                        })
+                    }
                 </tbody>
             </Table>
+            {dataLoading ? "Cargando Datos...": logisticosData.length == 0 && "Click en Botón Actualizar para Cargar los datos" }
+            <ModalLogisticos type={'add'} isOpen={modalLogisticosIsOpen} hide={() => setModalLogisticosIsOpen(false)}/>
         </div>
     )
 }
