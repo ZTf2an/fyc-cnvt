@@ -17,6 +17,7 @@ function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , s
         "P-Controles" : row.valorPC ,
         "Virtual" : row.valorV ,
         "Mixta" : row.valorM ,
+        "selecciona" : 0
     };
 
     const openSideEditor = (e) => {
