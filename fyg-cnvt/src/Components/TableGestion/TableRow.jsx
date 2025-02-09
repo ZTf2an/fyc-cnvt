@@ -72,7 +72,7 @@ function TableRow ({row , editRow , openModal , registroToEdit}) {
                 {row.driveFolder ? 
                     row.driveFolder === 'load' ?
                     <Spinner animation="border" variant="secondary"><span className="visually-hidden">Loading...</span></Spinner>:
-                    <a href={row.driveFolder}><IoFolderOpenSharp className="icon-folder fs-4 pointer"/></a> : 
+                    <a href={row.driveFolder} target="_blank"><IoFolderOpenSharp className="icon-folder fs-4 pointer"/></a> : 
                     <MdFolderOff className="icon-disabled fs-4 pointer"/>
                 }
             </div>
