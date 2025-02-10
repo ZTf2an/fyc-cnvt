@@ -20,10 +20,11 @@ function TableGestion () {
                 <thead className="table-warning position-sticky">
                     <tr>
                         <th className="p-3" scope="col">Cliente</th>
-                        <th className="p-3" width="8%" scope="col"><Button variant="outline-dark" value={orderContition} onClick={ordenarFecha}>Fecha{orderIcon}</Button></th>
-                        <th className="p-3" width="3%" scope="col">Modalidad</th>
                         <th className="p-3" width="3%" scope="col">Predios</th>
+                        <th className="p-3" width="8%" scope="col"><Button variant="outline-dark" value={orderContition} onClick={ordenarFecha}>Fecha{orderIcon}</Button></th>
+                        <th className="p-3" width="10%" scope="col">Modalidad</th>
                         <th className="p-3" width="4%" scope="col">tel</th>
+                        <th className="p-3" width="5%" scope="col">Cta</th>
                         <th className="p-3" width="5%" scope="col">Carpeta</th>
                         <th className="p-3" width="10%" scope="col">Acciones</th>
                     </tr>

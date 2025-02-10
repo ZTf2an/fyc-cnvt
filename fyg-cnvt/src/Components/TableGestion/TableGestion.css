@@ -1,3 +1,12 @@
 .icon-folder {
     color :rgb(145, 145, 28)
 }
+
+.icon-pdf {
+    color: #ad0b00;
+}
+
+.icon-disabled{
+    color : #7c7c7c ;
+    cursor: not-allowed;
+}

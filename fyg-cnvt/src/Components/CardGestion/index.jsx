@@ -167,7 +167,7 @@ function CardGestion ({info , editRow}) {
                                 </th>
                                 <th>
                                     <div className="d-flex justify-content-center fs-5 pointer">
-                                        {(info.driveFolder && info.driveFolder != 'load') ? 
+                                        {(info.driveFolder && info.driveFolder != 'load' && info.pagado) ? 
                                             <HiOutlineMail 
                                                 className={`fs-3 mx-1 icon-msg pointer`}  
                                                 title={"Enviar link al cliente"}
@@ -176,7 +176,7 @@ function CardGestion ({info , editRow}) {
                                             :
                                             <HiOutlineMail 
                                                 className={`fs-3 mx-1 icon-disabled`}  
-                                                title={"No es posible enviar la carpeta porque no hay link"}
+                                                title={info.pagado ? "No es posible enviar la carpeta porque no hay link" : "No es posible enviar la carpeta, el cliente debe un saldo"}
                                             />
                                         }
                                         

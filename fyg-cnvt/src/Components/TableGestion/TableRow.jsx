@@ -1,9 +1,10 @@
+import { Form , Spinner } from "react-bootstrap";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { HiOutlineMail } from "react-icons/hi";
+import { PiFilePdf } from "react-icons/pi";
 import { IoFolderOpenSharp } from "react-icons/io5";
 import { MdFolderOff , MdOutlineAddToDrive } from "react-icons/md";
-import { Spinner } from "react-bootstrap";
 import { API_CNVT , API_GAS } from "../../Globals/API";
 
 function TableRow ({row , editRow , openModal , registroToEdit}) {
@@ -62,11 +63,24 @@ function TableRow ({row , editRow , openModal , registroToEdit}) {
     };
     
     return (<tr className={validarFecha(fecha) ? 'table-info' : ''}>
-        <td className="p-3">{row.cliente}</td>
-        <td className="p-3">{fecha.toLocaleDateString('es-ES' , {day : 'numeric' , month : 'short'})}</td>
-        <td className="p-3">{row.modalidad}</td>
+        <td className="p-3" title={`Correo: ${row.email}\nDireccion: ${row.direccion}`}>{row.cliente}</td>
         <td className="p-3">{row.predios}</td>
+        <td className="p-3">{fecha.toLocaleDateString('es-ES' , {day : 'numeric' , month : 'short'})}</td>
+        <td className="p-3">
+            <Form.Select value={row.modalidad} onChange={e => editRow(row.id , {modalidad: e.target.value} , 'modalidad')}>
+                <option dafault="true">selecciona</option>
+                <option >P-tarjetas</option>
+                <option >P-Controles</option>
+                <option >Virtual</option>
+                <option >Mixta</option>
+            </Form.Select>
+        </td>
         <td className="p-3">{row.tel}</td>
+        <td className="">
+            <div className="d-flex justify-content-center">
+                <a className={row.pdfCuenta? "fs-4 icon-pdf" : " fs-4 icon-disabled"} href={row.pdfCuenta}><PiFilePdf/></a>
+            </div>
+        </td>
         <td className="p-3">
             <div className="d-flex justify-content-center">
                 {row.driveFolder ? 
@@ -79,13 +93,16 @@ function TableRow ({row , editRow , openModal , registroToEdit}) {
         </td>
         <td className="p-3">
             <div className="d-flex justify-content-between">
-                {row.driveFolder ? 
-                    <HiOutlineMail className="icon-msg fs-3 mx-1 pointer" type="button" onClick={e => sendMail(row)}/> : 
+                {row.driveFolder ?
+                    row.pagado? 
+                    <HiOutlineMail className="icon-msg fs-3 mx-1 pointer" type="button" onClick={e => sendMail(row)}/> :
+                    <HiOutlineMail className="icon-disabled fs-3" title="No se puede enviar los informes porque el cliente no ha pagado"/>:
                     <MdOutlineAddToDrive 
-                    className="generateFolder-icon pointer fs-3"
+                    className={ "generateFolder-icon pointer fs-3"}
                     title="Click para Crear Carpeta"
                     onClick={e => crearCarpeta(row)}
-                    /> 
+                    />
+                    
                 }
                 <FaRegEdit className="icon-edit fs-4 ms-1 pointer" type="button" onClick={e=> {openModal(true); registroToEdit(row)}} />
                 <RiDeleteBin6Fill className="icon-del fs-4 mx-1 pointer" onClick={e => editRow(row.id , {aceptado : false} , 'rechazar')}/>
