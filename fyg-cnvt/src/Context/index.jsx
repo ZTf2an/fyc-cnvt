@@ -38,7 +38,9 @@ export const RegistroProvider= ({children}) => {
             item.modalidad ,
             fecha,
             item.predios ,
-            item.tel
+            item.tel ,
+            item.remitenteCuenta ,
+            !item.docsCuenta && "nocuenta"
         ].join(' ')
         return {...item , registroData : registroData , cobranzaData : cobranzaData}
         }
