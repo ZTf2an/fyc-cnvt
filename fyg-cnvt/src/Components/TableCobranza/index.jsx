@@ -1,5 +1,5 @@
 import { useContext , useState} from "react";
-import { Button } from "react-bootstrap";
+import { Badge, Button } from "react-bootstrap";
 import { RegistroContext } from "../../Context";
 import TableRow from "./TableRow";
 import './TableCobranza.css'
@@ -18,7 +18,9 @@ function TableCobranza () {
             <table className='table table-striped table-bordered align-middle rounded'>
                 <thead className="table-danger position-sticky">
                     <tr>
-                        <th className="p-3" scope="col">Cliente</th>
+                        <th className="p-3" scope="col">
+                            Cliente <Badge bg="secondary">{searchedData.filter(i=>i.active && i.aceptado).length}</Badge>
+                        </th>
                         <th className="p-3" scope="col">Nit</th>
                         <th className="p-3" width="3%" scope="col">valor</th>
                         <th className="p-3" width="3%" scope="col">Modalidad</th>

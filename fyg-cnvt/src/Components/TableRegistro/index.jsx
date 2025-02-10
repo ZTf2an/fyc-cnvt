@@ -1,5 +1,5 @@
 import { useContext , useState} from "react";
-import { Button } from "react-bootstrap";
+import { Badge, Button } from "react-bootstrap";
 import { RegistroContext } from "../../Context";
 import TableRow from "./TableRow";
 import Loader from "../Loader";
@@ -27,10 +27,10 @@ function TableRegistro () {
                 className='table table-striped table-bordered align-middle overflow-auto'
             >
                 <thead 
-                    className="table-primary "
+                    className="table-primary"
                 >
                     <tr>
-                        <th className="p-3" scope="col">Cliente</th>
+                        <th className="p-3" scope="col">Cliente <Badge bg="secondary">{searchedData.filter(item => item.active).length}</Badge></th>
                         <th className="p-3" width="5%" scope="col"><Button variant="outline-dark" value={orderContition} onClick={ordenarFecha}>Fecha{orderIcon}</Button></th>
                         <th className="p-3" width="3%" scope="col">Predios</th>
                         <th className="p-3" width="6%" scope="col">Email</th>
