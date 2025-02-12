@@ -22,12 +22,13 @@ const valoresSegunModalidad = (row) => {
     let valor = 0;
 
     if ( row.duracion ) {
-        let horasExtra = parseInt(row.duracion) - 6;
+        let horasExtra = parseInt(row.duracion) - 5;
         if (horasExtra > 0) {
             adicionalPorHorasExtra = horasExtra * 100000;
         };
     };
     
+    console.log('Adicional por horas'+adicionalPorHorasExtra)
     valor = obtenerPorcentaje(pricesMatrix[row.modalidad] , row.modoCTA);
 
     return valor + adicionalPorHorasExtra;

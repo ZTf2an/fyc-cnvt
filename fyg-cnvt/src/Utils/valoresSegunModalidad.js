@@ -8,7 +8,7 @@ const valoresSegunModalidad = (row) => {
     }
 
     if ( row.duracion ) {
-        let horasExtra = parseInt(row.duracion) - 6;
+        let horasExtra = parseInt(row.duracion) - 5;
         if (horasExtra > 0) {
             adicionalPorHorasExtra = horasExtra * 100000;
         };
