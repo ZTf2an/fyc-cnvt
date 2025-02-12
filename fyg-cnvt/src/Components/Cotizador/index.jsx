@@ -82,7 +82,7 @@ function Cotizador ({object , formName , edit , modalIsOpen , disableButton , se
                 />
                 <PrediosValor 
                     prediosChange={context.setNumeroPredios}
-                    defaultValor={context.defaultValor}
+                    defaultValor={object?.valorP || context.defaultValor}
                     changeDefaultValor={context.setDefaultValor}
                     prediosDefault={context.numeroPredios}
                 />
