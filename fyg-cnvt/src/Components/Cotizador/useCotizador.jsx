@@ -15,7 +15,10 @@ export const useCotizador = () => {
     const [incrementoCoef , setIncrementoCoef] = useState(0);
 
     //Controles.
-    const [valorControles , setValorControles] = useState(5); 
+    const [valorControles , setValorControles] = useState(5);
+    
+    //Cambios 
+    const [changes , setChanges] = useState(true)
 
     // Incremento y Descuento alternables
     useEffect(()=>{
@@ -33,9 +36,11 @@ export const useCotizador = () => {
         } else {
             setIncrementoCoef(0)
         }
-        setDefaultValor(calcularValor(numeroPredios , descuentoCoef , incrementoCoef));
+        if (changes){
+            setDefaultValor(calcularValor(numeroPredios , descuentoCoef , incrementoCoef));
+        }; 
         setValorControles(calcularValorControles(numeroPredios));
-    },[numeroPredios , descuentoCoef , incrementoCoef , descuentoIsChecked , incrementoIsChecked])
+    },[numeroPredios , descuentoCoef , incrementoCoef , descuentoIsChecked , incrementoIsChecked ])
 
     const calcularValorControles = (ip) => {
         let controles;
@@ -52,8 +57,8 @@ export const useCotizador = () => {
             numeroPredios , setNumeroPredios ,
             incrementoCoef , setIncrementoCoef ,
             descuentoCoef , setDescuentoCoef ,
-            valorControles , setValorControles
-
+            valorControles , setValorControles ,
+            changes , setChanges
         }
     )
 }

@@ -17,7 +17,7 @@ function Modal () {
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div className="modal-body">
-                    <Cotizador formName={"crearRegistro"} disableButton={setButtonIsDisabled} sendMail={enviarIsChecked}/>
+                    <Cotizador formName={"crearRegistro"} disableButton={setButtonIsDisabled} sendMail={enviarIsChecked} changes={true}/>
                 </div>
                 <div className="modal-footer">
                     <Container>

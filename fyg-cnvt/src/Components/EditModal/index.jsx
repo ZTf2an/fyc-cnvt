@@ -50,7 +50,7 @@ function EditModal({ regTarget }) {
             <ModalTitle>Editor de Registro</ModalTitle>
           </ModalHeader>
           <ModalBody>
-            <Cotizador object={regTarget} formName={"editarRegistro"} edit={editRow} modalIsOpen={setEditModalIsOpen}/>
+            <Cotizador object={regTarget} formName={"editarRegistro"} edit={editRow} modalIsOpen={setEditModalIsOpen} changes={false}/>
           </ModalBody>
           <ModalFooter>
             <Container fluid>

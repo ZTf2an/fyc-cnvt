@@ -14,17 +14,11 @@ import ValoresAdicionales from "./Inputs/ValoresAdicionales";
 import ServiciosAdicionales from "./Inputs/ServiciosAdicionales";
 
 
-function Cotizador ({object , formName , edit , modalIsOpen , disableButton , sendMail}) {
+function Cotizador ({object , formName , edit , modalIsOpen , disableButton , sendMail , changes}) {
     const context = useCotizador();
     // console.log(object)
 
-    useEffect(()=> {
-        context.setDescuentoIsChecked(Boolean(object?.descuento));
-        context.setDescuentoCoef(object?.descuento || 0);
-        context.setDefaultValor(object?.valorP || 0);
-        context.setNumeroPredios(object?.predios)
-    },[object])
-
+    
     const mySubmit = (e) => {
         e.preventDefault();
         switch (e.target.id) {
@@ -34,11 +28,11 @@ function Cotizador ({object , formName , edit , modalIsOpen , disableButton , se
             case "editarRegistro" :
                 editarRegistro(e);
                 break;
+            };
         };
-    };
-
-    const crearRegistro = (e) => {
-        let params = parsedParams(e.target);
+        
+        const crearRegistro = (e) => {
+            let params = parsedParams(e.target);
         params["sendMail"] = sendMail;
         const data = JSON.stringify(params);
         
@@ -54,7 +48,7 @@ function Cotizador ({object , formName , edit , modalIsOpen , disableButton , se
         }
         e.target.classList.add('was-validated')
     };
-
+    
     const editarRegistro = (e) => {
         let params = objectParams(parsedParams(e.target));
         // console.log(params);
@@ -62,6 +56,14 @@ function Cotizador ({object , formName , edit , modalIsOpen , disableButton , se
         modalIsOpen(false);
         e.target.reset();
     };
+    
+    useEffect(()=> {
+        context.setChanges(changes)
+        context.setDescuentoIsChecked(Boolean(object?.descuento));
+        context.setDescuentoCoef(object?.descuento || 0);
+        context.setNumeroPredios(object?.predios);
+        context.setDefaultValor(object?.valorP);
+    },[object]);
     
     return(
             <form 
@@ -82,7 +84,7 @@ function Cotizador ({object , formName , edit , modalIsOpen , disableButton , se
                 />
                 <PrediosValor 
                     prediosChange={context.setNumeroPredios}
-                    defaultValor={object?.valorP || context.defaultValor}
+                    defaultValor={context.defaultValor}
                     changeDefaultValor={context.setDefaultValor}
                     prediosDefault={context.numeroPredios}
                 />
