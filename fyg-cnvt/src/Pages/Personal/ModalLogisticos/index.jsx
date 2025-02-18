@@ -26,11 +26,12 @@ const selectType = {
 
 function ModalLogisticos ({type , isOpen , hide}) {
     return (
-        <Modal show={isOpen} onHide={hide}>
+        <Modal show={isOpen} onHide={hide} fullscreen="sm-down">
             <Modal.Header closeButton>
                 <Modal.Title>{selectType[type].title}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+
                 <FormAddLogistico title={selectType[type].formTitle} submit={selectType[type].action}/>
             </Modal.Body>
             <Modal.Footer>

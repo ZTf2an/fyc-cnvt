@@ -1,10 +1,14 @@
 import { useContext, useState } from "react"
 import { Card, ListGroup, Spinner, Stack , Table } from "react-bootstrap";
-import { BsFolderCheck } from "react-icons/bs";
+import { BsFolderCheck, BsPlusCircleFill } from "react-icons/bs";
 import { MdOutlineAddToDrive } from "react-icons/md";
 import { HiOutlineMail } from "react-icons/hi";
-import "./CardGestion.css"
+import { GiVikingHelmet , GiSpartanHelmet , GiSamuraiHelmet, GiRobotHelmet, GiAmericanFootballHelmet} from "react-icons/gi";
 import { API_CNVT, API_GAS } from "../../Globals/API";
+import "./CardGestion.css"
+import "../../Pages/Personal/personal.css"
+import { CgTranscript } from "react-icons/cg";
+import { FaRobot } from "react-icons/fa";
 
 function CardGestion ({info , editRow}) {
     const preFecha = new Date(info.fecha);
@@ -17,12 +21,23 @@ function CardGestion ({info , editRow}) {
     };
 
     const servicios =  JSON.parse(info.servicios);
+    const logisticos = info.logsJson ? JSON.parse(info.logsJson) : [];
 
     const modalidadColor = {
         'P-tarjetas' : 'info',
         'P-Controles' : 'success',
         'P-Mixta' : 'warning',
         'Virtual' : 'primary',
+    };
+
+    const cargo = {
+        liderSonido : { icon : <GiVikingHelmet className="fs-3 icon-viking" title="Lider de Sonido"/> , valor : 100000},
+        liderVotacion : { icon : <GiSamuraiHelmet className="fs-3 icon-samurai" title="Lider de Votación"/>, valor : 120000},
+        liderIntegral : { icon : <GiSpartanHelmet className="fs-3" title=" Lider Integral"/> , valor : 150000},
+        liderVirtual : {icon :<GiRobotHelmet className="fs-3 icon-robot" title="Lider de Votación"/> , valor : 150000},
+        logisticoVirtual : {icon : <FaRobot className="fs-3 icon-robot2" title="Logistico Virtual"/> , valor : 70000},
+        logisticoBasico : {icon :<GiAmericanFootballHelmet className="fs-3 icon-american" title=" Logistico Basico"/> , valor : 70000},
+        redactor : {icon :<CgTranscript className="fs-3 icon-actas" title="Redactor"/>, valor:150000},
     };
 
     const crearCarpeta = (item) => {
@@ -87,7 +102,7 @@ function CardGestion ({info , editRow}) {
                     <ul >
                         <li>Predios : {info.predios}</li>
                         <li>Nit : {info.nit}</li>
-                        <li>Dir : {info.dir}</li>
+                        <li>Dir : {info.direccion}</li>
                         <li>Tel : {info.tel}</li>
                         <li>Email : {info.email}</li>
                     </ul>
@@ -99,11 +114,25 @@ function CardGestion ({info , editRow}) {
             <ListGroup.Item>
                 <div className="cardItemTitle" onClick={e => setOpenedElement(toggleElement(3))}>Logisticos</div>
                 <div hidden={openedElement != 3}>
-                    <ol>
-                        <li>camilo</li>
-                        <li>pepe</li>
-                        <li>grillo</li>
-                    </ol>
+                    <div className="position-relative">
+                        <div className="position-absolute end-0">
+                            <BsPlusCircleFill className="fs-2 text-warning"/>
+                        </div>
+                        {!info.logsJson && "No hay ningun logistico"} 
+                        <table >
+                            <tbody>
+                                {logisticos.map(( logistico , i ) => (
+                                    <tr key={i}>
+                                        {/* <td>{i+1}</td> */}
+                                        <td>{cargo[logistico.Cargo].icon}</td>
+                                        <td className="fs-6">{logistico.nombre}</td>
+                                        <td>${cargo[logistico.Cargo].valor.toLocaleString('es-CO')}</td>
+                                        {/* <td><input type="checkbox"/></td> */}
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </ListGroup.Item>
             <ListGroup.Item>

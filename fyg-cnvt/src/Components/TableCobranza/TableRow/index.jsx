@@ -41,7 +41,7 @@ function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , s
     };
 
     return (
-        <tr key={row.id} className={row.pagado && "table-success"}>
+        <tr key={row.id} className={row.pagado ? "table-success" : ""}>
             <td title={`Correo : ${row.email} \nPredios : ${row.predios}`}>{row.cliente}</td>                            
             <td>{row.nit}</td>                            
             <td>{row.modalidad? `$${valoresSegunModalidad[row.modalidad].toLocaleString('es-CO')}` : 'Por definir' }</td>                            

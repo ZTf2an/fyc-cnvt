@@ -22,4 +22,4 @@ export function getData (succesCB) {
         // cbErr(response)
     });
     
-}
+};

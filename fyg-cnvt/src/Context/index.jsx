@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { API_CNVT } from "../Globals/API";
+import { getData } from "../useServerHooks/useLogisticos/read";
 
 export const RegistroContext = createContext();
 
@@ -8,6 +9,9 @@ export const RegistroProvider= ({children}) => {
     const [loading , setLoading] = useState(true);
     const [serverError , setServerError] = useState(false);
     const [data , setData] = useState([]);
+
+    //Concerniente a los datos de los logisticos.
+    const [personal , setPersonal] = useState([]);
    
     //Registro que se editará cuando se da click al botón de editar
     const [registroToEdit , setRegistroToEdit] = useState({});
@@ -78,7 +82,7 @@ export const RegistroProvider= ({children}) => {
         item.cobranzaData.toLowerCase().includes(searchValue.toLowerCase())
     );
     
-    //Extrae la data de la hoja Sheets - la url es del servidor local http://localhost:3000
+    //Extrae la data de la hoja Sheets
     useEffect(()=>{
         fetch(API_CNVT)
         .then(response=> response.json())
@@ -88,6 +92,11 @@ export const RegistroProvider= ({children}) => {
         })
         .catch(error => setServerError(true));
     },[]);
+
+    //Extrae los logisticos que se encuenran anotados en Personal
+    useEffect(() => {
+        getData((r)=>setPersonal(r));
+    } , []);
 
     const editType = {
         "modalidad" : (nombreCliente) => (`Está cambiando la modalidad de ${nombreCliente}`),
@@ -152,10 +161,8 @@ export const RegistroProvider= ({children}) => {
         return response
     };
 
-
     const [modalRegistroIsOpen , setModalRegistroIsOpen ] = useState(false);
 
-    // useEffect(() => {} , [])
 
     // Util reenviar los correos
     const sendMail = (obj , type) => {
