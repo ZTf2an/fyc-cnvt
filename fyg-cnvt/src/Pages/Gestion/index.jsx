@@ -6,6 +6,7 @@ import ModeSelector from "../../Components/ModeSelector";
 import TableGestion from "../../Components/TableGestion";
 import MosaicoGestion from "../../Components/MosaicoGestion";
 import './Gestion.css'
+import LogsModal from "../../Components/LogsModal";
 
 function Gestion () {
     const {searchValue , setSearchValue , orderIcon , orderContition , ordenarFecha} = useContext(RegistroContext);
@@ -33,6 +34,7 @@ function Gestion () {
                     <TableGestion/>
                 }
             </div>
+            <LogsModal />
         </>
     )
 }
