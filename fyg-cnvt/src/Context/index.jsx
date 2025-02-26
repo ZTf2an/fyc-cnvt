@@ -83,7 +83,7 @@ export const RegistroProvider= ({children}) => {
     
     //Extrae la data de la hoja Sheets - la url es del servidor local http://localhost:3000
     useEffect(()=>{
-        fetch(API_CNVT)
+        fetch(API_CNVT+"/registros")
         .then(response=> response.json())
         .then(data => {
             setData(data.reverse());
@@ -126,24 +126,30 @@ export const RegistroProvider= ({children}) => {
             if ( changesToServer ){
                 console.log('Se están enviando los datos al servidor')
                 if (type === 'lote') {
-                    fetch(`${API_CNVT}/${id}`,{
-                        method : 'PUT' ,
+                    fetch(`${API_CNVT}/globals`,{
+                        method : 'POST' , // cambiar a post antes de hacer la prueba
                         headers : {
                             'Content-Type': 'application/json'
                         },
-                        body : JSON.stringify(changes)
+                        body : JSON.stringify({
+                            url : `${API_GAS}?type=update`,
+                            body : {id : id , data : changes}
+                        })
                     })
                     .then(response => response.json())
                     .then(data => console.log(data))
                     .catch(error => console.log(error))
 
                 } else {
-                    fetch(`${API_CNVT}/${id}`,{
-                        method : 'PATCH',
+                    fetch(`${API_CNVT}/globals`,{
+                        method : 'POST',
                         headers : {
                             'Content-Type': 'application/json'
                         },
-                        body : JSON.stringify(changes) 
+                        body : JSON.stringify({
+                            url : `${API_GAS}?type=edit`,
+                            body : {id : id , data : changes},
+                        }) 
                     })
                     .then(response => response.json())
                     .then(data => console.log(data))
@@ -177,7 +183,6 @@ export const RegistroProvider= ({children}) => {
         } else {
             return false;
         };
-        
     }
 
     return (

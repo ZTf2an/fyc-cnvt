@@ -13,7 +13,7 @@ registrosRouter.get('/',(req , res)=> {
         .then(data => res.send(data))
         .catch( e => console.log(e));
 })
-
+/*
 registrosRouter.post('/',(req , res)=> {
     const body = req.body;
     
@@ -31,7 +31,7 @@ registrosRouter.post('/',(req , res)=> {
         }))
         .catch( e => res.send(e));
 })
-
+*/
 // 'POST' Para enviar la API en el parametro url desde front. 
 registrosRouter.post('/globals' , ( req , res ) => {
     const {url , body} = req.body;

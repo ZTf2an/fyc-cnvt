@@ -16,6 +16,10 @@ function SideMenu() {
 
     const generarpdf = (target) => {
         const response = confirm(`Está por generar PDF de ${target.cliente}`);
+        console.log(JSON.stringify({
+            url :`${API_GAS}?type=createpdf&docType=CUENTA`, 
+            body : {id : target.id , data : {url : target.docsCuenta} }
+        }))
         if (response) {
             editRow(target.id , {pdfCuenta : 'load'} , 'none' , false);
             fetch(`${API_CNVT}/globals` , {
@@ -27,8 +31,8 @@ function SideMenu() {
                     url :`${API_GAS}?type=createpdf&docType=CUENTA`, 
                     body : {id : target.id , data : {url : target.docsCuenta} }
                 })
-            })            
-            .then( response => response.json())
+            })
+            .then( response => response.json()) 
             .then( data => {
                 const results = JSON.parse(data);
                 editRow(target.id , {pdfCuenta : results.url} , 'none' , false);

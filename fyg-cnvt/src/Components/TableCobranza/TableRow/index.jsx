@@ -5,7 +5,6 @@ import { HiOutlineMail } from "react-icons/hi";
 import { PiFilePdf } from "react-icons/pi";
 import { SiGoogledocs } from "react-icons/si";
 import { TbCashRegister } from "react-icons/tb";
-import { API_CNVT, API_GAS } from "../../../Globals/API";
 
 function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , setEditorType}) {
 

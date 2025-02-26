@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { RegistroContext } from "../../Context";
 import Cotizador from "../Cotizador";
 import { Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter, Button, Stack , Row, Container } from 'react-bootstrap';
-import { API_CNVT } from "../../Globals/API";
+import { API_CNVT , API_GAS} from "../../Globals/API";
 
 function EditModal({ regTarget }) {
     const { editRow , editModalIsOpen , setEditModalIsOpen } = useContext(RegistroContext);
@@ -11,14 +11,19 @@ function EditModal({ regTarget }) {
       editRow(target.id , {pdf : 'load'} , 'pdf' , false);
       setEditModalIsOpen(false);
 
-      fetch(`${API_CNVT}/pdf/${target.id}`,{
-        method : 'PATCH',
+      fetch(`${API_CNVT}/globals`,{
+        method : 'POST',
         headers : {
           'Content-Type': 'application/json'
         },
-        body : JSON.stringify({url : target.docs})
+        body : JSON.stringify({
+            url :`${API_GAS}?type=createpdf&docType=COTIZACION`, 
+            body : {id : target.id , data : {url : target.docs} }
+        })
+        // body : JSON.stringify({url : target.docs})
       }).then(response => response.json())
-      .then(data => {
+      .then(data => { 
+        data = JSON.parse(data);
         editRow(target.id , {pdf : data.url} , 'none' , false)
         console.log(data)
       })
@@ -29,14 +34,18 @@ function EditModal({ regTarget }) {
       editRow(target.id , {docs : 'load'} , 'docs' , false);
       setEditModalIsOpen(false);
       
-      fetch(`${API_CNVT}/docs/COTIZACION/${target.id}`,{
-        method : 'PATCH',
+      fetch(`${API_CNVT}/globals`,{
+        method : 'POST',
         headers : {
           'Content-Type': 'application/json'
         },
-        body : JSON.stringify(target)
+        body : JSON.stringify({
+          url :`${API_GAS}?type=updateDocs&docType=COTIZACION`, 
+          body : {id : target.id , data : target }
+        }),
       }).then(response => response.json())
       .then(data => {
+        data = JSON.parse(data);
         editRow(target.id , {docs : data.url} , 'none' , false);       
         console.log(data);
       })
