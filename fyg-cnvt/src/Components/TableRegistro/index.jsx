@@ -3,6 +3,7 @@ import { Badge, Button } from "react-bootstrap";
 import { RegistroContext } from "../../Context";
 import TableRow from "./TableRow";
 import Loader from "../Loader";
+import ServerError from "../ErrorComponents/ServerError";
 import './TableRegistro.css'
 
 function TableRegistro () {
@@ -53,7 +54,7 @@ function TableRegistro () {
                         />)}
                 </tbody>
             </table>
-            {serverError ? 'No hay comunicacion con el servidor 😯' : loading && <Loader/>}
+            {serverError ? <ServerError /> : loading && <Loader/>}
             {!data && 'No hay datos aún'}            
         </div>
         </>

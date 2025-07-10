@@ -82,7 +82,11 @@ export const RegistroProvider= ({children}) => {
     );
     
     //Extrae la data de la hoja Sheets - la url es del servidor local http://localhost:3000
-    useEffect(()=>{
+    const fetchData = () => {
+        console.log('iniciando el fetch de datos');
+        setData([]); //borrar
+        setServerError(false);
+        setLoading(true);
         fetch(API_CNVT+"/registros")
         .then(response=> response.json())
         .then(data => {
@@ -90,6 +94,10 @@ export const RegistroProvider= ({children}) => {
             setLoading(false);
         })
         .catch(error => setServerError(true));
+        console.log('fetch de datos finalizado');
+    };
+    useEffect(()=>{
+        fetchData();
     },[]);
 
     const editType = {
@@ -187,6 +195,7 @@ export const RegistroProvider= ({children}) => {
 
     return (
         <RegistroContext.Provider value={{
+            fetchData,
             data, setData,
             searchedData,
             orderContition , setOrderCondition,

@@ -1,13 +1,17 @@
 import './NavBar.css'
 import { NavLink } from 'react-router-dom'
+import { RegistroContext } from '../../Context' //borrar
+import { useContext } from 'react' //borrar
 
 function NavBar () {
     const activeStyle = 'text-decoration-underline text-light'
-
+    const { fetchData } = useContext(RegistroContext);
     return (
         <nav className="navbar navbar-expand-sm conectivate-bg">
             <div className="container-fluid d-flex justify-content-between">
-                <a className="navbar-brand fw-bold" href="#">
+                <a className="navbar-brand fw-bold" href="#"
+                onClick={(e) => fetchData()} //BORRAR
+                >
                     {/* <span className="color-1">CONEC</span>
                     <span className="color-2">TÍ</span>
                     <span className="color-3">VATE</span> */}

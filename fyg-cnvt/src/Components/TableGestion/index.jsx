@@ -4,6 +4,7 @@ import { RegistroContext } from "../../Context";
 import Loader from "../Loader";
 import TableRow from "./TableRow";
 import GestionEditModal from "../GestionEditModal";
+import ServerError from "../ErrorComponents/ServerError";
 import './TableGestion.css';
 
 function TableGestion () {
@@ -44,7 +45,7 @@ function TableGestion () {
                     )}
                 </tbody>
             </table>
-            {serverError ? 'No hay comunicacion con el servidor 😯' : loading ? <Loader/> : !(data.find(row => (row.aceptado))) && 'No hay datos'}
+            {serverError ? <ServerError/> : loading ? <Loader/> : !(data.find(row => (row.aceptado))) && 'No hay datos'}
         </div>
         </>
     )

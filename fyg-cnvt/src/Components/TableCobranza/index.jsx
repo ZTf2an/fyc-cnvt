@@ -2,8 +2,9 @@ import { useContext , useState} from "react";
 import { Badge, Button } from "react-bootstrap";
 import { RegistroContext } from "../../Context";
 import TableRow from "./TableRow";
-import './TableCobranza.css'
 import Loader from "../Loader";
+import ServerError from "../ErrorComponents/ServerError";
+import './TableCobranza.css'
 
 function TableCobranza () {
     const { 
@@ -51,7 +52,7 @@ function TableCobranza () {
                 </tbody>
             </table>
             {/* {} */}
-            {serverError ? 'No hay comunicacion con el servidor 😯' : loading ? <Loader/> : !(data.find(row => (row.aceptado))) && 'No hay datos'}
+            {serverError ? <ServerError/> : loading ? <Loader/> : !(data.find(row => (row.aceptado))) && 'No hay datos'}
         </div>
         </>
     )

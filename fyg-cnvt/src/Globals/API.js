@@ -1,4 +1,3 @@
-// export const API_GAS = "https://script.google.com/macros/s/AKfycbyyy_l0Jrq14wAs7ptia5ApCGqVg5uPxYpwd5CRYTFdf4qAd-ufD9-0xXKIj1_icu_Biw/exec" // V 1.0.11 Se agrega el rut julian
 // export const API_GAS = "https://script.google.com/macros/s/AKfycbw3VcZGZ-3NOk-fwZNR4eafB2Tuwo0dO1nTXiWJqHQ_AQbQVRdaORvbG73KOyZsHklkAQ/exec" // V Se corrige el Rut en la cuenta Steffan
 export const API_GAS = "https://script.google.com/macros/s/AKfycbyhG-yUDZIJZ4PGDFU77Ug4B7RH8L4ExufdKuCIiGuZG6CfQ8F_gNCmW2OJ1_HaY4gUcA/exec" // V Se corrige ortografia de class documento
 
