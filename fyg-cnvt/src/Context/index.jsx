@@ -87,7 +87,7 @@ export const RegistroProvider= ({children}) => {
         setData([]); //borrar
         setServerError(false);
         setLoading(true);
-        fetch(API_CNVT+"/registros")
+        fetch(API_CNVT+"/registrosCaribe")
         .then(response=> response.json())
         .then(data => {
             setData(data.reverse());
