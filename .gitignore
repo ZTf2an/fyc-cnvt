@@ -1,2 +1,4 @@
 /node_modules
 /fyg-cnvt/build
+/mailTemplates
+/mailTemplates/cotizacion.html
