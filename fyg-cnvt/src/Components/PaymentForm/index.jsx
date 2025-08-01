@@ -1,27 +1,26 @@
-import { useContext, useState } from "react";
+import { useContext, useState , useEffect} from "react";
 import { Form , Button, Toast, FloatingLabel } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa6";
 import { RegistroContext } from "../../Context";
 import valoresSegunModalidad from "../../Utils/valoresSegunModalidad";
+import { use } from "react";
 function PaymentForm () {
     const {registroToEdit , editRow} = useContext(RegistroContext);
-    const [data , setData] = useState(JSON.parse(registroToEdit.pagosJson || "[]"));
+    const [data , setData] = useState(JSON.parse(registroToEdit.pagosJson || '[]'));
     const [nuevoPagoIsOpen , setNuevoPagoIsOpen] = useState(false);
-    console.log(registroToEdit)
 
     const enviarPago = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        let dataToChange = (data.length == 0) ? [] : data;
+        const newData = [...data];
         const newPay = {
             valor : e.target.valor.value,
             descripcion : e.target.descripcion.value
-        }
-        const newData = [...dataToChange];
+        };
+        setNuevoPagoIsOpen(false);
         newData.push(newPay);
         setData(newData);
         editRow(registroToEdit.id , {pagosJson : JSON.stringify(newData)} , 'none' );
-        setNuevoPagoIsOpen(false);
     };
 
     const pagoFaltante = (obj) => {
@@ -43,7 +42,7 @@ function PaymentForm () {
     return (<>
             {pagoFaltante(registroToEdit)}
 
-            {!registroToEdit.pagosJson ? 
+            {data.length === 0 ? 
                 <p>{`No hay pagos anotados de ${registroToEdit.cliente}`}</p> : 
                 // "hola"
                 data.map((pago , i) => (<div key={i+1}>

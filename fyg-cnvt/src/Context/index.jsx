@@ -127,9 +127,10 @@ export const RegistroProvider= ({children}) => {
             const newData = [...data];
             const dataIndex = newData.findIndex(row => row.id == id);
             const row = newData[dataIndex];
-            newData[dataIndex] = {...row, ...changes}
-            console.log(newData[dataIndex])
-            setData(newData)
+            newData[dataIndex] = {...row, ...changes};
+            console.log(newData[dataIndex]);
+            setData(newData);
+            setRegistroToEdit(newData[dataIndex]);
 
             if ( changesToServer ){
                 console.log('Se están enviando los datos al servidor')
