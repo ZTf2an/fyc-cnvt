@@ -177,7 +177,7 @@ export const RegistroProvider= ({children}) => {
 
     // Util reenviar los correos
     const sendMail = (obj , type) => {
-        console.log(obj.id);
+        // console.log(obj.id);
         if (confirm("Está por enviar el correo de "+obj.cliente)) {
            fetch(`${API_CNVT}/globals`,{
                 method : 'POST',
