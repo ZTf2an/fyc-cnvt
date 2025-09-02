@@ -98,24 +98,24 @@ function CardGestion ({info , editRow}) {
                 <div className="cardItemTitle" onClick={e => setOpenedElement(toggleElement(2))}>Inventario</div>
                 <div hidden={openedElement != 2}>
                     { info.modalidad !== 'Virtual' ? <ul>
-                        <li className={(inventario.sonido.cabinas <= 0 || !inventario.sonido.isRequired) && "text-decoration-line-through"}>
+                        <li className={(inventario.sonido.cabinas <= 0 || !inventario.sonido.isRequired) ? "text-decoration-line-through" : ""}>
                             {inventario.sonido.cabinas} Cabinas
                         </li>
-                        <li className={(inventario.sonido.microfonos <= 0 || !inventario.sonido.isRequired) && "text-decoration-line-through"}>
+                        <li className={(inventario.sonido.microfonos <= 0 || !inventario.sonido.isRequired) ? "text-decoration-line-through" : ""}>
                             {inventario.sonido.microfonos} Microfonos
                         </li>
-                        <li className={(!inventario.sonido.isRequired) && "text-decoration-line-through"}>
+                        <li className={(!inventario.sonido.isRequired) ? "text-decoration-line-through" : ""}>
                             Consola / Amplificador
                         </li> 
-                        <li className={(!inventario.filmacion.isRequired) && "text-decoration-line-through"}>
+                        <li className={(!inventario.filmacion.isRequired) ? "text-decoration-line-through" : ""}>
                             {inventario.filmacion && 1} Camara
                         </li>
-                        <li className={(inventario.proyeccion.videobeam <= 0 || !inventario.proyeccion.isRequired) && "text-decoration-line-through"}>
+                        <li className={(inventario.proyeccion.videobeam <= 0 || !inventario.proyeccion.isRequired) ? "text-decoration-line-through" : ""}>
                             {inventario.proyeccion.videobeam} Video Beam
                         </li>
-                        <li className={(inventario.sonido.telon <= 0 || !inventario.proyeccion.isRequired) && "text-decoration-line-through"}>
+                        <li className={(inventario.sonido.telon <= 0 || !inventario.proyeccion.isRequired) ? "text-decoration-line-through" : ""}>
                             {inventario.proyeccion.telon} Telón</li>
-                        <li className={(inventario.votacion.logisticos <= 0 || !inventario.votacion.isRequired || info.modalidad !== 'P-tarjetas') && "text-decoration-line-through"}>
+                        <li className={(inventario.votacion.logisticos <= 0 || !inventario.votacion.isRequired || info.modalidad !== 'P-tarjetas') ? "text-decoration-line-through" : ""}>
                             {inventario.votacion.logisticos} Lectores
                         </li>
                     </ul> : <p> - La asamblea es Virtual. No requiere equipo Alguno</p>}
