@@ -32,8 +32,8 @@ function TableRow ({row , editRow , openModal , registroToEdit}) {
             })
             .then(response => response.json())
             .then(data => {
+                console.log(data);
                 const result = JSON.parse(data);
-                console.log(result);
                 alert(result.msj);
                 editRow(item.id , {driveFolder : result.url} , 'none' , false);
             })
