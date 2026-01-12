@@ -1,8 +1,13 @@
-.conectivate-bg {
-    background-color: #2957A4; 
+.pixel-bg {
+    background-color: #852272; 
 }
 
-.color-1{
+.log {
+    font-size: 20px;
+    /* color : #f9cc1a; */
+    color : #fff;
+}
+/* .color-1{
     color : #fff;
 }
 
@@ -12,4 +17,4 @@
 
 .color-3{
     color : #FFF212;            
-}
+} */

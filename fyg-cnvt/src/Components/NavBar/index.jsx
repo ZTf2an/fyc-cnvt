@@ -8,17 +8,14 @@ function NavBar () {
     const activeStyle = 'text-decoration-underline text-light'
     const { fetchData } = useContext(RegistroContext);
     return (
-        <Navbar className="conectivate-bg">
+        <Navbar className="pixel-bg">
             <div className="container-fluid d-flex justify-content-between">
                 <a className="navbar-brand fw-bold" href="#"
                 onClick={(e) => fetchData()} //BORRAR
                 >
-                    {/* <span className="color-1">CONEC</span>
-                    <span className="color-2">TÍ</span>
-                    <span className="color-3">VATE</span> */}
-                    <span className="color-1">F</span>
-                    <span className="color-2 fs-6">&</span>
-                    <span className="color-3">G</span>
+                    <span className="log">PIXEL FG</span>
+                    {/* <span className="color-1 fs-6">&</span>
+                    <span className="color-1">G</span> */}
                 </a>
 
                 <div className="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
