@@ -2,7 +2,7 @@ import { BsPencilSquare } from "react-icons/bs";
 
 function DescInc ({descChec , incCheck , descChange , incChange , descontar , incrementar , descuento , incremento}) {
     return ( 
-        <div className="col-md-3">
+        <div className="col-md">
             <div className="mb-3">
             <label htmlFor="input-descuento" className="form-label">Descuento</label>
             <div className="input-group">

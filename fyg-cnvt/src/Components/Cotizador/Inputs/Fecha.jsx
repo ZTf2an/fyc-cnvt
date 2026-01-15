@@ -13,15 +13,25 @@ function Fecha ({value}) {
         stringFecha = `${fecha.getFullYear()}-${month}-${day}`;
     }
 
-    return (
+    return (<>
+        {/* <!-- FECHA*--> */}
         <div className="col-md-3">
-            <label htmlFor="inputFecha" className="form-label">Fecha</label>
-            <input type="date" className="form-control" id="inputFecha" name="inputFecha" defaultValue={stringFecha} />
+            <label htmlFor="inputFecha" className="form-label">Fecha*</label>
+            <input type="date" className="form-control" id="inputFecha" name="inputFecha" required/>
             <div className="invalid-feedback">
             Pon la fecha del evento, o una aproximada!
             </div>
         </div>
-    )
+
+        {/* // <!-- HORA -->  */}
+        <div className="col-md-3">
+            <label htmlFor="inputHora" className="form-label">Hora.</label>
+            <input type="time" className="form-control" id="inputHora" name="inputHora"/>
+            <div className="invalid-feedback">
+                Pon la fecha del evento, o una aproximada!
+            </div>
+        </div> 
+    </>)
 }
 
 export default Fecha

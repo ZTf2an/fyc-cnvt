@@ -3,11 +3,11 @@ import { IoMdAddCircleOutline } from "react-icons/io";
 import { RegistroContext } from "../../Context";
 import TableRegistro from "../../Components/TableRegistro";
 import Searcher from "../../Components/Searcher";
-import Modal from "../../Components/Modal";
+import RegistroModal from "../../Components/Modal";
 import EditModal from "../../Components/EditModal";
 
 function Registro () {
-    const {searchValue , setSearchValue , registroToEdit } = useContext(RegistroContext)
+    const {searchValue , setSearchValue , registroToEdit , registroModalIsOpen , setRegistroModalIsOpen} = useContext(RegistroContext)
     return (
         <>
             <div className="mb-2 d-flex">
@@ -15,8 +15,9 @@ function Registro () {
                     type="button" 
                     className="btn btn-primary d-flex me-2 align-items-center" 
                     title="Nuevo Registro de Cotización"
-                    data-bs-toggle="modal"
-                    data-bs-target="#registroModal"
+                    // data-bs-toggle="modal"
+                    // data-bs-target="#registroModal"
+                    onClick={e=>setRegistroModalIsOpen(true)}
                 > 
                 <IoMdAddCircleOutline className="fs-4 me-2"/>
                 Nuevo
@@ -24,7 +25,7 @@ function Registro () {
                 <Searcher change={setSearchValue} searchValue={searchValue}/>
             </div>
             <TableRegistro />
-            <Modal />
+            <RegistroModal />
             <EditModal regTarget={registroToEdit}/>
         </>
     )

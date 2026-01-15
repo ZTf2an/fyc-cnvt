@@ -2,25 +2,13 @@ import { BsTelephoneFill } from "react-icons/bs";
 
 function Tel ({value}) {
     return (
-        <div className="col-md-3">
-                <label htmlFor="inputTelefono" className="form-label">Numero Telefónico</label>
-                <div className="input-group has-validation">
-                <span className="input-group-text" id="inputGroupPrepend"><BsTelephoneFill /></span>
-                <input 
-                    type="number" 
-                    className="form-control" 
-                    id="inputTelefono" 
-                    name="inputNumeroTelefonico" 
-                    placeholder="300123456" 
-                    minLength="3" 
-                    maxLength="10"
-                    defaultValue={value}
-                />
-                <div className="invalid-feedback">
-                    Escribir numero telefonico del cliente.
-                </div>
-                </div>
-            </div>
+        <div className="col-md-6">
+              <label htmlFor="inputTelefono" className="form-label">Numero Telefónico.</label>
+              <input type="number" className="form-control" id="inputTelefono" name="inputNumeroTelefonico" placeholder="300123456" minLength="3" maxLength="10"/>
+              <div className="invalid-feedback">
+                Escribir numero telefonico del cliente.
+              </div>
+        </div>
     )
 }
 
