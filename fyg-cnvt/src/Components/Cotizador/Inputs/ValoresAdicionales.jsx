@@ -1,59 +1,74 @@
+import { Accordion, Form } from "react-bootstrap";
 
-
-function ValoresAdicionales ({value , valorControles , setValorControles}) {
-
-    return (
+function ValoresAdicionales({ value, setValue }) {
+  return (
     <div className="col-md-4 mb-3">
-        <div className="accordion">
-            <div className="accordion-item border-top-0 border-start-0 border-end-0">
-                <h2 className="accordion-header" id="headingOne">
-                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                    Valores Adicionales
-                </button>
-                </h2>
-                <div id="collapseOne" className="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div className="accordion-body">
-                        <label className="form-label">Valor de acompañamiento <strong>Virtual</strong></label>
-                        <input 
-                            className="form-control text-end" 
-                            type="number" 
-                            defaultValue={value[0] || 500000} 
-                            name="inputValorAcoVirtual" 
-                            onChange={e => console.log(e)}
-                            required
-                        />
-                        <label className="form-label">Valor adicional de transportes o viaticos <strong>Presencial</strong></label>
-                        <input 
-                            className="form-control text-end" 
-                            type="number" 
-                            defaultValue={value[2] || 0} 
-                            name="inputValorAcoPresencial"
-                            onChange={e => console.log(e)} 
-                            required
-                        />
-                        <label className="form-label">Valor adicional por <strong>Controles</strong></label>
-                        <input 
-                            className="form-control text-end" 
-                            type="number" 
-                            value={value[3] || valorControles} 
-                            name="inputValorControles"
-                            onChange={e => setValorControles(e.target.value)} 
-                            required
-                        />
-                        <label className="form-label"> Valor de acompañamiento <strong>Mixta</strong></label>
-                        <input 
-                            className="form-control text-end" 
-                            type="number" 
-                            defaultValue={value[1] || 800000} 
-                            name="inputValorAcoMixta"
-                            onChange={e => console.log(e)}
-                        />
-                    </div>
-                </div>
-            </div>
-        </div> 
+      <Accordion>
+        <Accordion.Item eventKey="0" className="border-top-0 border-start-0 border-end-0">
+          <Accordion.Header>Valores Adicionales</Accordion.Header>
+          <Accordion.Body>
+            <Form.Label>
+              Valor de acompañamiento <strong>Virtual</strong>
+            </Form.Label>
+            <Form.Control
+              type="number"
+              defaultValue={value.valorExtraVirtual}
+              name="inputValorAcoVirtual"
+              onChange={(e) => setValue({...value , valorExtraVirtual:e.target.value})}
+              required
+              className="text-end"
+            />
+
+            <Form.Label>
+              Valor adicional de transportes o viáticos <strong>Presencial</strong>
+            </Form.Label>
+            <Form.Control
+              type="number"
+              defaultValue={value.valorTransporte}
+              name="inputValorAcoPresencial"
+              onChange={(e) => setValue({...value , valorTransporte:e.target.value})}
+              required
+              className="text-end"
+            />
+
+            <Form.Label>
+              Valor adicional por <strong>Controles</strong>
+            </Form.Label>
+            <Form.Control
+              type="number"
+              value={value.valorExtraControles}
+              name="inputValorControles"
+              onChange={(e) => setValue({...value , valorExtraControles : e.target.value})}
+              required
+              className="text-end"
+            />
+
+            <Form.Label>
+              Valor de acompañamiento <strong>Mixta</strong>
+            </Form.Label>
+            <Form.Control
+              type="number"
+              defaultValue={value.valorExtraMixta}
+              name="inputValorAcoMixta"
+              onChange={(e) => setValue({...value , valorExtraMixta : e.target.value})}
+              className="text-end"
+            />
+            
+            <Form.Label>
+            Equipos Adicionales <strong>Presencial</strong>
+            </Form.Label>
+            <Form.Control
+              type="number"
+              value={value.valorExtraEquipos}
+              name="inputValorExtraEquipos"
+              onChange={(e) => setValue({...value , valorExtraEquipos : e.target.value})}
+              className="text-end"
+            />
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
     </div>
-    )
+  );
 }
 
-export default ValoresAdicionales
+export default ValoresAdicionales;

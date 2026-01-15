@@ -2,43 +2,41 @@ import { BsPencilSquare } from "react-icons/bs";
 import { useState , useEffect} from "react";
 import ItemModifier from "../../../ItemModifier"
 
-function VotacionSetting ({value}) {
-    const [checked , setChecked] = useState(true);
+function VotacionSetting ({value , setValue}) {
     const [editIsClosed , setEditIsClosed] = useState(true);
-    const [defaultLogisticos , setDefaultLogisticos] = useState(2);
+    //se borró todo porque reposa en SonidoSettings
 
-    useEffect(()=>{
-        if(value !== undefined){
-            setChecked(value.isRequired);
-            setDefaultLogisticos(parseInt(value.logisticos))
-        };
-    },[value]);
+    const setChangesToValue = (changes) => {
+        let newObj = {votacion : {...value , ...changes}}; 
+        // console.log(newObj);
+        setValue(newObj);
+    };
 
     return (
         <div className="col-md-4 border-end border-start">
             <div className="input-group mb-2">
-                <input className={`${!checked && "text-decoration-line-through"} form-control`} value="Votación" disabled onChange={e=>e}/>
+                <input className={`${!value.isRequired && "text-decoration-line-through"} form-control`} value="Votación" disabled onChange={e=>e}/>
                 <span className="input-group-text">
                     <BsPencilSquare 
                         className="me-1" 
                         role="button" 
-                        hidden={!checked}
+                        hidden={!value.isRequired}
                         onClick={e=>setEditIsClosed(!editIsClosed)}
                     />
                     <input 
                         type="checkbox" 
                         className="form-check-input mt-0" 
-                        onClick={e=>setChecked(!checked)} 
+                        onClick={e=>setChangesToValue({isRequired : !value.isRequired})} 
                         onChange={e=>e} 
-                        value={checked ? 'on' : 'off'}
+                        value={value.isRequired ? 'on' : 'off'}
                         name="inputSerVotacion" 
-                        checked={checked}
+                        checked={value.isRequired}
                     />
                 </span>
             </div>
             <div name="contenedor-votacion" className="esconder-mostrar-contenedor" hidden={editIsClosed}>
                 <div className="row mb-1">
-                    <ItemModifier item={"🕴🏽"} textHelp={"Logisticos"} amount={defaultLogisticos} setAmount={setDefaultLogisticos}/>
+                    <ItemModifier item={"🕴🏽"} textHelp={"Logisticos"} amount={value.logisticos} setAmount={r => setChangesToValue({logisticos:parseInt(r)})}/>
                     {/* <div className="input-group mt-1" title={"Controles"}>
                         <span className="input-group-text" >
                             {"📟"}

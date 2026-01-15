@@ -5,6 +5,7 @@ function Modalidades ({valueV , valueM , valueP , valuePC}) {
     
     const [presencialT , setPresencialT] = useState("");
     const [presencialC , setPresencialC] = useState("");
+    const [presencialQR , setPresencialQR] = useState("");
     const [virtual , setVirtual] = useState("");
     const [mixta , setMixta] = useState("");
     
@@ -109,6 +110,18 @@ function Modalidades ({valueV , valueM , valueP , valuePC}) {
             <div className="form-check mb-2">
                 <input 
                     type="checkbox" 
+                    id="flexCheckMPresencialQR" 
+                    name="flexCheckMPresencialQR" 
+                    className="form-check-input" 
+                    checked={presencialQR == 'on'} 
+                    value={presencialQR} 
+                    onChange={e => setPresencialQR(toggleCheck(presencialQR))}
+                />
+                <label htmlFor="flexCheckMPresencialQR">Presencial con QR code</label>
+            </div>
+            <div className="form-check mb-2">
+                <input 
+                    type="checkbox" 
                     id="flexCheckMMixta" 
                     name="flexCheckMMixta" 
                     className="form-check-input" 
@@ -121,7 +134,7 @@ function Modalidades ({valueV , valueM , valueP , valuePC}) {
             <input 
                 type="checkbox" 
                 id="input-validarModalidad" 
-                checked={[virtual,presencialC,presencialT,mixta].some(el => el == 'on')} 
+                checked={[virtual,presencialC,presencialT,presencialQR,mixta].some(el => el == 'on')} 
                 onChange={e => e} 
                 required
                 hidden
