@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
 import {
   calcularValor,
-  extraerValorVirSegunPredios,
-  extraerVAlorPreSegunPredios,
-  extraerValorPCRSegunPredios,
-  extraerValorMSegunPredios,
-  extraerValorQRSegunPredios,
+  calcularValorControles ,
   calcularEquiposAdicionales,
   calcularLogisticos,
+  valorSegunPredios,
 } from "../../Utils/calcularValor";
 
 export const useCotizador = () => {
@@ -47,7 +44,6 @@ export const useCotizador = () => {
 
   // Cambios
   const [changes, setChanges] = useState(true);
-  const [changesAllowed, setChangesAllowed] = useState(false);
 
   // 👉 Manejo de descuento/incremento
   useEffect(() => {
@@ -74,7 +70,7 @@ export const useCotizador = () => {
 
     setDefaultValorVirtual(
       calcularValor(
-        extraerValorVirSegunPredios(numeroPredios),
+        valorSegunPredios(numeroPredios),
         [0],
         descuentoCoef,
         incrementoCoef
@@ -83,7 +79,7 @@ export const useCotizador = () => {
 
     setDefaultValorTarjetas(
       calcularValor(
-        extraerVAlorPreSegunPredios(numeroPredios),
+        valorSegunPredios(numeroPredios),
         [valoresAdicionales.valorTransporte, valoresAdicionales.valorExtraEquipos],
         descuentoCoef,
         incrementoCoef
@@ -92,10 +88,7 @@ export const useCotizador = () => {
 
     setDefaultValorControles(
       calcularValor(
-        extraerValorPCRSegunPredios(
-          extraerVAlorPreSegunPredios(numeroPredios),
-          numeroPredios
-        ),
+        valorSegunPredios(numeroPredios),
         [
           valoresAdicionales.valorTransporte,
           valoresAdicionales.valorExtraControles,
@@ -108,11 +101,8 @@ export const useCotizador = () => {
 
     setDefaultValorQR(
       calcularValor(
-        extraerValorQRSegunPredios(
-          numeroPredios,
-          extraerVAlorPreSegunPredios(numeroPredios)
-        ),
-        [valoresAdicionales.valorTransporte, valoresAdicionales.valorExtraEquipos],
+        valorSegunPredios(numeroPredios),
+        [valoresAdicionales.valorTransporte, valoresAdicionales.valorExtraEquipos , parseInt(numeroPredios)*800],
         descuentoCoef,
         incrementoCoef
       )
@@ -120,11 +110,8 @@ export const useCotizador = () => {
 
     setDefaultValorMixta(
       calcularValor(
-        extraerValorMSegunPredios(
-          extraerVAlorPreSegunPredios(numeroPredios),
-          numeroPredios
-        ),
-        [valoresAdicionales.valorExtraEquipos, valoresAdicionales.valorTransporte],
+        valorSegunPredios(numeroPredios),
+        [valoresAdicionales.valorExtraEquipos, valoresAdicionales.valorTransporte , valoresAdicionales.valorExtraMixta],
         descuentoCoef,
         incrementoCoef
       )
@@ -155,31 +142,33 @@ export const useCotizador = () => {
             ...prev,
             valorExtraEquipos: extraPorEquipos,
         }));
-        }
+        };
 
     }, [numeroPredios, serviciosAdicionales.sonido.cabinas, serviciosAdicionales.proyeccion.videobeam , serviciosAdicionales.votacion.logisticos]);
 
     // efecto que recalcula logisticos SOLO cuando cambia numeroPredios
     useEffect(() => {
     const nuevoLogisticos = calcularLogisticos(numeroPredios);
+    const extraPorControles = calcularValorControles(numeroPredios , 8000);
 
     setServiciosAdicionales((prev) => {
-        // solo actualiza si cambió
-        if (prev.votacion.logisticos !== nuevoLogisticos) {
-        return {
-            ...prev,
-            votacion: { ...prev.votacion, logisticos: nuevoLogisticos },
-        };
-        }
-        return prev;
+
+      // solo actualiza si cambió
+      if (prev.votacion.logisticos !== nuevoLogisticos) {
+      return {
+          ...prev,
+          votacion: { ...prev.votacion, logisticos: nuevoLogisticos },
+      };
+      }
+      return prev;
     });
+
+    setValoresAdicionales((prev)=>({...prev , valorExtraControles : extraPorControles}));
+    console.log
     }, [numeroPredios]);
 
   // 👉 Función auxiliar
-  const calcularValorControles = (ip) => {
-    const controles = isNaN(ip) ? 0 : ip;
-    return parseInt(controles) * 8500;
-  };
+  
 
   return {
     descuentoIsChecked,

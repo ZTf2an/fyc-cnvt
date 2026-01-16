@@ -12,6 +12,7 @@ export const RegistroProvider= ({children}) => {
     //Registro que se editará cuando se da click al botón de editar
     const [registroToEdit , setRegistroToEdit] = useState({});
     // console.log(JSON.stringify(registroToEdit) + 'desde context')
+    const [registroModalIsOpen , setRegistroModalIsOpen] = useState(false);
     const [editModalIsOpen , setEditModalIsOpen] = useState(false);
     const [editSideIsOpen , setEditSideIsOpen] = useState(false);
     const [editSideType , setEditSideType] = useState('Form');
@@ -207,6 +208,7 @@ export const RegistroProvider= ({children}) => {
             sendMail,
             searchValue , setSearchValue ,
             registroToEdit , setRegistroToEdit ,
+            registroModalIsOpen , setRegistroModalIsOpen ,
             editModalIsOpen , setEditModalIsOpen,
             editSideIsOpen , setEditSideIsOpen ,
             editSideType , setEditSideType ,
