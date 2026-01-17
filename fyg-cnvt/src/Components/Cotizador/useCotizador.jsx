@@ -7,6 +7,12 @@ import {
   valorSegunPredios,
 } from "../../Utils/calcularValor";
 
+// incrementos que se irán Agregando al pasar de los años
+const incrementoAnual = [
+  0, //2025
+  0, //2026
+]
+
 export const useCotizador = () => {
   // Descuento e incremento
   const [descuentoIsChecked, setDescuentoIsChecked] = useState(false);
@@ -149,7 +155,7 @@ export const useCotizador = () => {
     // efecto que recalcula logisticos SOLO cuando cambia numeroPredios
     useEffect(() => {
     const nuevoLogisticos = calcularLogisticos(numeroPredios);
-    const extraPorControles = calcularValorControles(numeroPredios , 8000);
+    const extraPorControles = calcularValorControles(numeroPredios , 5000);
 
     setServiciosAdicionales((prev) => {
 
