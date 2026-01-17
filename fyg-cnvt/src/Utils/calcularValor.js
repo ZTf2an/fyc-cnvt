@@ -1,12 +1,41 @@
-export function calcularValor( numeroPredios , descuento , incremento ) {
-    let valorTotal = valorSegunPredios(numeroPredios);
+export function calcularValor( defaultValor , extra , descuento , incremento ) {
+    // let valorTotal = valorSegunPredios(numeroPredios);
+    let valorTotal = parseInt(defaultValor) + parseInt(sumarArray(extra));
     valorTotal -= (valorTotal/100)*descuento;
     valorTotal += (valorTotal/100)*incremento;
     
     return valorTotal;
-  }
+}
 
-function valorSegunPredios(numeroPredios){
+export function calcularEquiposAdicionales(cabinas , videoBeam , camara , logisticos , predios) {
+
+  let valorCabinas = 0
+  let valorVideoBeam = 0
+  let valorCamara = 0
+  let valorLogisticos = 0
+
+  if ( cabinas > 2 ) {
+    valorCabinas = (cabinas - 2) * 250000;
+  };
+  if (videoBeam > 1 ) {
+    valorVideoBeam = (videoBeam-1) * 300000;
+  };
+  if (camara > 1 ) {
+    valorCamara = (camara-1) * 300000;
+  };
+  if (logisticos > calcularLogisticos(predios)) {
+    valorLogisticos = (logisticos - calcularLogisticos(predios)) * 150000;
+  };
+
+  return valorCabinas + valorVideoBeam + valorCamara + valorLogisticos;
+}
+
+  export function calcularValorControles (ip , valorPorControl) {
+    const controles = isNaN(ip) ? 0 : ip;
+    return parseInt(controles) * valorPorControl;
+  };
+
+export function valorSegunPredios(numeroPredios){
     let total;
     if (numeroPredios == 0) {
       total = 0
@@ -35,6 +64,17 @@ function valorSegunPredios(numeroPredios){
     return total;
   }
 
-  function valorVariosPredios( numero ){
-    
-  }
+  export function calcularLogisticos(numpre) {
+    let numLogs = (numpre < 100) ? 2 : ~~(numpre / 100) + 1;
+    // console.log(numLogs)
+    return numLogs;
+  };
+
+  function sumarArray (array) {
+    let total = 0;
+    array.forEach(i => {
+      total += parseInt(i);     
+    });
+    return total;
+  };
+
