@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-function Fecha ({value}) {
-    const [fecha , setFecha] = useState();
+function Fecha ({fechaObj , horaObj}) {
+    // const [fecha , setFecha] = useState();
     let stringFecha = "";
-    if (value) {
-        const preFecha = new Date(value);
+    if (fechaObj) {
+        const preFecha = new Date(fechaObj);
         const fecha = new Date(preFecha.getUTCFullYear(), preFecha.getUTCMonth(), preFecha.getUTCDate());
 
         const unformatedMonth = fecha.getMonth()+1 
@@ -17,7 +17,14 @@ function Fecha ({value}) {
         {/* <!-- FECHA*--> */}
         <div className="col-md-3">
             <label htmlFor="inputFecha" className="form-label">Fecha*</label>
-            <input type="date" className="form-control" id="inputFecha" name="inputFecha" required/>
+            <input 
+                type="date" 
+                className="form-control" 
+                id="inputFecha" 
+                name="inputFecha" 
+                defaultValue={stringFecha}
+                required
+            />
             <div className="invalid-feedback">
             Pon la fecha del evento, o una aproximada!
             </div>
@@ -26,7 +33,7 @@ function Fecha ({value}) {
         {/* // <!-- HORA -->  */}
         <div className="col-md-3">
             <label htmlFor="inputHora" className="form-label">Hora.</label>
-            <input type="time" className="form-control" id="inputHora" name="inputHora"/>
+            <input type="time" className="form-control" id="inputHora" name="inputHora" defaultValue={horaObj}/>
             <div className="invalid-feedback">
                 Pon la fecha del evento, o una aproximada!
             </div>

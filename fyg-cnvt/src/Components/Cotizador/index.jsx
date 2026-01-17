@@ -40,6 +40,7 @@ function Cotizador ({object , formName , edit , modalIsOpen , disableButton , se
             e.stopPropagation();
         } else {
             disableButton(true);
+            // console.log(params);
             postData(params, () => {
                 window.location.reload();
                 e.target.reset();
@@ -64,7 +65,7 @@ function Cotizador ({object , formName , edit , modalIsOpen , disableButton , se
         context.setDefaultValorVirtual(object?.valorV);
         context.setDefaultValorTarjetas(object?.valorP);
         context.setDefaultValorControles(object?.valorPC);
-        context.setDefaultValorQR(object?.valorQR);
+        context.setDefaultValorQR(object?.valorPQR);
         context.setDefaultValorMixta(object?.valorM);
     },[object]);
     
@@ -75,9 +76,15 @@ function Cotizador ({object , formName , edit , modalIsOpen , disableButton , se
             noValidate
             onSubmit={mySubmit}
         >
-            <Cliente value={object?.cliente}/>
-            {/* <Email value={object?.email}/> */}
-            <Fecha value={object?.fecha}/>
+            <Cliente 
+                value={object?.cliente}
+                conjunto={object?.cliente}
+                nit={object?.nit}
+                direccion={object?.direccion}
+                titular={object?.titular}
+                email={object?.email}
+            />
+            <Fecha fechaObj={object?.fecha} horaObj={object?.hora} />
             <Tel value={object?.tel}/>
             <Modalidades 
                 valueV={object?.modalidadV}
@@ -107,29 +114,10 @@ function Cotizador ({object , formName , edit , modalIsOpen , disableButton , se
                 incrementoCoef={context.incrementoCoef}
                 prediosDefault={context.numeroPredios}
             />
-            {/*<DescInc 
-                descChec={context.descuentoIsChecked}
-                incCheck={context.incrementoIsChecked}
-                descChange={context.setDescuentoIsChecked}
-                incChange={context.setIncrementoIsChecked}
-                descontar={context.setDescuentoCoef}
-                descuento={context.descuentoCoef}
-                incrementar={context.setIncrementoCoef}
-                incremento={context.incrementoCoef}
-            /> */}
             <ValoresAdicionales 
-                // value={
-                // [object?.valorAcomVirtual ,
-                // object?.valorAcomMixta ,
-                // object?.valorAdicPresencial ,
-                // object?.valorControles]
-                // }
                 value = { context.valoresAdicionales }
                 setValue = {context.setValoresAdicionales}
-                // valorControles={context.valorControles}
-                // setValorControles={context.setValorControles} 
             />
-            {/* <ServiciosAdicionales value={object?.servicios}/> */} 
             <ServiciosAdicionales value={context.serviciosAdicionales} setValue={context.setServiciosAdicionales}/>
         </form> 
     )
