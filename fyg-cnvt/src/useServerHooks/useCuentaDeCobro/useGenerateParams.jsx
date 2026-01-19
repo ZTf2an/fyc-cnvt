@@ -57,7 +57,7 @@ const getConcepto = (item) => {
             concepto += "servicios realizados ";
         }
     };
-    concepto += "de logística de Asamblea 2025";
+    concepto += "de logística de Asamblea 2026";
 
     return concepto;
 };
