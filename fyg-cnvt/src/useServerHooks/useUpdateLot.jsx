@@ -24,7 +24,7 @@ const objectParams = (params) => {
         valorP : params.inputValorPT,
         valorPC : params.inputValorPCR,
         valorV : params.inputValorVir,
-        valorPQR : params.inputValorPQR ,
+        // valorPQR : params.inputValorPQR ,
         valorM : params.inputValorM,
         valorAcomVirtual : params.inputValorAcoVirtual ,
         valorAcomMixta : params.inputValorAcoMixta ,
