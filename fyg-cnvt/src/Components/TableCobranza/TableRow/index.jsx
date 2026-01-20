@@ -56,8 +56,9 @@ function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , s
                     }
                 >
                     <option dafault="true">selecciona</option>
-                    <option >P-tarjetas</option>
                     <option >P-Controles</option>
+                    <option >P-tarjetas</option>
+                    <option >P-QRcode</option>
                     <option >Virtual</option>
                     <option >Mixta</option>
                 </select>
@@ -99,7 +100,8 @@ function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , s
                     }
                 >
                     <option dafault="true">selecciona</option>
-                    <option dafault="true">50</option>
+                    <option dafault="true">70</option>
+                    <option dafault="true">30</option>
                     <option dafault="true">100</option>
                 </select>
             </td>
@@ -113,8 +115,8 @@ function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , s
                     }
                 >
                     <option dafault="true">selecciona</option>
-                    <option >julian</option>
-                    <option >steffan</option>
+                    <option >diana</option>
+                    <option disabled>boren</option>
                 </select>
             </td>
             <td>

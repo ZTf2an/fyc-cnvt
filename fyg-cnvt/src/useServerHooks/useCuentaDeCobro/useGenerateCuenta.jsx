@@ -41,7 +41,7 @@ const validarRequisitos = ( modalidad , remitente , modo) => {
         alert('No ha indicado modalidad');
         // handleClose();
         return false
-    } else if (remitente != "julian" && remitente != 'steffan') {
+    } else if (remitente != "diana" && remitente != 'boren') {
         alert('No ha indicado el remitente (a nombre de quién irá la cuenta de cobro)');
         // alert(target.remitenteCuenta != "julian"  target.remitenteCuenta != 'steffan');
         // handleClose();

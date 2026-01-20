@@ -44,11 +44,11 @@ const getConcepto = (item) => {
     // const coef = 100 / parseInt(item.modoCTA);
     const toDate = new Date();
     const date = new Date(item.fecha);
-    if (item.modoCTA == '50') {
+    if (item.modoCTA !== '100') {
         if (toDate < date) {
-            concepto += "anticipo 50% por los servicios a realizar ";
+            concepto += `anticipo ${item.modoCTA}% por los servicios a realizar `;
         } else {
-            concepto += "saldo 50% por los servicios realizados ";
+            concepto += `saldo ${item.modoCTA}% por los servicios realizados `;
         };
     } else {
         if (toDate < date) {
@@ -57,7 +57,7 @@ const getConcepto = (item) => {
             concepto += "servicios realizados ";
         }
     };
-    concepto += "de logística de Asamblea 2025";
+    concepto += "de logística de Asamblea 2026";
 
     return concepto;
 };
