@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react"
 import { FaRegCheckCircle , FaCheckCircle } from "react-icons/fa";
 
-function Modalidades ({valueV , valueM , valueP , valuePC}) {
+function Modalidades ({valueV , valueM , valueP , valuePC , valueQR}) {
     
     const [presencialT , setPresencialT] = useState("");
     const [presencialC , setPresencialC] = useState("");
     const [presencialQR , setPresencialQR] = useState("");
     const [virtual , setVirtual] = useState("");
     const [mixta , setMixta] = useState("");
+
+    
     
     useEffect(() => {
         setVirtual(check(valueV));
         setPresencialT(check(valueP));
         setPresencialC(check(valuePC));
+        setPresencialQR(check(valueQR));
         setMixta(check(valueM));
     },[valueV , valueM , valueP , valuePC])
 

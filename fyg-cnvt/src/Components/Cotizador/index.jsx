@@ -68,7 +68,7 @@ function Cotizador ({object , formName , edit , modalIsOpen , disableButton , se
         context.setDefaultValorQR(object?.valorPQR);
         context.setDefaultValorMixta(object?.valorM);
     },[object]);
-    
+
     return(
         <form 
             className="row g-3 needs-validation" 
@@ -90,6 +90,7 @@ function Cotizador ({object , formName , edit , modalIsOpen , disableButton , se
                 valueV={object?.modalidadV}
                 valueM={object?.modalidadM}
                 valueP={object?.modalidadP}
+                valueQR={object?.modalidadQR}
                 valuePC={object?.modalidadPC}
             />
             <PrediosValor 
