@@ -13,6 +13,7 @@ function TableGestion () {
           orderIcon , ordenarFecha , editRow ,
           setEditGestionModalIsOpen
         } = useContext(RegistroContext);
+
     return (
         <>
         <GestionEditModal/>
