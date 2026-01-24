@@ -26,7 +26,6 @@ export const useCotizador = () => {
 
   const [valoresAdicionales, setValoresAdicionales] = useState({
     valorExtraVirtual: 750000,
-    valorExtraMixta: 800000,
     numeroControles : 0,
     valorExtraControles: 0,
     valorTransporte: 80000,

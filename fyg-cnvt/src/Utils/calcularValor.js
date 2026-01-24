@@ -3,8 +3,9 @@ export function calcularValor( defaultValor , extra , descuento , incremento ) {
     let valorTotal = parseInt(defaultValor) + parseInt(sumarArray(extra));
     valorTotal -= (valorTotal/100)*descuento;
     valorTotal += (valorTotal/100)*incremento;
+    valorTotal += (valorTotal*0.05);//este ultimo Sumando, corresponde al incremento realizado en el año 2016 del 5%
     
-    return valorTotal;
+    return valorTotal
 }
 
 export function calcularEquiposAdicionales(cabinas , videoBeam , camara , logisticos , predios) {
