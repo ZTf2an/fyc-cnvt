@@ -34,7 +34,8 @@ const objectParams = (params) => {
         incremento : params.inputIncremento , 
         servicios : JSON.stringify(servicesJson) ,
         numeroControles : params.inputNumeroControles ,
-        notas : params.inputNotas
+        notas : params.inputNotas ,
+        referido : params.inputReferido
     }
 }
 

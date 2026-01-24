@@ -122,7 +122,15 @@ function Cotizador ({object , formName , edit , modalIsOpen , disableButton , se
                 setValue = {context.setValoresAdicionales}
             />
             <ServiciosAdicionales value={context.serviciosAdicionales} setValue={context.setServiciosAdicionales}/>
-            <Stack >
+            <Stack>
+                <FloatingLabel label="Referido">
+                    <Form.Control
+                    placeholder="Leave a comment here"
+                    name="inputReferido"
+                    className="mb-3"
+                    defaultValue={object?.notas}
+                />
+                </FloatingLabel>
                 <FloatingLabel label="Notas">
                     <Form.Control
                     as="textarea"
