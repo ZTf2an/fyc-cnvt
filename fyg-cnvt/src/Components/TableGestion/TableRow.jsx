@@ -19,18 +19,18 @@ function TableRow ({row , editRow , openModal , registroToEdit }) {
     };
 
     const copiarFila = async (obj) => {
-        const texto = [obj.cliente ,
+        const texto = [obj.id ,
         formatedDate(obj.fecha),
         formatHour(obj.hora),
         obj.cliente ,
         obj.nit ,
         obj.modalidad ,
         obj.predios ,
+        obj.numeroControles ,
         obj.email ,
         obj.tel ,
         obj.direccion ,
-        obj.notas ,
-        obj.numeroControles].join(`\t`);
+        obj.notas ,].join(`\t`);
         console.log(texto)
         try {
             await navigator.clipboard.writeText(texto);

@@ -10,7 +10,7 @@ function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , s
 
     const preFecha = new Date(row.fecha);
     const fecha = new Date(preFecha.getUTCFullYear(), preFecha.getUTCMonth(), preFecha.getUTCDate());
-
+    
     const valoresSegunModalidad = {
         "P-tarjetas" : row.valorP ,
         "P-Controles" : row.valorPC ,
@@ -19,7 +19,7 @@ function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , s
         "Mixta" : row.valorM ,
         "selecciona" : 0
     };
-
+    
     const openSideEditor = (e) => {
         openEditor(true);
         registroToEdit(row);
@@ -45,8 +45,7 @@ function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , s
         <tr key={row.id} className={row.pagado && "table-success"}>
             <td title={`Correo : ${row.email} \nPredios : ${row.predios}`}>{row.cliente}</td>                            
             <td>{row.nit}</td>                            
-            {/* <td>{row.modalidad? `$${valoresSegunModalidad[row.modalidad].toLocaleString('es-CO')}` : 'Por definir' }</td>                             */}
-            <td>{false? `$${valoresSegunModalidad[row.modalidad].toLocaleString('es-CO')}` : 'Por definir' }</td>                            
+            <td>{row.modalidad? `$${valoresSegunModalidad[row.modalidad].toLocaleString('es-CO')}` : 'Por definir' }</td>
             <td>
                 <select 
                     className="form-select form-select-sm" 

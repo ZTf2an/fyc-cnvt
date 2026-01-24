@@ -5,7 +5,7 @@ import formatHour from "./formatHour";
 // Este es el formato sugerido por Diana Prianeque
 const pixelFormat = ( obj ) => {
     const newObj = {
-        COPROPIEDAD : obj.cliente ,
+        ID : obj.cliente ,
         FECHA : formatedDate(obj.fecha) ,
         HORA : formatHour(obj.hora) ,
         CONJUNTO : obj.cliente ,
@@ -28,5 +28,4 @@ export default function generarExcel(arr) {
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Hoja1");
     XLSX.writeFile(wb, "ejemplo.xlsx");
-
 }
