@@ -25,8 +25,9 @@ export const useCotizador = () => {
   const [defaultValorMixta, setDefaultValorMixta] = useState(0);
 
   const [valoresAdicionales, setValoresAdicionales] = useState({
-    valorExtraVirtual: 500000,
+    valorExtraVirtual: 750000,
     valorExtraMixta: 800000,
+    numeroControles : 0,
     valorExtraControles: 0,
     valorTransporte: 80000,
     valorExtraEquipos: 0,
@@ -94,11 +95,10 @@ export const useCotizador = () => {
       calcularValor(
         extraerValorPCRSegunPredios(
           extraerVAlorPreSegunPredios(numeroPredios),
-          numeroPredios
+          valoresAdicionales.numeroControles
         ),
         [
           valoresAdicionales.valorTransporte,
-          valoresAdicionales.valorExtraControles,
           valoresAdicionales.valorExtraEquipos,
         ],
         descuentoCoef,
@@ -134,6 +134,7 @@ export const useCotizador = () => {
     numeroPredios,
     descuentoCoef,
     incrementoCoef,
+    valoresAdicionales.numeroControles,
     valoresAdicionales.valorTransporte,
     valoresAdicionales.valorExtraControles,
     valoresAdicionales.valorExtraEquipos,
@@ -172,7 +173,9 @@ export const useCotizador = () => {
         };
         }
         return prev;
-    });
+      });
+    
+    setValoresAdicionales({...valoresAdicionales , numeroControles : parseInt(numeroPredios)});
     }, [numeroPredios]);
 
   // 👉 Función auxiliar

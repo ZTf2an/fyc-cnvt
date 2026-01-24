@@ -32,7 +32,9 @@ const objectParams = (params) => {
         valorControles : params.inputValorControles ,
         descuento : params.inputDescuento ,
         incremento : params.inputIncremento , 
-        servicios : JSON.stringify(servicesJson)
+        servicios : JSON.stringify(servicesJson) ,
+        numeroControles : params.inputNumeroControles ,
+        notas : params.inputNotas
     }
 }
 

@@ -9,6 +9,7 @@ import Modalidades from "./Inputs/Modalidades";
 import PrediosValor from "./Inputs/PrediosValor";
 import ValoresAdicionales from "./Inputs/ValoresAdicionales";
 import ServiciosAdicionales from "./Inputs/ServiciosAdicionales";
+import { FloatingLabel, Stack , Form } from "react-bootstrap";
 // import Email from "./Inputs/Email"; Se Ignora por el nuevo orden que se le dió.
 // import DescInc from "./Inputs/DescInc";
 
@@ -67,6 +68,7 @@ function Cotizador ({object , formName , edit , modalIsOpen , disableButton , se
         context.setDefaultValorControles(object?.valorPC);
         context.setDefaultValorQR(object?.valorPQR);
         context.setDefaultValorMixta(object?.valorM);
+        context.setValoresAdicionales((prev) => ({...prev, numeroControles : object?.numeroControles}))
     },[object]);
 
     return(
@@ -120,6 +122,17 @@ function Cotizador ({object , formName , edit , modalIsOpen , disableButton , se
                 setValue = {context.setValoresAdicionales}
             />
             <ServiciosAdicionales value={context.serviciosAdicionales} setValue={context.setServiciosAdicionales}/>
+            <Stack >
+                <FloatingLabel label="Notas">
+                    <Form.Control
+                    as="textarea"
+                    placeholder="Leave a comment here"
+                    style={{ height: '100px' }}
+                    name="inputNotas"
+                    defaultValue={object?.notas}
+                />
+                </FloatingLabel>
+            </Stack>
         </form> 
     )
 }

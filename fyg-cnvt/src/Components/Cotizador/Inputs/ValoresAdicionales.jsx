@@ -1,6 +1,15 @@
-import { Accordion, Form } from "react-bootstrap";
+import { Accordion, Form, Row , Col } from "react-bootstrap";
+
+const formatNumber = (input) => {
+  if (isNaN(input)) {
+      return ""
+  } else {
+      return input
+  }
+};
 
 function ValoresAdicionales({ value, setValue }) {
+  console.log(value.numeroControles)
   return (
     <div className="col-md-4 mb-3">
       <Accordion>
@@ -32,18 +41,26 @@ function ValoresAdicionales({ value, setValue }) {
             />
 
             <Form.Label>
-              Valor adicional por <strong>Controles</strong>
+              <strong>Controles</strong>
             </Form.Label>
-            <Form.Control
+            <Form.Control 
+              className="text-end"
+              type="number"
+              name="inputNumeroControles"
+              value={formatNumber(value.numeroControles)}
+              onChange={(e) => setValue({...value , numeroControles : e.target.value})}
+              required
+            />
+            {/* <Form.Control
               type="number"
               value={value.valorExtraControles}
               name="inputValorControles"
               onChange={(e) => setValue({...value , valorExtraControles : e.target.value})}
               required
               className="text-end"
-            />
+            /> */}
 
-            <Form.Label>
+            {/* <Form.Label>
               Valor de acompañamiento <strong>Mixta</strong>
             </Form.Label>
             <Form.Control
@@ -52,7 +69,7 @@ function ValoresAdicionales({ value, setValue }) {
               name="inputValorAcoMixta"
               onChange={(e) => setValue({...value , valorExtraMixta : e.target.value})}
               className="text-end"
-            />
+            /> */}
             
             <Form.Label>
             Equipos Adicionales <strong>Presencial</strong>
