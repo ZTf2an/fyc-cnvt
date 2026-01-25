@@ -5,13 +5,14 @@ import formatHour from "./formatHour";
 // Este es el formato sugerido por Diana Prianeque
 const pixelFormat = ( obj ) => {
     const newObj = {
-        ID : obj.cliente ,
+        ID : obj.id ,
         FECHA : formatedDate(obj.fecha) ,
         HORA : formatHour(obj.hora) ,
         CONJUNTO : obj.cliente ,
         NIT : obj.nit ,
         MODALIDAD : obj.modalidad ,
         PREDIOS : obj.predios ,
+        CONTROLES : obj.numeroControles ,
         EMAIL : obj.email,
         TEL : obj.tel ,
         Dirección : obj.direccion ,
