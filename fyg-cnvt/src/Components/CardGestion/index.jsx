@@ -88,7 +88,7 @@ function CardGestion ({info , editRow}) {
                     <ul >
                         <li>Predios : {info.predios}</li>
                         <li>Nit : {info.nit}</li>
-                        <li>Dir : {info.dir}</li>
+                        <li>Dir : {info.direccion}</li>
                         <li>Tel : {info.tel}</li>
                         <li>Email : {info.email}</li>
                     </ul>
@@ -117,6 +117,9 @@ function CardGestion ({info , editRow}) {
                             {inventario.proyeccion.telon} Telón</li>
                         <li className={(inventario.votacion.logisticos <= 0 || !inventario.votacion.isRequired || info.modalidad !== 'P-tarjetas') ? "text-decoration-line-through" : ""}>
                             {inventario.votacion.logisticos} Lectores
+                        </li>
+                        <li className={(inventario.votacion.logisticos <= 0 || !inventario.votacion.isRequired || info.modalidad !== 'P-Controles') ? "text-decoration-line-through" : ""}>
+                            {info.numeroControles} Controles
                         </li>
                     </ul> : <p> - La asamblea es Virtual. No requiere equipo Alguno</p>}
                 </div>
