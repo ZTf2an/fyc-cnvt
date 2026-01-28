@@ -23,6 +23,7 @@ function EditModal({ regTarget }) {
         // body : JSON.stringify({url : target.docs})
       }).then(response => response.json())
       .then(data => { 
+        // console.log(data)
         data = JSON.parse(data);
         editRow(target.id , {pdf : data.url} , 'none' , false)
         console.log(data)
