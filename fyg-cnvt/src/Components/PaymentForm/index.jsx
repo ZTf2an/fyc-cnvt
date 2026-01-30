@@ -35,7 +35,7 @@ function PaymentForm () {
             });
         };
 
-        const diferencia = (valorTotal*0.94) - totalPagado;
+        const diferencia = (valorTotal*0.96) - totalPagado;
         return (<h4 className="m-2"><u>Falta por pagar $<strong>{diferencia.toLocaleString('es-CO')}</strong></u></h4>)
     };
     
