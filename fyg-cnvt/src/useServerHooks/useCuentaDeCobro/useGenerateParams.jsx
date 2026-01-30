@@ -13,23 +13,24 @@ function useGenerateParams (item) {
 const valoresSegunModalidad = (row) => {
     let adicionalPorHorasExtra = 0;
     const pricesMatrix = {
-        "P-tarjetas" : row.valorP ,
-        "P-Controles" : row.valorPC ,
-        "Virtual" : row.valorV ,
-        "Mixta" : row.valorM ,
+        "P-Controles" : {valor :row.valorPC , horaExtra : 150000} ,
+        "Mixta" : {valor :row.valorM , horaExtra : 150000},
+        "P-tarjetas" : {valor :row.valorP , horaExtra : 130000} ,
+        "P-QRcode" : {valor :row.valorPQR , horaExtra : 130000} ,
+        "Virtual" : {valor :row.valorV , horaExtra : 100000} 
     }
 
     let valor = 0;
 
     if ( row.duracion ) {
-        let horasExtra = parseInt(row.duracion) - 5;
+        let horasExtra = parseInt(row.duracion) - 6;
         if (horasExtra > 0) {
-            adicionalPorHorasExtra = horasExtra * 100000;
+            adicionalPorHorasExtra = horasExtra * pricesMatrix[row.modalidad].horaExtra;
         };
     };
     
     console.log('Adicional por horas '+adicionalPorHorasExtra)
-    valor = obtenerPorcentaje(pricesMatrix[row.modalidad] , row.modoCTA);
+    valor = obtenerPorcentaje(pricesMatrix[row.modalidad].valor , row.modoCTA);
 
     return valor + adicionalPorHorasExtra;
 };
