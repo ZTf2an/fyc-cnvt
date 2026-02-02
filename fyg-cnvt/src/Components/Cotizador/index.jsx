@@ -128,7 +128,7 @@ function Cotizador ({object , formName , edit , modalIsOpen , disableButton , se
                     placeholder="Leave a comment here"
                     name="inputReferido"
                     className="mb-3"
-                    defaultValue={object?.notas}
+                    defaultValue={object?.referido}
                 />
                 </FloatingLabel>
                 <FloatingLabel label="Notas">
