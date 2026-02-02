@@ -6,6 +6,7 @@ import { PiFilePdf } from "react-icons/pi";
 import { IoFolderOpenSharp } from "react-icons/io5";
 import { MdFolderOff , MdOutlineAddToDrive } from "react-icons/md";
 import { API_CNVT , API_GAS } from "../../Globals/API";
+import formatHour from "../../Utils/formatHour";
 
 function TableRow ({row , editRow , openModal , registroToEdit}) {
     const preFecha = new Date(row.fecha);
@@ -66,6 +67,8 @@ function TableRow ({row , editRow , openModal , registroToEdit}) {
         <td className="p-3" title={`Correo: ${row.email}\nDireccion: ${row.direccion}`}>{row.cliente}</td>
         <td className="p-3">{row.predios}</td>
         <td className="p-3">{fecha.toLocaleDateString('es-ES' , {day : 'numeric' , month : 'short'})}</td>
+        <td className="p-3">{formatHour(row.hora)}</td>
+        {/* <td className="p-3">{row.hora}</td> */}
         <td className="p-3">
             <Form.Select value={row.modalidad} onChange={e => editRow(row.id , {modalidad: e.target.value} , 'modalidad')}>
                 <option dafault="true">selecciona</option>
