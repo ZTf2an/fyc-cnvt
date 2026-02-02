@@ -5,6 +5,7 @@ import { MdOutlineAddToDrive } from "react-icons/md";
 import { HiOutlineMail } from "react-icons/hi";
 import "./CardGestion.css"
 import { API_CNVT, API_GAS } from "../../Globals/API";
+import formatHour from "../../Utils/formatHour";
 
 function CardGestion ({info , editRow}) {
     const preFecha = new Date(info.fecha);
@@ -201,7 +202,10 @@ function CardGestion ({info , editRow}) {
         </ListGroup>
         <Card.Body>
             <Stack direction="horizontal" gap={3}>
-                <div className="me-auto">{fecha.toLocaleDateString('es-ES', {month : 'short' , day :'numeric' })}</div>
+                <div className="me-auto">
+                    {fecha.toLocaleDateString('es-ES', {month : 'short' , day :'numeric' })+(!!(info.hora) ? " | "+formatHour(info.hora) : "")}
+                </div>
+                {/* <div className="me-auto ">{formatHour(info.hora)}</div> */}
                 <input type="color" defaultValue={'#FFFFFF'}/>
             </Stack>
         </Card.Body>

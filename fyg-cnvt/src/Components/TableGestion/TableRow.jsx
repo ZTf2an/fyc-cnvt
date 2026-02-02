@@ -91,6 +91,7 @@ function TableRow ({row , editRow , openModal , registroToEdit }) {
         </td>
         <td className="p-2">{row.predios}</td>
         <td className="p-2">{fecha.toLocaleDateString('es-ES' , {day : 'numeric' , month : 'short'})}</td>
+        <td className="p-2">{formatHour(row.hora)}</td>
         <td className="p-2">
             <Form.Select value={row.modalidad} onChange={e => editRow(row.id , {modalidad: e.target.value} , 'modalidad')}>
                 <option dafault="true">selecciona</option>

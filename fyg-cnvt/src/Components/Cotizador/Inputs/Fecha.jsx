@@ -1,4 +1,4 @@
-import { useState } from "react";
+import formatHour from "../../../Utils/formatHour";
 
 function Fecha ({fechaObj , horaObj}) {
     // const [fecha , setFecha] = useState();
@@ -33,7 +33,7 @@ function Fecha ({fechaObj , horaObj}) {
         {/* // <!-- HORA -->  */}
         <div className="col-md-3">
             <label htmlFor="inputHora" className="form-label">Hora.</label>
-            <input type="time" className="form-control" id="inputHora" name="inputHora" defaultValue={horaObj}/>
+            <input type="time" className="form-control" id="inputHora" name="inputHora" defaultValue={formatHour(horaObj , false)}/>
             <div className="invalid-feedback">
                 Pon la fecha del evento, o una aproximada!
             </div>
