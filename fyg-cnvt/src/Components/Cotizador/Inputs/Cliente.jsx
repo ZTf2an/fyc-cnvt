@@ -34,7 +34,7 @@ function Cliente ({conjunto , nit , direccion , titular , email}) {
             </div>
         </div>
         <div className="col-md-6 mb-1">
-            <label htmlFor="inputCorreo" className="form-label">Correo Electronico del Cleinte</label>
+            <label htmlFor="inputCorreo" className="form-label">Correo Electronico del Cliente</label>
             <div className="input-group has-validation">
                 <span className="input-group-text" id="inputGroupPrepend">@</span>
                 <input type="email" className="form-control" id="inputCorreo" name="inputCorreo" placeholder="cliente@ejemplo.com,correo@..." defaultValue={email} required/>
