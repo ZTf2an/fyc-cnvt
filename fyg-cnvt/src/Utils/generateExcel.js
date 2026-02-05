@@ -14,6 +14,7 @@ const pixelFormat = ( obj ) => {
         PREDIOS : obj.predios ,
         CONTROLES : obj.numeroControles ,
         EMAIL : obj.email,
+        ADMINISTRADOR: obj.titular,
         TEL : obj.tel ,
         Dirección : obj.direccion ,
         OBSERVACIÓN : obj.notas
