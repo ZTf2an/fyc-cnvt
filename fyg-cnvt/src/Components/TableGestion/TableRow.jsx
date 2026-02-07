@@ -28,6 +28,7 @@ function TableRow ({row , editRow , openModal , registroToEdit }) {
         obj.predios ,
         obj.numeroControles ,
         obj.email ,
+        obj.titular ,
         obj.tel ,
         obj.direccion ,
         obj.notas ,].join(`\t`);
