@@ -10,7 +10,7 @@ import Cotizador from "../Cotizador"
 
 function RegistroModal () {
     const { registroModalIsOpen , setRegistroModalIsOpen } = useContext(RegistroContext);
-    const [enviarIsChecked, setEnviarIsChecked] = useState(true);
+    const [enviarIsChecked, setEnviarIsChecked] = useState(false);
     const [buttonIsDisabled , setButtonIsDisabled] = useState(false);
 
     return (
