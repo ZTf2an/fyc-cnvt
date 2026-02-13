@@ -121,7 +121,7 @@ export const RegistroProvider= ({children}) => {
         const dataRow = data.find(row => row.id == id);
         const msj = editType[type](dataRow.cliente);
         const response = msj == 'none' ? true : confirm(msj) ;
-        console.log(response);
+        // console.log(response);
 
     
         if (response) {
@@ -129,7 +129,7 @@ export const RegistroProvider= ({children}) => {
             const dataIndex = newData.findIndex(row => row.id == id);
             const row = newData[dataIndex];
             newData[dataIndex] = {...row, ...changes};
-            console.log(newData[dataIndex]);
+            // console.log(newData[dataIndex]);
             setData(newData);
             setRegistroToEdit(newData[dataIndex]);
 

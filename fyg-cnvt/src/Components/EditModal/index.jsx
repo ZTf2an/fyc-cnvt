@@ -46,6 +46,7 @@ function EditModal({ regTarget }) {
         }),
       }).then(response => response.json())
       .then(data => {
+        if (data.startsWith("<"))console.log(data)
         data = JSON.parse(data);
         editRow(target.id , {docs : data.url} , 'none' , false);       
         console.log(data);
