@@ -1,3 +1,4 @@
+import { useCotizador } from "../useCotizador";
 import DescInc from "./DescInc";
 function PrediosValor ({
     prediosChange ,  
@@ -5,6 +6,10 @@ function PrediosValor ({
     defaultValorTarjetas ,
     defaultValorControles ,
     defaultValorQR ,
+    defaultValorSoloEquipos ,
+    defaultValorVirtualAcomp ,
+    changeDefaultValorVirtualAcomp ,
+    changeDefaultValorPSE,
     defaultValorMixta ,
     changeDefaultValorVirtual ,
     changeDefaultValorTarjetas ,
@@ -19,7 +24,9 @@ function PrediosValor ({
     descuentoCoef ,
     setIncrementoCoef ,
     incrementoCoef ,
-    prediosDefault}) {
+    prediosDefault ,
+    modalidades }) {
+
     const formatNumber = (input) => {
         if (isNaN(input)) {
             return ""
@@ -60,7 +67,7 @@ function PrediosValor ({
             />
         </div>
             <div className="col-md-6">
-                <div>
+                <div hidden={modalidades.virtual !== "on"}>
                     <label htmlFor="inputValorVir" className="form-label">Valor Virtual</label>
                     <input 
                         type="text" 
@@ -77,7 +84,24 @@ function PrediosValor ({
                       Digitar valor, Normalmente es automatico.
                     </div>
                 </div>
-                <div>
+                <div hidden={modalidades.virtualAcomp !== "on"}>
+                    <label htmlFor="inputValorVir" className="form-label">Valor Virtual con Acompañamiento</label>
+                    <input 
+                        type="text" 
+                        className="form-control text-end" 
+                        style={{"backgroundColor": "#e6db9b"}} 
+                        id="inputValorVirAc" 
+                        name="inputValorVirAc" 
+                        placeholder="Normalmente automatico" 
+                        value={formatNumber(defaultValorVirtualAcomp)}
+                        onChange={e=>changeDefaultValorVirtualAcomp(e.target.value)}
+                        required
+                    />
+                    <div className="invalid-feedback">
+                      Digitar valor, Normalmente es automatico.
+                    </div>
+                </div>
+                <div hidden={modalidades.tarjetas !== "on"}>
                     <label htmlFor="inputValorPT" className="form-label">Valor Presencial Tarjetas</label>
                     <input 
                         type="text" 
@@ -94,7 +118,7 @@ function PrediosValor ({
                       Digitar valor, Normalmente es automatico.
                     </div>
                 </div>
-                <div>
+                <div hidden={modalidades.controles !== "on"}>
                     <label htmlFor="inputValorPCR" className="form-label">Valor Presencial Controles</label>
                     <input 
                         type="text" 
@@ -111,7 +135,7 @@ function PrediosValor ({
                       Digitar valor, Normalmente es automatico.
                     </div>
                 </div>
-                <div>
+                <div hidden={modalidades.qr !== "on"}>
                     <label htmlFor="inputValorPQR" className="form-label">Valor Presencial QR code</label>
                     <input 
                         type="text" 
@@ -128,7 +152,24 @@ function PrediosValor ({
                       Digitar valor, Normalmente es automatico.
                     </div>
                 </div>
-                <div>
+                <div hidden={modalidades.soloEquipos !== "on"}>
+                    <label htmlFor="inputValorPQR" className="form-label">Valor Presencial Solo Equipos</label>
+                    <input 
+                        type="text" 
+                        className="form-control text-end" 
+                        style={{"backgroundColor": "#f0c0da"}}  
+                        id="inputValorPSE" 
+                        name="inputValorPSE" 
+                        placeholder="Normalmente automatico" 
+                        value={formatNumber(defaultValorSoloEquipos)}
+                        onChange={e=>changeDefaultValorPSE(e.target.value)}
+                        required
+                    />
+                    <div className="invalid-feedback">
+                      Digitar valor, Normalmente es automatico.
+                    </div>
+                </div>
+                <div hidden={modalidades.mixta !== "on"}>
                     <label htmlFor="inputValorM" className="form-label">Valor Mixta</label>
                     <input 
                         type="text" 
@@ -144,6 +185,30 @@ function PrediosValor ({
                     <div className="invalid-feedback">
                       Digitar valor, Normalmente es automatico.
                     </div>
+                </div>
+                <div hidden={[ 
+                        modalidades.virtual,
+                        modalidades.controles,
+                        modalidades.tarjetas,
+                        modalidades.qr,
+                        modalidades.mixta,
+                        modalidades.soloEquipos,
+                        modalidades.virtualAcomp
+                    ].some(el => el == 'on')} 
+                    className="text"
+                    style={{
+                        textAlign: "center",
+                        fontSize: "2rem",
+                        fontWeight: "bold",
+                        color: "#2c3e50",
+                        background: "linear-gradient(90deg, #bbddff, #c8c5fc)",
+                        padding: "20px",
+                        borderRadius: "10px",
+                        boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
+                        margin: "20px 5px"
+                    }}
+                >
+                    Escoge las modalidades para ver valores ...
                 </div>
             </div>
     </>)

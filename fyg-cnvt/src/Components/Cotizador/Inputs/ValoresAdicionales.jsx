@@ -9,7 +9,7 @@ const formatNumber = (input) => {
 };
 
 function ValoresAdicionales({ value, setValue }) {
-  console.log(value.numeroControles)
+  // console.log(value.numeroControles)
   return (
     <div className="col-md-4 mb-3">
       <Accordion>

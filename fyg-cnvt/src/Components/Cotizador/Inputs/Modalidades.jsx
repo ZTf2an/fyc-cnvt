@@ -1,31 +1,8 @@
 import { useEffect, useState } from "react"
 import { FaRegCheckCircle , FaCheckCircle } from "react-icons/fa";
+import { useCotizador } from "../useCotizador";
 
-function Modalidades ({valueV , valueM , valueP , valuePC , valueQR}) {
-    
-    const [presencialT , setPresencialT] = useState("");
-    const [presencialC , setPresencialC] = useState("");
-    const [presencialQR , setPresencialQR] = useState("");
-    const [virtual , setVirtual] = useState("");
-    const [mixta , setMixta] = useState("");
-
-    
-    
-    useEffect(() => {
-        setVirtual(check(valueV));
-        setPresencialT(check(valueP));
-        setPresencialC(check(valuePC));
-        setPresencialQR(check(valueQR));
-        setMixta(check(valueM));
-    },[valueV , valueM , valueP , valuePC])
-
-    const check = (state)=> {
-        if (state) {
-            return 'on';
-        } else {
-            return 'off'
-        }
-    }
+function Modalidades ({values , updateValues}) {
     
     const toggleCheck = (state) => {
         if (state == 'on') {
@@ -34,42 +11,6 @@ function Modalidades ({valueV , valueM , valueP , valuePC , valueQR}) {
             return 'on'
         }
     }
-
-    // const CheckBox = ({state}) => {
-    //     if (state) {
-    //         return (<FaCheckCircle />)
-    //     } else {
-    //         return (<FaRegCheckCircle />)
-    //     }
-    // }
-
-    // return ( 
-    // <div className="col-md-3">
-    //     <h4>Modalidad</h4>
-    //     <div className="form-check mb-2">
-    //         <CheckBox state={virtual}/>
-    //         {/* <input type="text" value={valueV} name="flexCheckMVirtual" onChange={e => sete.target.value} hidden/>          */}
-    //         <label htmlFor="flexCheckMVirtual">Virtual</label>
-    //     </div>
-    //     <div className="form-check mb-2">
-    //         <CheckBox state={valueP}/>
-    //         <label htmlFor="flexCheckMVirtual">Presencial con Tarjetas</label>
-    //     </div>
-    //     <div className="form-check mb-2">
-    //         <CheckBox state={valuePC}/>
-    //         <label htmlFor="flexCheckMVirtual">Presencial con Controles</label>
-    //     </div>
-    //     <div className="form-check mb-2">
-    //         <CheckBox state={valueM}/>
-    //         <label htmlFor="flexCheckMVirtual">Mixta</label>
-    //     </div>
-    //     {/* <input type="checkbox" id="input-validarModalidad" checked={[virtual,presencialC,presencialT,mixta].some(el => el)} onChange={e => e} required hidden/>
-    //     <div className="invalid-feedback">
-    //     Debe seleccionar al menos 1 Modalidad.
-    //     </div> */}
-        
-    // </div>
-    // )
 
     return (
         <div className="col-md-3">
@@ -80,11 +21,23 @@ function Modalidades ({valueV , valueM , valueP , valuePC , valueQR}) {
                     id="flexCheckMVirtual" 
                     name="flexCheckMVirtual" 
                     className="form-check-input" 
-                    checked={virtual == 'on'} 
-                    value={virtual} 
-                    onChange={e => setVirtual(toggleCheck(virtual))}
+                    checked={values.virtual == 'on'} 
+                    value={values.virtual} 
+                    onChange={e => updateValues.setVirtual(toggleCheck(values.virtual))}
                 />
                 <label htmlFor="flexCheckMVirtual">Virtual</label>
+            </div>
+            <div className="form-check mb-2">
+                <input 
+                    type="checkbox" 
+                    id="flexCheckMVirtualA" 
+                    name="flexCheckMVirtualA" 
+                    className="form-check-input" 
+                    checked={values.virtualAcomp == 'on'} 
+                    value={values.virtualAcomp} 
+                    onChange={e => updateValues.setVirtualAcomp(toggleCheck(values.virtualAcomp))}
+                />
+                <label htmlFor="flexCheckMVirtualA">Virtual con Acompañamiento</label>
             </div>
             <div className="form-check mb-2">
                 <input 
@@ -92,9 +45,9 @@ function Modalidades ({valueV , valueM , valueP , valuePC , valueQR}) {
                     id="flexCheckMPresencialT" 
                     name="flexCheckMPresencialT" 
                     className="form-check-input" 
-                    checked={presencialT == 'on'} 
-                    value={presencialT} 
-                    onChange={e => setPresencialT(toggleCheck(presencialT))}
+                    checked={values.tarjetas == 'on'} 
+                    value={values.tarjetas} 
+                    onChange={e => updateValues.setTarjetas(toggleCheck(values.tarjetas))}
                 />
                 <label htmlFor="flexCheckMPresencialT">Presencial con Tarjetas</label>
             </div>
@@ -104,9 +57,9 @@ function Modalidades ({valueV , valueM , valueP , valuePC , valueQR}) {
                     id="flexCheckMPresencialC" 
                     name="flexCheckMPresencialC" 
                     className="form-check-input" 
-                    checked={presencialC == 'on'} 
-                    value={presencialC} 
-                    onChange={e => setPresencialC(toggleCheck(presencialC))}
+                    checked={values.controles == 'on'} 
+                    value={values.controles} 
+                    onChange={e => updateValues.setControles(toggleCheck(values.controles))}
                 />
                 <label htmlFor="flexCheckMPresencialC">Presencial con Controles</label>
             </div>
@@ -116,11 +69,23 @@ function Modalidades ({valueV , valueM , valueP , valuePC , valueQR}) {
                     id="flexCheckMPresencialQR" 
                     name="flexCheckMPresencialQR" 
                     className="form-check-input" 
-                    checked={presencialQR == 'on'} 
-                    value={presencialQR} 
-                    onChange={e => setPresencialQR(toggleCheck(presencialQR))}
+                    checked={values.qr == 'on'} 
+                    value={values.qr} 
+                    onChange={e => updateValues.setQr(toggleCheck(values.qr))}
                 />
                 <label htmlFor="flexCheckMPresencialQR">Presencial con QR code</label>
+            </div>
+            <div className="form-check mb-2">
+                <input 
+                    type="checkbox" 
+                    id="flexCheckMPresencialSE" 
+                    name="flexCheckMPresencialSE" 
+                    className="form-check-input" 
+                    checked={values.soloEquipos == 'on'} 
+                    value={values.soloEquipos} 
+                    onChange={e => updateValues.setSoloEquipos(toggleCheck(values.soloEquipos))}
+                />
+                <label htmlFor="flexCheckMPresencialSE">Presencial Solo Equipos</label>
             </div>
             <div className="form-check mb-2">
                 <input 
@@ -128,16 +93,24 @@ function Modalidades ({valueV , valueM , valueP , valuePC , valueQR}) {
                     id="flexCheckMMixta" 
                     name="flexCheckMMixta" 
                     className="form-check-input" 
-                    checked={mixta == 'on'} 
-                    value={mixta} 
-                    onChange={e => setMixta(toggleCheck(mixta))}
+                    checked={values.mixta == 'on'} 
+                    value={values.mixta} 
+                    onChange={e => updateValues.setMixta(toggleCheck(values.mixta))}
                 />
                 <label htmlFor="flexCheckMMixta">Mixta</label>
             </div>
             <input 
                 type="checkbox" 
                 id="input-validarModalidad" 
-                checked={[virtual,presencialC,presencialT,presencialQR,mixta].some(el => el == 'on')} 
+                checked={[ 
+                    values.virtual,
+                    values.controles,
+                    values.tarjetas,
+                    values.qr,
+                    values.mixta,
+                    values.soloEquipos,
+                    values.virtualAcomp
+                ].some(el => el == 'on')} 
                 onChange={e => e} 
                 required
                 hidden

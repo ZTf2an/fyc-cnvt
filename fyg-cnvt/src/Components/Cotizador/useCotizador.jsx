@@ -9,6 +9,7 @@ import {
   calcularEquiposAdicionales,
   calcularLogisticos,
 } from "../../Utils/calcularValor";
+import ValoresAdicionales from "./Inputs/ValoresAdicionales";
 
 export const useCotizador = () => {
   // Descuento e incremento
@@ -19,10 +20,21 @@ export const useCotizador = () => {
 
   // Valores por defecto
   const [defaultValorVirtual, setDefaultValorVirtual] = useState(0);
+  const [defaultValorVirtualAcomp, setDefaultValorVirtualAcomp] = useState(0);
   const [defaultValorTarjetas, setDefaultValorTarjetas] = useState(0);
   const [defaultValorControles, setDefaultValorControles] = useState(0);
   const [defaultValorQR, setDefaultValorQR] = useState(0);
+  const [defaultValorPSE, setDefaultValorPSE] = useState(0);
   const [defaultValorMixta, setDefaultValorMixta] = useState(0);
+
+  //Modalidades
+  const [presencialT , setPresencialT] = useState("");
+  const [presencialC , setPresencialC] = useState("");
+  const [presencialQR , setPresencialQR] = useState("");
+  const [virtual , setVirtual] = useState("");
+  const [mixta , setMixta] = useState("");
+  const [virtualAcomp , setVirtualAcomp] = useState("");
+  const [presencialSoloEq , setPresencialSoloEq] = useState("");
 
   const [valoresAdicionales, setValoresAdicionales] = useState({
     valorExtraVirtual: 750000,
@@ -38,7 +50,7 @@ export const useCotizador = () => {
   // Servicios Adicionales
   const [serviciosAdicionales, setServiciosAdicionales] = useState({
     acta: { isRequired: true },
-    filmacion: { isRequired: true },
+    filmacion: { isRequired: true , camaras : 1},
     votacion: { isRequired: true, logisticos: 2 },
     sonido: { isRequired: true, cabinas: 2, microfonos: 3, patinadores: 1 },
     proyeccion: { isRequired: true, videobeam: 1, telon: 1 },
@@ -81,6 +93,15 @@ export const useCotizador = () => {
       )
     );
 
+    setDefaultValorVirtualAcomp(
+      calcularValor(
+        extraerValorVirSegunPredios(numeroPredios),
+        [valoresAdicionales.valorExtraVirtual],
+        descuentoCoef,
+        incrementoCoef
+      )
+    );
+
     setDefaultValorTarjetas(
       calcularValor(
         extraerVAlorPreSegunPredios(numeroPredios),
@@ -116,6 +137,18 @@ export const useCotizador = () => {
         incrementoCoef
       )
     );
+    
+    setDefaultValorPSE(
+      calcularValor(
+        750000,
+        [
+          valoresAdicionales.valorTransporte, 
+          valoresAdicionales.valorExtraEquipos
+        ],
+        descuentoCoef,
+        incrementoCoef ,
+      )
+    );
 
     setDefaultValorMixta(
       calcularValor(
@@ -137,6 +170,7 @@ export const useCotizador = () => {
     valoresAdicionales.valorTransporte,
     valoresAdicionales.valorExtraControles,
     valoresAdicionales.valorExtraEquipos,
+    valoresAdicionales.valorExtraVirtual,
   ]);
 
   // 👉 Actualizar servicios y equipos adicionales
@@ -144,7 +178,7 @@ export const useCotizador = () => {
         const extraPorEquipos = calcularEquiposAdicionales(
         serviciosAdicionales.sonido.cabinas,
         serviciosAdicionales.proyeccion.videobeam,
-        1,
+        serviciosAdicionales.filmacion.camaras,
         serviciosAdicionales.votacion.logisticos,
         numeroPredios
         );
@@ -157,7 +191,13 @@ export const useCotizador = () => {
         }));
         }
 
-    }, [numeroPredios, serviciosAdicionales.sonido.cabinas, serviciosAdicionales.proyeccion.videobeam , serviciosAdicionales.votacion.logisticos]);
+    }, [ 
+      numeroPredios, 
+      serviciosAdicionales.filmacion.camaras ,
+      serviciosAdicionales.sonido.cabinas ,
+      serviciosAdicionales.proyeccion.videobeam ,
+      serviciosAdicionales.votacion.logisticos
+    ]);
 
     // efecto que recalcula logisticos SOLO cuando cambia numeroPredios
     useEffect(() => {
@@ -184,33 +224,28 @@ export const useCotizador = () => {
   };
 
   return {
-    descuentoIsChecked,
-    setDescuentoIsChecked,
-    incrementoIsChecked,
-    setIncrementoIsChecked,
-    defaultValorVirtual,
-    setDefaultValorVirtual,
-    defaultValorTarjetas,
-    setDefaultValorTarjetas,
-    defaultValorControles,
-    setDefaultValorControles,
-    defaultValorQR,
-    setDefaultValorQR,
-    defaultValorMixta,
-    setDefaultValorMixta,
-    numeroPredios,
-    setNumeroPredios,
-    incrementoCoef,
-    setIncrementoCoef,
-    descuentoCoef,
-    setDescuentoCoef,
-    valorControles,
-    setValorControles,
-    valoresAdicionales,
-    setValoresAdicionales,
-    serviciosAdicionales,
-    setServiciosAdicionales,
-    changes,
-    setChanges,
+    descuentoIsChecked , setDescuentoIsChecked,
+    incrementoIsChecked , setIncrementoIsChecked,
+    defaultValorVirtual , setDefaultValorVirtual,
+    defaultValorVirtualAcomp, setDefaultValorVirtualAcomp,
+    defaultValorTarjetas , setDefaultValorTarjetas,
+    defaultValorControles , setDefaultValorControles,
+    defaultValorQR , setDefaultValorQR,
+    defaultValorPSE, setDefaultValorPSE,
+    defaultValorMixta , setDefaultValorMixta,
+    numeroPredios , setNumeroPredios,
+    incrementoCoef , setIncrementoCoef,
+    descuentoCoef , setDescuentoCoef,
+    valorControles , setValorControles,
+    valoresAdicionales , setValoresAdicionales,
+    serviciosAdicionales , setServiciosAdicionales,
+    presencialT , setPresencialT ,
+    presencialC , setPresencialC ,
+    presencialQR , setPresencialQR ,
+    virtual , setVirtual,
+    mixta , setMixta,
+    virtualAcomp , setVirtualAcomp ,
+    presencialSoloEq , setPresencialSoloEq,
+    changes , setChanges
   };
 };

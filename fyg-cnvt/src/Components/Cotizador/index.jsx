@@ -71,6 +71,24 @@ function Cotizador ({object , formName , edit , modalIsOpen , disableButton , se
         context.setValoresAdicionales((prev) => ({...prev, numeroControles : object?.numeroControles}))
     },[object]);
 
+    useEffect(() => {
+        context.setVirtual(check(object?.modalidadV));
+        context.setPresencialT(check(object?.modalidadP));
+        context.setPresencialC(check(object?.modalidadPC));
+        context.setPresencialQR(check(object?.modalidadQR));
+        context.setMixta(check(object?.modalidadM));
+        context.setVirtualAcomp(check(object?.modalidadVA));
+        context.setPresencialSoloEq(check(object?.modalidadSE));
+    },[object])
+
+    const check = (state)=> {
+        if (state) {
+            return 'on';
+        } else {
+            return 'off'
+        }
+    }
+
     return(
         <form 
             className="row g-3 needs-validation" 
@@ -89,11 +107,24 @@ function Cotizador ({object , formName , edit , modalIsOpen , disableButton , se
             <Fecha fechaObj={object?.fecha} horaObj={object?.hora} />
             <Tel value={object?.tel}/>
             <Modalidades 
-                valueV={object?.modalidadV}
-                valueM={object?.modalidadM}
-                valueP={object?.modalidadP}
-                valueQR={object?.modalidadQR}
-                valuePC={object?.modalidadPC}
+                values = {{
+                    virtual:context.virtual ,
+                    tarjetas: context.presencialT ,
+                    controles: context.presencialC ,
+                    qr: context.presencialQR ,
+                    soloEquipos : context.presencialSoloEq,
+                    virtualAcomp : context.virtualAcomp,
+                    mixta : context.mixta
+                }}
+                updateValues = {{
+                    setVirtual:context.setVirtual ,
+                    setTarjetas: context.setPresencialT ,
+                    setControles: context.setPresencialC ,
+                    setQr: context.setPresencialQR ,
+                    setSoloEquipos : context.setPresencialSoloEq,
+                    setVirtualAcomp : context.setVirtualAcomp,
+                    setMixta : context.setMixta
+                }}
             />
             <PrediosValor 
                 prediosChange={context.setNumeroPredios}
@@ -102,8 +133,12 @@ function Cotizador ({object , formName , edit , modalIsOpen , disableButton , se
                 defaultValorControles={context.defaultValorControles}
                 defaultValorQR={context.defaultValorQR}
                 defaultValorMixta={context.defaultValorMixta}
+                defaultValorSoloEquipos={context.defaultValorPSE}
+                defaultValorVirtualAcomp={context.defaultValorVirtualAcomp}
                 changeDefaultValorVirtual={context.setDefaultValorVirtual}
+                changeDefaultValorVirtualAcomp={context.setDefaultValorVirtualAcomp}
                 changeDefaultValorTarjetas={context.setDefaultValorTarjetas}
+                changeDefaultValorPSE={context.setDefaultValorPSE}
                 changeDefaultValorControles={context.setDefaultValorControles}
                 changeDefaultValorQR={context.setDefaultValorQR}
                 changeDefaultValorMixta={context.setDefaultValorMixta}
@@ -116,6 +151,15 @@ function Cotizador ({object , formName , edit , modalIsOpen , disableButton , se
                 setIncrementoCoef={context.setIncrementoCoef}
                 incrementoCoef={context.incrementoCoef}
                 prediosDefault={context.numeroPredios}
+                modalidades = {{
+                    virtual:context.virtual ,
+                    tarjetas: context.presencialT ,
+                    controles: context.presencialC ,
+                    qr: context.presencialQR ,
+                    soloEquipos : context.presencialSoloEq,
+                    virtualAcomp : context.virtualAcomp,
+                    mixta : context.mixta
+                }}
             />
             <ValoresAdicionales 
                 value = { context.valoresAdicionales }

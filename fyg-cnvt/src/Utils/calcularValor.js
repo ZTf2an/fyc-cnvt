@@ -1,9 +1,9 @@
-export function calcularValor( defaultValor , extra , descuento , incremento ) {
+export function calcularValor( defaultValor , extra , descuento , incremento , aplicarIncAnual = true ) {
     // let valorTotal = valorSegunPredios(numeroPredios);
     let valorTotal = parseInt(defaultValor) + parseInt(sumarArray(extra));
     valorTotal -= (valorTotal/100)*descuento;
     valorTotal += (valorTotal/100)*incremento;
-    valorTotal += (valorTotal*0.05);//este ultimo Sumando, corresponde al incremento realizado en el año 2016 del 5%
+    if (aplicarIncAnual) valorTotal += (valorTotal*0.05);//este ultimo Sumando, corresponde al incremento realizado en el año 2016 del 5%
     
     return valorTotal
 }

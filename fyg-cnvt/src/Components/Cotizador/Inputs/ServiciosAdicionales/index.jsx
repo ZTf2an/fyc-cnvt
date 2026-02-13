@@ -30,7 +30,7 @@ function ServiciosAdicionales ({value , setValue}) {
                     <ActaSetting value={value?.acta?.isRequired} setValue={setChangesToValue}/>
                     <SonidoSetting value={value?.sonido} setValue={setChangesToValue}/>
                     <VotacionSetting value={value?.votacion} setValue={setChangesToValue}/>
-                    <FilmacionSetting value={value?.filmacion?.isRequired} setValue={setChangesToValue}/>
+                    <FilmacionSetting value={value?.filmacion} setValue={setChangesToValue}/>
                     <ProyeccionSetting value={value?.proyeccion} setValue={setChangesToValue}/>
                     <CircuitoSetting value={value?.cctv} setValue={setChangesToValue}/>
                     </div>
