@@ -6,7 +6,13 @@ function useGenerateParams (item) {
     // console.log(translator.toWords(valor));
     const concepto = getConcepto(item);
     
-    return { valorNumerico : valor , valorEnLetra : translator.toWords(parseInt(valor)) , concepto : concepto}
+    return { 
+        valorNumerico : valor.total ,
+        valorEnLetra : translator.toWords(parseInt(valor.total)) ,
+        concepto : concepto ,
+        extra : valor.extra ,
+        default : valor.default
+    }
     
 };
 
@@ -31,7 +37,11 @@ const valoresSegunModalidad = (row) => {
     console.log('Adicional por horas '+adicionalPorHorasExtra)
     valor = obtenerPorcentaje(pricesMatrix[row.modalidad] , row.modoCTA);
 
-    return valor + adicionalPorHorasExtra;
+    return { 
+        total : valor + adicionalPorHorasExtra , 
+        extra : adicionalPorHorasExtra , 
+        default : valor
+    };
 };
 
 const obtenerPorcentaje = (valorString , porcentajeString) => {
