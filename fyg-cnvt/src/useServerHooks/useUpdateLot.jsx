@@ -19,6 +19,7 @@ const objectParams = (params) => {
         nit : params.inputNit ,
         modalidadP : params.flexCheckMPresencialT=='on' ,
         modalidadPC : params.flexCheckMPresencialC=='on' ,
+        modalidadQR : params.flexCheckMPresencialQR=='on',
         modalidadV : params.flexCheckMVirtual=='on' ,
         modalidadM : params.flexCheckMMixta=='on' ,
         valorP : params.inputValorPT,
