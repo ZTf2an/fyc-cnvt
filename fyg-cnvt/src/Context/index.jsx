@@ -81,6 +81,17 @@ export const RegistroProvider= ({children}) => {
         item => item.registroData.toLowerCase().includes(searchValue.toLowerCase()) || 
         item.cobranzaData.toLowerCase().includes(searchValue.toLowerCase())
     );
+
+    //TOAST | contiene todo lo Relacionado con la creacion de los Toast
+    const [activeToast, setActiveToast] = useState([]);
+    const [newToast, setNewToast] = useState(null);
+
+    useEffect(() => {
+    if (newToast) {
+        setActiveToast(prev => [...prev, newToast]);
+    }
+    }, [newToast]);
+
     
     //Extrae la data de la hoja Sheets - la url es del servidor local http://localhost:3000
     const fetchData = () => {
@@ -94,7 +105,10 @@ export const RegistroProvider= ({children}) => {
             setData(data.reverse());
             setLoading(false);
         })
-        .catch(error => setServerError(true));
+        .catch(error => {
+            setServerError(true);
+            setNewToast({msj:"No hay conexión. Revisar internet."});
+        });
         console.log('fetch de datos finalizado');
     };
     useEffect(()=>{
@@ -147,8 +161,14 @@ export const RegistroProvider= ({children}) => {
                         })
                     })
                     .then(response => response.json())
-                    .then(data => console.log(data))
-                    .catch(error => console.log(error))
+                    .then(data => {
+                        if (data.startsWith("<")) {
+                            const exception = data.match(/Exception:[^<]+/)
+                            throw `No se guardaron los cambios de ${registroToEdit.cliente} ${exception}`;
+                        }
+                        setNewToast(JSON.stringify(data))
+                    })
+                    .catch(error => setNewToast({status:"Error" , msj:error}))
 
                 } else {
                     fetch(`${API_CNVT}/globals`,{
@@ -162,8 +182,8 @@ export const RegistroProvider= ({children}) => {
                         }) 
                     })
                     .then(response => response.json())
-                    .then(data => console.log(data))
-                    .catch(error => console.log(error))
+                    .then(data => setNewToast(JSON.parse(data)))
+                    .catch(error => setNewToast({msj:error}))
                 };
 
             };
@@ -213,7 +233,8 @@ export const RegistroProvider= ({children}) => {
             editSideIsOpen , setEditSideIsOpen ,
             editSideType , setEditSideType ,
             editGestionModalIsOpen , setEditGestionModalIsOpen ,
-            ordenarFecha
+            ordenarFecha,
+            activeToast , newToast , setNewToast
         }}>
             {children}
         </RegistroContext.Provider>
