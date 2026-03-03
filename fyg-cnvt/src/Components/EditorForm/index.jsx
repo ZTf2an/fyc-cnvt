@@ -52,6 +52,14 @@ function EditorForm ({reg , editRow}) {
                 <Form.Label>Valor Mixta</Form.Label>
                 <Form.Control type="text" name='valorM' placeholder="500000" defaultValue={reg.valorM}/>
             </Form.Group>
+            <Form.Group className='mb-3' controlId='valorVA'>
+                <Form.Label>Valor Virtual con Acompañamiento</Form.Label>
+                <Form.Control type="text" name='valorVA' placeholder="500000" defaultValue={reg.valorVA}/>
+            </Form.Group>
+            <Form.Group className='mb-3' controlId='valorSE'>
+                <Form.Label>Valor Presencial (Solo Equipos) </Form.Label>
+                <Form.Control type="text" name='valorSE' placeholder="500000" defaultValue={reg.valorSE}/>
+            </Form.Group>
         </Form>
     )
 }

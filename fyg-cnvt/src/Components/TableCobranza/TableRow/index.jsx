@@ -17,7 +17,9 @@ function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , s
         "P-QRcode" : row.valorPQR ,
         "Virtual" : row.valorV ,
         "Mixta" : row.valorM ,
-        "selecciona" : 0
+        "Virtual-Acomp" : row.valorVA ,
+        "P-Equipos" : row.valorSE ,
+        "selecciona" : 0 
     };
     
     const openSideEditor = (e) => {
@@ -62,6 +64,9 @@ function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , s
                     <option >P-QRcode</option>
                     <option >Virtual</option>
                     <option >Mixta</option>
+                    <option >Virtual-Acomp</option>
+                    <option >P-Equipos</option>
+
                 </select>
             </td>                            
             <td>{fecha.toLocaleDateString('es-ES', {month : 'short' , day :'numeric' })}</td>

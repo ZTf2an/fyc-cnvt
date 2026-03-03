@@ -101,6 +101,8 @@ function TableRow ({row , editRow , openModal , registroToEdit }) {
                 <option>P-QRcode</option>
                 <option >Virtual</option>
                 <option >Mixta</option>
+                <option >Virtual-Acomp</option>
+                <option >P-Equipos</option>
             </Form.Select>
         </td>
         <td className="p-2">{row.tel}</td>
