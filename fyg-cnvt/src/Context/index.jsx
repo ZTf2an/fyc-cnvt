@@ -145,7 +145,6 @@ export const RegistroProvider= ({children}) => {
             console.log(newData[dataIndex]);
             setData(newData);
             setRegistroToEdit(newData[dataIndex]);
-            console.log(changes)
 
             if ( changesToServer ){
                 console.log('Se están enviando los datos al servidor')
