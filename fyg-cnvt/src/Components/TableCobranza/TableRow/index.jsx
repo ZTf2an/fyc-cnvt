@@ -64,8 +64,8 @@ function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , s
                     <option >P-QRcode</option>
                     <option >Virtual</option>
                     <option >Mixta</option>
-                    <option >Virtual-Acomp</option>
-                    <option >P-Equipos</option>
+                    <option disabled>Virtual-Acomp</option>
+                    <option disabled>P-Equipos</option>
 
                 </select>
             </td>                            

@@ -23,7 +23,9 @@ const valoresSegunModalidad = (row) => {
         "Mixta" : {valor :row.valorM , horaExtra : 150000},
         "P-tarjetas" : {valor :row.valorP , horaExtra : 130000} ,
         "P-QRcode" : {valor :row.valorPQR , horaExtra : 130000} ,
-        "Virtual" : {valor :row.valorV , horaExtra : 100000} 
+        "Virtual" : {valor :row.valorV , horaExtra : 100000} ,
+        "Virtual-Acomp" : {valor : row.valorVA , horaExtra : 100000},
+        "P-Equipos" : {valor : row.valorPSE , horaExtra : 100000}
     }
 
     let valor = 0;
