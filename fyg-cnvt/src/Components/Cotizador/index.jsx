@@ -91,6 +91,7 @@ function Cotizador ({object , formName , edit , modalIsOpen , disableButton , se
                 valueM={object?.modalidadM}
                 valueP={object?.modalidadP}
                 valuePC={object?.modalidadPC}
+                valuePQR={object?.modalidadQR}
             />
             <PrediosValor 
                 prediosChange={context.setNumeroPredios}
