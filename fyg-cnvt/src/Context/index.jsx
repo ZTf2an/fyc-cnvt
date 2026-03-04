@@ -145,6 +145,7 @@ export const RegistroProvider= ({children}) => {
             console.log(newData[dataIndex]);
             setData(newData);
             setRegistroToEdit(newData[dataIndex]);
+            console.log(changes)
 
             if ( changesToServer ){
                 console.log('Se están enviando los datos al servidor')
@@ -161,11 +162,12 @@ export const RegistroProvider= ({children}) => {
                     })
                     .then(response => response.json())
                     .then(data => {
+                        // console.log(JSdata)
                         if (data.startsWith("<")) {
                             const exception = data.match(/Exception:[^<]+/)
                             throw `No se guardaron los cambios de ${registroToEdit.cliente} ${exception}`;
                         }
-                        setNewToast(JSON.stringify(data))
+                        setNewToast(JSON.parse(data))
                     })
                     .catch(error => setNewToast({status:"Error" , msj:error}))
 
