@@ -40,9 +40,9 @@ function EditorForm ({reg , editRow}) {
                 <Form.Label>Valor Presencial con Controles</Form.Label>
                 <Form.Control type="text" name='valorPC' placeholder="500000" defaultValue={reg.valorPC}/>
             </Form.Group>
-            <Form.Group className='mb-3' controlId='valorQR'>
+            <Form.Group className='mb-3' controlId='valorPQR'>
                 <Form.Label>Valor Presencial con QR code</Form.Label>
-                <Form.Control type="text" name='valorQR' placeholder="500000" defaultValue={reg.valorPQR}/>
+                <Form.Control type="text" name='valorPQR' placeholder="500000" defaultValue={reg.valorPQR}/>
             </Form.Group>
             <Form.Group className='mb-3' controlId='valorV'>
                 <Form.Label>Valor Virtual</Form.Label>
