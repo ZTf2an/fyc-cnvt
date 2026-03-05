@@ -161,11 +161,12 @@ export const RegistroProvider= ({children}) => {
                     })
                     .then(response => response.json())
                     .then(data => {
+                        // console.log(JSdata)
                         if (data.startsWith("<")) {
                             const exception = data.match(/Exception:[^<]+/)
                             throw `No se guardaron los cambios de ${registroToEdit.cliente} ${exception}`;
                         }
-                        setNewToast(JSON.stringify(data))
+                        setNewToast(JSON.parse(data))
                     })
                     .catch(error => setNewToast({status:"Error" , msj:error}))
 

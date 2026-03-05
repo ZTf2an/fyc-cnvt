@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { FaRegCheckCircle , FaCheckCircle } from "react-icons/fa";
 
-function Modalidades ({valueV , valueM , valueP , valuePC}) {
+function Modalidades ({valueV , valueM , valueP , valuePC , valuePQR}) {
     
     const [presencialT , setPresencialT] = useState("");
     const [presencialC , setPresencialC] = useState("");
@@ -14,6 +14,7 @@ function Modalidades ({valueV , valueM , valueP , valuePC}) {
         setPresencialT(check(valueP));
         setPresencialC(check(valuePC));
         setMixta(check(valueM));
+        setPresencialQR(check(valuePQR));
     },[valueV , valueM , valueP , valuePC])
 
     const check = (state)=> {
@@ -31,42 +32,6 @@ function Modalidades ({valueV , valueM , valueP , valuePC}) {
             return 'on'
         }
     }
-
-    // const CheckBox = ({state}) => {
-    //     if (state) {
-    //         return (<FaCheckCircle />)
-    //     } else {
-    //         return (<FaRegCheckCircle />)
-    //     }
-    // }
-
-    // return ( 
-    // <div className="col-md-3">
-    //     <h4>Modalidad</h4>
-    //     <div className="form-check mb-2">
-    //         <CheckBox state={virtual}/>
-    //         {/* <input type="text" value={valueV} name="flexCheckMVirtual" onChange={e => sete.target.value} hidden/>          */}
-    //         <label htmlFor="flexCheckMVirtual">Virtual</label>
-    //     </div>
-    //     <div className="form-check mb-2">
-    //         <CheckBox state={valueP}/>
-    //         <label htmlFor="flexCheckMVirtual">Presencial con Tarjetas</label>
-    //     </div>
-    //     <div className="form-check mb-2">
-    //         <CheckBox state={valuePC}/>
-    //         <label htmlFor="flexCheckMVirtual">Presencial con Controles</label>
-    //     </div>
-    //     <div className="form-check mb-2">
-    //         <CheckBox state={valueM}/>
-    //         <label htmlFor="flexCheckMVirtual">Mixta</label>
-    //     </div>
-    //     {/* <input type="checkbox" id="input-validarModalidad" checked={[virtual,presencialC,presencialT,mixta].some(el => el)} onChange={e => e} required hidden/>
-    //     <div className="invalid-feedback">
-    //     Debe seleccionar al menos 1 Modalidad.
-    //     </div> */}
-        
-    // </div>
-    // )
 
     return (
         <div className="col-md-3">
