@@ -182,7 +182,7 @@ export const RegistroProvider= ({children}) => {
                     })
                     .then(response => response.json())
                     .then(data => setNewToast(JSON.parse(data)))
-                    .catch(error => setNewToast({msj:error}))
+                    .catch(error => setNewToast({ status:"Error",msj:error}))
                 };
 
             };
@@ -206,9 +206,15 @@ export const RegistroProvider= ({children}) => {
                 },
                 body : JSON.stringify({url : `${API_GAS}?type=sendMail&docType=${type}` , body : {data:obj}})
             })
-              .then(response => response.json())
-              .then(data => alert(JSON.parse(data).msj))
-              .catch(error => console.log(error))
+            .then(response => response.json())
+            .then(data => {
+                if (data.startsWith("<")) {
+                    const exception = data.match(/Exception:[^<]+/) || data.match(/TypeError:[^<]+/)
+                    throw `No se guardaron los cambios de ${obj.cliente} ${exception}`;
+                }
+                setNewToast(JSON.parse(data))
+            })
+              .catch(error => setNewToast({ status:"Error",msj:error}))
         } else {
             return false;
         };

@@ -11,7 +11,7 @@ export function ToastAlerter ({msj , status}) {
 
     return (
         <Toast 
-            bg={type[status.toLowerCase()].bg} 
+            bg={type[status?.toLowerCase()].bg} 
             show={show} 
             autohide={true}
             onClose={toggleShow}
