@@ -3,7 +3,7 @@ import useGenerateParams from './useGenerateParams';
 
 const generarCuenta = (target , editRow , handleClose) => {
     // const {editRow} = useContext(RegistroContext);
-    const check = validarRequisitos( target.modalidad , target.remitenteCuenta , target.modoCTA)
+    const check = validarRequisitos( target.modalidad , target.remitenteCuenta || "julian" , target.modoCTA)
     if (check) {
         const response = confirm(`Está seguro de que desea generar la cuenta de cobro para ${target.cliente}?`);
         if ( response ) {
@@ -24,6 +24,7 @@ const generarCuenta = (target , editRow , handleClose) => {
             })
             .then(response => response.json())
             .then(data => {
+                console.log(data)
                 const parsedData = JSON.parse(data);
                 // console.log(data.url);
                 editRow(target.id , {docsCuenta : parsedData.url} , 'none' , false );
@@ -41,7 +42,7 @@ const validarRequisitos = ( modalidad , remitente , modo) => {
         alert('No ha indicado modalidad');
         // handleClose();
         return false
-    } else if (remitente != "julian" && remitente != 'steffan') {
+    } else if (remitente != "julian" && remitente != 'steffan') { 
         alert('No ha indicado el remitente (a nombre de quién irá la cuenta de cobro)');
         // alert(target.remitenteCuenta != "julian"  target.remitenteCuenta != 'steffan');
         // handleClose();
