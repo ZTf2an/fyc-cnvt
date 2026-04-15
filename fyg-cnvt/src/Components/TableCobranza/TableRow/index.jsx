@@ -103,7 +103,7 @@ function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , s
                     <option dafault="true">100</option>
                 </select>
             </td>
-            <td>
+            <td hidden>
                 <select 
                     className="form-select form-select-sm"
                     aria-label=".form-select-sm"
@@ -112,9 +112,8 @@ function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , s
                         edit(row.id , {remitenteCuenta : e.target.value} , 'remitenteCuenta')}
                     }
                 >
-                    <option dafault="true">selecciona</option>
+                    <option default>steffan</option>
                     <option >julian</option>
-                    <option >steffan</option>
                 </select>
             </td>
             <td>
