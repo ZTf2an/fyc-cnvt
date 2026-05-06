@@ -122,6 +122,7 @@ function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , s
                 >
                     <option dafault="true">selecciona</option>
                     <option >diana</option>
+                    <option >daniel</option>
                     <option disabled>boren</option>
                 </select>
             </td>
