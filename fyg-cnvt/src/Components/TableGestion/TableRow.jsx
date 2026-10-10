@@ -8,8 +8,9 @@ import { MdFolderOff , MdOutlineAddToDrive } from "react-icons/md";
 import { API_CNVT , API_GAS } from "../../Globals/API";
 import formatedDate from "../../Utils/formatDate"
 import formatHour from "../../Utils/formatHour"
+import { apiPost } from "../../services/apiPetition";
 
-function TableRow ({row , editRow , openModal , registroToEdit }) {
+function TableRow ({row , editRow , openModal , registroToEdit , toast }) {
     const preFecha = new Date(row.fecha);
     const fecha = new Date(preFecha.getUTCFullYear(), preFecha.getUTCMonth(), preFecha.getUTCDate());
 
@@ -44,41 +45,37 @@ function TableRow ({row , editRow , openModal , registroToEdit }) {
     const crearCarpeta = (item) => {
         if (!item.driveFolder) {
             editRow(item.id , { driveFolder : 'load'} , 'createFolder' , false);
-            fetch(API_CNVT+'/globals' , {
-                method : 'POST',
-                headers : {
-                    'Content-Type': 'application/json'
-                },
-                body : JSON.stringify({url : `${API_GAS}?type=createFolder` , body : {id : item.id , data : item}})
-            })
-            .then(response => response.json())
-            .then(data => {
+            
+            const onSuccesHandler = data => {
+                console.log(data);
                 const result = JSON.parse(data);
-                console.log(result);
-                alert(result.msj);
+                toast({status : result.status , msj : `Carpeta de ${item.cliente}:\n${result.msj}`});
                 editRow(item.id , {driveFolder : result.url} , 'none' , false);
-            })
-            .catch(err => alert(`Error : ${err}`))
+            };
+
+            const onErrorHandler = error => {
+                toast({status : 'error' , msj : error})
+            };
+
+            apiPost({type : 'createFolder'} , {id : item.id , data : item} , onSuccesHandler , onErrorHandler)
         };
     };
 
     const sendMail = (item) => {
         const response = confirm('¿Está Seguro de que quiere enviar los informes de '+item.cliente+'?');
         if (response) {
-            fetch(API_CNVT+'/globals' , {
-                method : 'POST',
-                headers : {
-                    'Content-Type': 'application/json'
-                },
-                body : JSON.stringify({url : `${API_GAS}?type=sendMail&&docType=folder` , body : { data : item}})
-            })
-            .then(response => response.json())
-            .then(data => {
+
+            const onSuccesHandler = data => {
                 const result = JSON.parse(data);
                 console.log(result);
-                alert(result.msj);
-            })
-            .catch(err => alert(`Error : ${err}`))
+                toast({status: result.status , msj : result.msj});
+            };
+
+            const onErrorHandler = error => {
+                toast({status : "error" , msj : error});
+            };
+
+            apiPost({type:'sendMail' , docType : 'folder'} , { data : item} , onSuccesHandler , onErrorHandler );
         };
         return response
     };

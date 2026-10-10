@@ -3,11 +3,11 @@ import { Modal , Form , Button, Row, Col , Container ,Stack} from 'react-bootstr
 import { RegistroContext } from '../../Context';
 import { parsedParams } from '../../useServerHooks/useCreate';
 import formatedDate from '../../Utils/formatDate';
-import { API_CNVT , API_GAS } from '../../Globals/API';
+import { apiPost } from '../../services/apiPetition';
 // import Modal from 'react-bootstrap/Modal';
 
 function GestionEditModal () {
-    const { registroToEdit , editGestionModalIsOpen , setEditGestionModalIsOpen , editRow} = useContext(RegistroContext);
+    const { registroToEdit , editGestionModalIsOpen , setEditGestionModalIsOpen , editRow , setNewToast} = useContext(RegistroContext);
 
     const handleClose = () => setEditGestionModalIsOpen(false);
 
@@ -20,20 +20,16 @@ function GestionEditModal () {
 
     const generarCertificado = (item) => {
         if (confirm("Va a generar el certificado de votaciones de "+item.cliente+".")) {
-            fetch(API_CNVT+'/globals' , {
-                method : 'POST',
-                headers : {
-                    'Content-Type': 'application/json'
-                },
-                body : JSON.stringify({url : `${API_GAS}?type=createCertVot` , body : {id : item.id , data : item}})
-            })
-            .then(response => response.json())
-            .then(data => {
+            const onSuccessHandler = data => {
                 const result = JSON.parse(data);
-                console.log(result);
-                alert(result.msj);
-            })
-            .catch(err => alert(`Error : ${err}`))
+                setNewToast(result);
+            };
+
+            const onErrorHandler = error => {
+                setNewToast({status:'error' , msj : error})
+            }
+            
+            apiPost({type : 'createCertVot'} , {id : item.id , data : item} , onSuccessHandler , onErrorHandler )
         };
         setEditGestionModalIsOpen(false)
     };

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Badge, Button , Modal } from "react-bootstrap";
+import { Badge, Button } from "react-bootstrap";
 import { RegistroContext } from "../../Context";
 import Loader from "../Loader";
 import TableRow from "./TableRow";
@@ -11,7 +11,7 @@ function TableGestion () {
     const { data , searchedData , serverError ,
           loading , orderContition , setRegistroToEdit ,
           orderIcon , ordenarFecha , editRow ,
-          setEditGestionModalIsOpen
+          setEditGestionModalIsOpen , setNewToast
         } = useContext(RegistroContext);
 
     return (
@@ -43,6 +43,7 @@ function TableGestion () {
                                 editRow={editRow}
                                 openModal={setEditGestionModalIsOpen}
                                 registroToEdit={setRegistroToEdit}
+                                toast={setNewToast}
                             />
                     )}
                 </tbody>
