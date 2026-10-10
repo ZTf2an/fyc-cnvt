@@ -2,54 +2,48 @@ import { useContext } from "react";
 import { RegistroContext } from "../../Context";
 import Cotizador from "../Cotizador";
 import { Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter, Button, Stack , Row, Container } from 'react-bootstrap';
-import { API_CNVT , API_GAS} from "../../Globals/API";
+import { apiPost } from "../../services/apiPetition";
 
 function EditModal({ regTarget }) {
-    const { editRow , editModalIsOpen , setEditModalIsOpen } = useContext(RegistroContext);
+    const { editRow , editModalIsOpen , setEditModalIsOpen , setNewToast} = useContext(RegistroContext);
 
     const editPdf = (target) => {
       editRow(target.id , {pdf : 'load'} , 'pdf' , false);
       setEditModalIsOpen(false);
 
-      fetch(`${API_CNVT}/globals`,{
-        method : 'POST',
-        headers : {
-          'Content-Type': 'application/json'
-        },
-        body : JSON.stringify({
-            url :`${API_GAS}?type=createpdf&docType=COTIZACION`, 
-            body : {id : target.id , data : {url : target.docs} }
-        })
-        // body : JSON.stringify({url : target.docs})
-      }).then(response => response.json())
-      .then(data => { 
+      const onSuccessHandler = data => {
         data = JSON.parse(data);
         editRow(target.id , {pdf : data.url} , 'none' , false)
-        console.log(data)
-      })
-      .catch(e => console.log(e))
+        setNewToast({status : data.status , msj : `PDF de cotización de ${target.cliente}:\n${data.msj}`}) 
+      };
+      const onErrorHandler = error => {
+        setNewToast({status : 'error' , msj : error})
+      };
+
+      apiPost(
+        {type : 'createpdf' , docType : 'COTIZACION'} ,
+        {id : target.id , data : {url : target.docs} } ,
+        onSuccessHandler , onErrorHandler);
     };
 
     const updateDocs = (target) => {
       editRow(target.id , {docs : 'load'} , 'docs' , false);
       setEditModalIsOpen(false);
       
-      fetch(`${API_CNVT}/globals`,{
-        method : 'POST',
-        headers : {
-          'Content-Type': 'application/json'
-        },
-        body : JSON.stringify({
-          url :`${API_GAS}?type=updateDocs&docType=COTIZACION`, 
-          body : {id : target.id , data : target }
-        }),
-      }).then(response => response.json())
-      .then(data => {
+      const onSuccesHandler = data => {
         data = JSON.parse(data);
         editRow(target.id , {docs : data.url} , 'none' , false);       
-        console.log(data);
-      })
-      .catch(e => console.log(e))
+        setNewToast({status : data.status , msj : `Docs de Cotización de ${target.cliente}: ${data.msj}`});
+      };
+      const onErrorHandler = error => {
+        setNewToast({status : 'error' , msj : error})
+      };
+      
+      apiPost(
+        {type : 'updateDocs' , docType : 'COTIZACION'} ,
+        {id : target.id , data : target } ,
+        onSuccesHandler , onErrorHandler
+      )
     };
   
     return (

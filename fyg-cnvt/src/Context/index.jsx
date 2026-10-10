@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { API_CNVT, API_GAS } from "../Globals/API";
+import { apiGet, apiPost } from "../services/apiPetition";
 
 export const RegistroContext = createContext();
 
@@ -8,7 +8,7 @@ export const RegistroProvider= ({children}) => {
     const [loading , setLoading] = useState(true);
     const [serverError , setServerError] = useState(false);
     const [data , setData] = useState([]);
-   
+    
     //Registro que se editará cuando se da click al botón de editar
     const [registroToEdit , setRegistroToEdit] = useState({});
     // console.log(JSON.stringify(registroToEdit) + 'desde context')
@@ -17,11 +17,11 @@ export const RegistroProvider= ({children}) => {
     const [editSideIsOpen , setEditSideIsOpen] = useState(false);
     const [editSideType , setEditSideType] = useState('Form');
     const [editGestionModalIsOpen , setEditGestionModalIsOpen] = useState(false);
-
+    
     //Ordenar la data por fecha
     const [orderContition , setOrderCondition] = useState('none');
     const [orderIcon , setOrderIcon] = useState('');
-
+    
     // Formatea Data con 2 objetos adicionales para Searcher
     const formatedData = data.map(item => {
         const preFecha = new Date(item.fecha);
@@ -61,7 +61,7 @@ export const RegistroProvider= ({children}) => {
             return dateA - dateB;
         });
     };
-
+    
     const ordenarFecha = (e) => {
         if (e.target.value === 'none') {
             setOrderCondition('mayor');
@@ -81,17 +81,17 @@ export const RegistroProvider= ({children}) => {
         item => item.registroData.toLowerCase().includes(searchValue.toLowerCase()) || 
         item.cobranzaData.toLowerCase().includes(searchValue.toLowerCase())
     );
-
+    
     //TOAST | contiene todo lo Relacionado con la creacion de los Toast
     const [activeToast, setActiveToast] = useState([]);
     const [newToast, setNewToast] = useState(null);
 
     useEffect(() => {
-    if (newToast) {
-        setActiveToast(prev => [...prev, newToast]);
-    }
+        if (newToast) {
+            setActiveToast(prev => [...prev, newToast]);
+        }
     }, [newToast]);
-
+    
     
     //Extrae la data de la hoja Sheets - la url es del servidor local http://localhost:3000
     const fetchData = () => {
@@ -99,16 +99,16 @@ export const RegistroProvider= ({children}) => {
         setData([]); //borrar
         setServerError(false);
         setLoading(true);
-        fetch(API_CNVT+"/registros")
-        .then(response=> response.json())
-        .then(data => {
+        
+        const onSuccessHandler = (data) => {
             setData(data.reverse());
             setLoading(false);
-        })
-        .catch(error => {
+        };
+        const onErrorHandler = (error) => {
             setServerError(true);
-            setNewToast({msj:"No hay conexión. Revisar internet."});
-        });
+            setNewToast({msj: "No hay conexión. Revisar internet."})
+        };
+        apiGet('/registros' , onSuccessHandler , onErrorHandler)
         console.log('fetch de datos finalizado');
     };
     useEffect(()=>{
@@ -149,40 +149,29 @@ export const RegistroProvider= ({children}) => {
             if ( changesToServer ){
                 console.log('Se están enviando los datos al servidor')
                 if (type === 'lote') {
-                    fetch(`${API_CNVT}/globals`,{
-                        method : 'POST' , // cambiar a post antes de hacer la prueba
-                        headers : {
-                            'Content-Type': 'application/json'
-                        },
-                        body : JSON.stringify({
-                            url : `${API_GAS}?type=update`,
-                            body : {id : id , data : changes}
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.startsWith("<")) {
-                            const exception = data.match(/Exception:[^<]+/)
-                            throw `No se guardaron los cambios de ${registroToEdit.cliente} ${exception}`;
-                        }
+                    
+                    const onSuccesHandler = data => {
                         setNewToast(JSON.parse(data))
-                    })
-                    .catch(error => setNewToast({status:"Error" , msj:error}))
+                    };
+
+                    const onErrorHandler = error => {
+                        setNewToast({status:"Error" , msj:error})
+                    };
+
+                    apiPost({type : 'update'} , {id : id , data : changes} , onSuccesHandler , onErrorHandler);
 
                 } else {
-                    fetch(`${API_CNVT}/globals`,{
-                        method : 'POST',
-                        headers : {
-                            'Content-Type': 'application/json'
-                        },
-                        body : JSON.stringify({
-                            url : `${API_GAS}?type=edit`,
-                            body : {id : id , data : changes},
-                        }) 
-                    })
-                    .then(response => response.json())
-                    .then(data => setNewToast(JSON.parse(data)))
-                    .catch(error => setNewToast({msj:error}))
+                    
+                    const onSuccesHandler = data => {
+                        setNewToast(JSON.parse(data));
+                    };
+
+                    const onErrorHandler = error => {
+                        setNewToast({ status:"Error",msj:error});
+                    };
+
+                    apiPost({type : 'edit'} , {id : id , data : changes} , onSuccesHandler ,onErrorHandler);
+                   
                 };
 
             };
@@ -199,16 +188,23 @@ export const RegistroProvider= ({children}) => {
     const sendMail = (obj , type) => {
         console.log(obj.id);
         if (confirm("Está por enviar el correo de "+obj.cliente)) {
-           fetch(`${API_CNVT}/globals`,{
-                method : 'POST',
-                headers : {
-                     'Content-Type': 'application/json'
-                },
-                body : JSON.stringify({url : `${API_GAS}?type=sendMail&docType=${type}` , body : {data:obj}})
-            })
-              .then(response => response.json())
-              .then(data => alert(JSON.parse(data).msj))
-              .catch(error => console.log(error))
+
+            const onSuccesHandler = data => {
+                if (data.startsWith("<")) {
+                    const exception = data.match(/Exception:[^<]+/) || data.match(/TypeError:[^<]+/)
+                    throw `No se guardaron los cambios de ${obj.cliente} ${exception}`;
+                };
+                setNewToast(JSON.parse(data));
+            };
+
+            const onErrorHandler = error => {
+                setNewToast({ status:"Error",msj:error});
+            };
+
+            apiPost(
+                {type : 'sendMail' , docType : type } ,
+                {data:obj} , onSuccesHandler , onErrorHandler
+            );
         } else {
             return false;
         };

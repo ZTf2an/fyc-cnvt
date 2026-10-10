@@ -6,39 +6,40 @@ import EditorForm from '../EditorForm';
 import { API_CNVT, API_GAS } from '../../Globals/API';
 import generarCuenta from '../../useServerHooks/useCuentaDeCobro/useGenerateCuenta';
 import PaymentForm from '../PaymentForm';
+import { apiPost } from '../../services/apiPetition';
 
 function SideMenu() {
-    const{editSideIsOpen , setEditSideIsOpen , editSideType } = useContext(RegistroContext);
-    const {registroToEdit , editRow } = useContext(RegistroContext);
+    const { editSideIsOpen ,
+        setEditSideIsOpen ,
+        editSideType ,
+        setNewToast ,
+        registroToEdit ,
+        editRow } = useContext(RegistroContext);
 
     const handleClose = () => setEditSideIsOpen(false);
     // const handleShow = () => setEditSideIsOpen(true);
 
     const generarpdf = (target) => {
         const response = confirm(`Está por generar PDF de ${target.cliente}`);
-        console.log(JSON.stringify({
-            url :`${API_GAS}?type=createpdf&docType=CUENTA`, 
-            body : {id : target.id , data : {url : target.docsCuenta} }
-        }))
+        
         if (response) {
             editRow(target.id , {pdfCuenta : 'load'} , 'none' , false);
-            fetch(`${API_CNVT}/globals` , {
-                method : 'POST',
-                headers : {
-                    'Content-Type': 'application/json'
-                    },
-                body : JSON.stringify({
-                    url :`${API_GAS}?type=createpdf&docType=CUENTA`, 
-                    body : {id : target.id , data : {url : target.docsCuenta} }
-                })
-            })
-            .then( response => response.json()) 
-            .then( data => {
+            
+            const onSuccesHandler = data => {
                 const results = JSON.parse(data);
                 editRow(target.id , {pdfCuenta : results.url} , 'none' , false);
-                alert(results.msj);
-            })
-            .catch(e => alert(e));
+                setNewToast({status : results.status , msj : `PDF de Cuenta de ${target.cliente}:\n${results.msj}`});
+            };
+
+            const onErrorHandler = error => {
+                setNewToast({status : 'error' , msj : error});
+            };
+
+            apiPost(
+                {type : 'createpdf' , docType : 'CUENTA'} , 
+                {id : target.id , data : {url : target.docsCuenta} } ,
+                onSuccesHandler , onErrorHandler
+            );
             handleClose();
         } else {
             handleClose();
@@ -65,7 +66,7 @@ function SideMenu() {
                     {editSideType == 'Form' ?
                         <div className='m-2 hstack gap-3'>
                             <Button variant="outline-danger" hidden={!registroToEdit.docsCuenta} onClick={e => generarpdf(registroToEdit)}>Actualizar PDF</Button>
-                            <Button variant="outline-info" className='me-auto' title='Generar Cuenta de Cobro' onClick={e => generarCuenta(registroToEdit , editRow , handleClose)}>Generar Cuenta</Button>
+                            <Button variant="outline-info" className='me-auto' title='Generar Cuenta de Cobro' onClick={e => generarCuenta(registroToEdit , editRow , setNewToast ,handleClose)}>Generar Cuenta</Button>
                             <Button variant="info" type='submit' form='CobranzaEditor'>Guardar Cambios</Button>
                         </div> :
                         <div className='m-2 hstack gap-3' hidden={true}>
