@@ -1,4 +1,4 @@
-import { useContext , useState} from "react";
+import { useContext } from "react";
 import { Badge, Button } from "react-bootstrap";
 import { RegistroContext } from "../../Context";
 import TableRow from "./TableRow";
@@ -9,9 +9,8 @@ import './TableCobranza.css'
 function TableCobranza () {
     const { 
         data , loading , editRow , searchedData , serverError , 
-        setEditSideIsOpen , setRegistroToEdit , sendMail , editSideType ,
-        setEditSideType , orderContition , setOrderCondition , orderIcon , setOrderIcon , ordenarFecha
-    } = useContext(RegistroContext);
+        setEditSideIsOpen , setRegistroToEdit , sendMail , setEditSideType ,
+        orderContition , orderIcon , ordenarFecha } = useContext(RegistroContext);
 
     return (
         <>

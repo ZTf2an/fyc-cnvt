@@ -1,13 +1,13 @@
-import { useContext, useState } from "react"
+import { useState } from "react"
 import { Card, ListGroup, Spinner, Stack , Table } from "react-bootstrap";
 import { BsFolderCheck } from "react-icons/bs";
 import { MdOutlineAddToDrive } from "react-icons/md";
 import { HiOutlineMail } from "react-icons/hi";
-import "./CardGestion.css"
-import { API_CNVT, API_GAS } from "../../Globals/API";
+import "./CardGestion.css";
 import formatHour from "../../Utils/formatHour";
+import { apiPost } from "../../services/apiPetition";
 
-function CardGestion ({info , editRow}) {
+function CardGestion ({info , editRow , setNewToast}) {
     const preFecha = new Date(info.fecha);
     const fecha = new Date(preFecha.getUTCFullYear(), preFecha.getUTCMonth(), preFecha.getUTCDate());
 
@@ -29,41 +29,41 @@ function CardGestion ({info , editRow}) {
     const crearCarpeta = (item) => {
         if (!item.driveFolder) {
             editRow(item.id , { driveFolder : 'load'} , 'createFolder' , false);
-            fetch(API_CNVT+'/globals' , {
-                method : 'POST',
-                headers : {
-                    'Content-Type': 'application/json'
-                },
-                body : JSON.stringify({url : `${API_GAS}?type=createFolder` , body : {id : item.id , data : item}})
-            })
-            .then(response => response.json())
-            .then(data => {
+            
+            const onSuccessHandler = data => {
                 const result = JSON.parse(data);
                 console.log(result);
-                alert(result.msj);
+                setNewToast({status: 'success', msj : result.msj})
                 editRow(item.id , {driveFolder : result.url} , 'none' , false);
-            })
-            .catch(err => alert(`Error : ${err}`))
+            };
+
+            const onErrorHandler = error => {
+                setNewToast({status: 'error', msj : error})
+            };
+
+            apiPost({type : 'createFolder'} , {id : item.id , data : item} ,
+                onSuccessHandler , onErrorHandler 
+            );
         };
     };
 
     const sendMail = (item) => {
         const response = confirm('¿Está Seguro de que quiere enviar los informes de '+item.cliente+'?');
         if (response) {
-            fetch(API_CNVT+'/globals' , {
-                method : 'POST',
-                headers : {
-                    'Content-Type': 'application/json'
-                },
-                body : JSON.stringify({url : `${API_GAS}?type=sendMail&&docType=folder` , body : { data : item}})
-            })
-            .then(response => response.json())
-            .then(data => {
+            
+            const onSuccesHandler = data => {
                 const result = JSON.parse(data);
-                console.log(result);
-                alert(result.msj);
-            })
-            .catch(err => alert(`Error : ${err}`))
+                setNewToast({status : result.status , msj : result.msj});
+            };
+            const onErrorHandler = error => {
+                setNewToast({status: 'error' , msj : `Error : ${error}`})
+                // alert(`Error : ${error}`)
+            };
+            apiPost(
+                {type : 'sendMail' , docType : 'folder'} , 
+                { data : item } , 
+                onSuccesHandler , onErrorHandler
+            );
         };
         return response
     };
