@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import {Form} from 'react-bootstrap'
 import { RegistroContext } from '../../Context'
 import { parsedParams } from '../../useServerHooks/useCreate';
-import formatedDate from '../../Utils/formatDate';
+import {formatedDate} from '../../Utils/formatDate';
 
 function EditorForm ({reg , editRow}) {
 

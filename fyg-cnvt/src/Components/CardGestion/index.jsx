@@ -53,6 +53,7 @@ function CardGestion ({info , editRow , setNewToast}) {
             
             const onSuccesHandler = data => {
                 const result = JSON.parse(data);
+                editRow( item.id , {msjLogs : JSON.stringify(result.msjLogs)} , "none" , false);
                 setNewToast({status : result.status , msj : result.msj});
             };
             const onErrorHandler = error => {

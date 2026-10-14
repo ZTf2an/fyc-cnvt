@@ -190,11 +190,10 @@ export const RegistroProvider= ({children}) => {
         if (confirm("Está por enviar el correo de "+obj.cliente)) {
 
             const onSuccesHandler = data => {
-                if (data.startsWith("<")) {
-                    const exception = data.match(/Exception:[^<]+/) || data.match(/TypeError:[^<]+/)
-                    throw `No se guardaron los cambios de ${obj.cliente} ${exception}`;
-                };
-                setNewToast(JSON.parse(data));
+                data = JSON.parse(data);
+                editRow(obj.id , {msjLogs : JSON.stringify(data.msjLogs)}, "none" , false)
+                console.log(data.msjLogs)
+                setNewToast(data);
             };
 
             const onErrorHandler = error => {
