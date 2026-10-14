@@ -41,8 +41,9 @@ export function apiPost (querys , body , onSuccess , onError) {
     .then(data => {
         console.log(data);
         if (data.startsWith("<")) {
-            const exception = data.match(/Exception:[^<]+/) || data.match(/TypeError:[^<]+/);
-            throw `No se guardaron los cambios \n ${exception[0]}`;
+            const exception = data.match(/Exception:[^<]+/) || data.match(/TypeError:[^<]+/) || data.match(/ReferenceError:[^<]+/);
+            // throw `No se guardaron los cambios \n ${exception[0]}`;
+            throw `No se guardaron los cambios \n ${exception}`;
         };
         onSuccess(data)
     })
