@@ -101,14 +101,16 @@ export const RegistroProvider= ({children}) => {
         setLoading(true);
         
         const onSuccessHandler = (data) => {
+            data = JSON.parse(data);
             setData(data.reverse());
             setLoading(false);
         };
         const onErrorHandler = (error) => {
             setServerError(true);
+            console.log(error)
             setNewToast({msj: "No hay conexión. Revisar internet."})
         };
-        apiGet('/registros' , onSuccessHandler , onErrorHandler)
+        apiGet('registros' , onSuccessHandler , onErrorHandler)
         console.log('fetch de datos finalizado');
     };
     useEffect(()=>{
@@ -191,11 +193,10 @@ export const RegistroProvider= ({children}) => {
         if (confirm("Está por enviar el correo de "+obj.cliente)) {
 
             const onSuccesHandler = data => {
-                if (data.startsWith("<")) {
-                    const exception = data.match(/Exception:[^<]+/) || data.match(/TypeError:[^<]+/)
-                    throw `No se guardaron los cambios de ${obj.cliente} ${exception}`;
-                };
-                setNewToast(JSON.parse(data));
+                data = JSON.parse(data);
+                editRow(obj.id , {msjLogs : JSON.stringify(data.msjLogs)}, "none" , false)
+                console.log(data.msjLogs)
+                setNewToast(data);
             };
 
             const onErrorHandler = error => {

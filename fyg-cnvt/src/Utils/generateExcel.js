@@ -1,5 +1,5 @@
 import * as XLSX from "xlsx";
-import formatedDate from "./formatDate";
+import {formatedDate} from "./formatDate";
 import formatHour from "./formatHour";
 
 // Este es el formato sugerido por Diana Prianeque

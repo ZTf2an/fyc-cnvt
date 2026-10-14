@@ -5,6 +5,9 @@ import { HiOutlineMail } from "react-icons/hi";
 import { PiFilePdf } from "react-icons/pi";
 import { SiGoogledocs } from "react-icons/si";
 import { TbCashRegister } from "react-icons/tb";
+import TooltipedIcon from "../../TooltipedIcon";
+import { safeParse } from "../../../Utils/safeParse";
+import { getRelativeTime } from "../../../Utils/formatDate";
 
 function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , setEditorType}) {
 
@@ -133,10 +136,11 @@ function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , s
                         <Spinner animation="border" variant="secondary">
                             <span className="visually-hidden">Loading...</span>
                         </Spinner> :
-                        
-                        <a href={row.pdfCuenta} target="_blank">
-                            <PiFilePdf className="pdf-icon fs-4 pointer"/>
-                        </a> ) :
+                        <TooltipedIcon configObj={{links : safeParse(row.pdfCuenta , [row.pdfCuenta])}}>
+                            <a href={row.pdfCuenta} target="_blank">
+                                <PiFilePdf className="pdf-icon fs-4 pointer"/>
+                            </a> 
+                        </TooltipedIcon> ):
                         <a target="_blank">
                             <PiFilePdf className="pdf-icon fs-4 icon-disabled"/>
                         </a> 
@@ -151,9 +155,11 @@ function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , s
                         <Spinner animation="border" variant="secondary">
                             <span className="visually-hidden">Loading...</span>
                         </Spinner> :
-                        <a href={row.docsCuenta} target="_blank">
-                            <SiGoogledocs className="g-docs-icon fs-4 pointer"/>
-                        </a> ):
+                        <TooltipedIcon configObj={{links: safeParse(row.docsCuenta , [row.docsCuenta]) }}>
+                            <a href={row.docsCuenta} target="_blank">
+                                <SiGoogledocs className="g-docs-icon fs-4 pointer"/>
+                            </a> 
+                        </TooltipedIcon> ):
                         <a target="_blank" title="no hay PDF">
                             <SiGoogledocs className="g-docs-icon fs-4 icon-disabled"/>
                         </a> 
@@ -170,7 +176,9 @@ function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , s
             </td>
             <td>
                 <div className="d-flex justify-content-between">
-                    <HiOutlineMail className="icon-msg fs-3 mx-1 pointer" onClick={ e => reenviarCorreo(row , 'cta')}/>
+                    <TooltipedIcon configObj={{logs: safeParse(row.msjLogs , {ctas:[]}).ctas?.map(i => getRelativeTime(i))}}>
+                        <HiOutlineMail className="icon-msg fs-3 mx-1 pointer" onClick={ e => reenviarCorreo(row , 'cta')}/>
+                    </TooltipedIcon>
                     <FaRegEdit className="icon-edit fs-4 ms-1 pointer" onClick={openSideEditor}/>
                     <RiDeleteBin6Fill className="icon-del fs-4 mx-1 pointer" onClick={e => {edit(row.id , {aceptado : false} , 'rechazar')}}/>
                 </div>

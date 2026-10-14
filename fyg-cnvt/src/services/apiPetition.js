@@ -7,9 +7,14 @@ import { API_CNVT, API_GAS } from "../Globals/API";
  * @param {Function} onError 
  */
 export function apiGet(path, onSuccess, onError) {
+    console.log(API_CNVT + path)
     fetch(API_CNVT + path)
-        .then(response => response.json())
+        .then(response => response.text())
         .then(data => {
+            if (data.startsWith("<")) {
+                const exception = data.match(/Exception:[^<]+/) || data.match(/TypeError:[^<]+/) || data.match(/ReferenceError:[^<]+/);
+                throw `Error al conectar: \n ${exception[0]}`;
+            };
             onSuccess(data);
         })
         .catch(error => { 
@@ -37,11 +42,11 @@ export function apiPost (querys , body , onSuccess , onError) {
         },
         body : JSON.stringify({url : url , body : body})
     })
-    .then(response => response.json())
+    .then(response => response.json() || response.text())
     .then(data => {
         console.log(data);
         if (data.startsWith("<")) {
-            const exception = data.match(/Exception:[^<]+/) || data.match(/TypeError:[^<]+/);
+            const exception = data.match(/Exception:[^<]+/) || data.match(/TypeError:[^<]+/) || data.match(/ReferenceError:[^<]+/);
             throw `No se guardaron los cambios \n ${exception[0]}`;
         };
         onSuccess(data)
