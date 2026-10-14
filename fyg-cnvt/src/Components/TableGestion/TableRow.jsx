@@ -8,6 +8,9 @@ import { MdFolderOff , MdOutlineAddToDrive } from "react-icons/md";
 import { API_CNVT , API_GAS } from "../../Globals/API";
 import formatHour from "../../Utils/formatHour";
 import { apiPost } from "../../services/apiPetition";
+import TooltipedIcon from "../TooltipedIcon";
+import { safeParse } from "../../Utils/safeParse";
+import { getRelativeTime } from "../../Utils/formatDate";
 
 function TableRow ({row , editRow , openModal , registroToEdit , toast }) {
     const preFecha = new Date(row.fecha);
@@ -20,6 +23,11 @@ function TableRow ({row , editRow , openModal , registroToEdit , toast }) {
         } else {
             return false
         };
+    };
+
+    const getLastUrl =  ( string ) => {
+        const url = safeParse( string , [string] );
+        return url[url.length -1]
     };
     
     const crearCarpeta = (item) => {
@@ -47,7 +55,7 @@ function TableRow ({row , editRow , openModal , registroToEdit , toast }) {
 
             const onSuccesHandler = data => {
                 const result = JSON.parse(data);
-                console.log(result);
+                editRow( item.id , {msjLogs : JSON.stringify(result.msjLogs)} , "none" , false);
                 toast({status: result.status , msj : result.msj});
             };
 
@@ -78,7 +86,7 @@ function TableRow ({row , editRow , openModal , registroToEdit , toast }) {
         <td className="p-3">{row.tel}</td>
         <td className="">
             <div className="d-flex justify-content-center">
-                <a className={row.pdfCuenta? "fs-4 icon-pdf" : " fs-4 icon-disabled"} href={row.pdfCuenta}><PiFilePdf/></a>
+                <a className={row.pdfCuenta? "fs-4 icon-pdf" : " fs-4 icon-disabled"} href={getLastUrl(row.pdfCuenta)}><PiFilePdf/></a>
             </div>
         </td>
         <td className="p-3">
@@ -86,7 +94,7 @@ function TableRow ({row , editRow , openModal , registroToEdit , toast }) {
                 {row.driveFolder ? 
                     row.driveFolder === 'load' ?
                     <Spinner animation="border" variant="secondary"><span className="visually-hidden">Loading...</span></Spinner>:
-                    <a href={row.driveFolder} target="_blank"><IoFolderOpenSharp className="icon-folder fs-4 pointer"/></a> : 
+                        <a href={row.driveFolder} target="_blank"><IoFolderOpenSharp className="icon-folder fs-4 pointer"/></a> :
                     <MdFolderOff className="icon-disabled fs-4 pointer"/>
                 }
             </div>
@@ -95,7 +103,9 @@ function TableRow ({row , editRow , openModal , registroToEdit , toast }) {
             <div className="d-flex justify-content-between">
                 {row.driveFolder ?
                     row.pagado? 
-                    <HiOutlineMail className="icon-msg fs-3 mx-1 pointer" type="button" onClick={e => sendMail(row)}/> :
+                    <TooltipedIcon configObj={{logs : safeParse(row.msjLogs , {folders:[]}).folders?.map(i=>getRelativeTime(i))}}>
+                        <HiOutlineMail className="icon-msg fs-3 mx-1 pointer" type="button" onClick={e => sendMail(row)}/>
+                    </TooltipedIcon>:
                     <HiOutlineMail className="icon-disabled fs-3" title="No se puede enviar los informes porque el cliente no ha pagado"/>:
                     <MdOutlineAddToDrive 
                     className={ "generateFolder-icon pointer fs-3"}

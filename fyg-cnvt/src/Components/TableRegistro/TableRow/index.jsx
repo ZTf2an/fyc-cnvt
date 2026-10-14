@@ -4,10 +4,18 @@ import { RiDeleteBin6Fill } from "react-icons/ri";
 import { HiOutlineMail } from "react-icons/hi";
 import { PiFilePdf } from "react-icons/pi";
 import { SiGoogledocs } from "react-icons/si";
+import TooltipedIcon from "../../TooltipedIcon";
+import {safeParse} from "../../../Utils/safeParse"
+import { getRelativeTime } from "../../../Utils/formatDate";
 
 function TableRow ({row , edit , setRegistroToEdit , modalIsOpen , reenviarCorreo }) {
     const preFecha = new Date(row.fecha);
     const fecha = new Date(preFecha.getUTCFullYear(), preFecha.getUTCMonth(), preFecha.getUTCDate());
+
+    const getLastUrl =  ( string ) => {
+        const url = safeParse( string , [string] );
+        return url[url.length -1]
+    };
     
     const openModal = () => {
         setRegistroToEdit(row);
@@ -28,9 +36,12 @@ function TableRow ({row , edit , setRegistroToEdit , modalIsOpen , reenviarCorre
                         <Spinner animation="border" variant="secondary">
                             <span className="visually-hidden">Loading...</span>
                         </Spinner> :
-                        <a href={row.pdf} target="_blank">
-                            <PiFilePdf className="pdf-icon fs-4 pointer"/>
-                        </a> ):
+                        <TooltipedIcon configObj={{links: safeParse(row.pdf , [row.pdf])}}>
+                            <a href={getLastUrl(row.pdf)} target="_blank">
+                                <PiFilePdf className="pdf-icon fs-4 pointer"/>
+                            </a>
+                        </TooltipedIcon>
+                         ):
                         <a target="_blank" title="no hay PDF">
                             <PiFilePdf className="pdf-icon fs-4 icon-disabled"/>
                         </a> 
@@ -44,9 +55,11 @@ function TableRow ({row , edit , setRegistroToEdit , modalIsOpen , reenviarCorre
                             <Spinner animation="border" variant="secondary">
                                 <span className="visually-hidden">Loading...</span>
                             </Spinner> :
-                            <a href={row.docs} target="_blank">
-                                <SiGoogledocs className="g-docs-icon fs-4 pointer"/>
-                            </a> 
+                            <TooltipedIcon configObj={{links : safeParse(row.docs , [row.docs])}}>
+                                <a href={getLastUrl(row.docs)} target="_blank">
+                                    <SiGoogledocs className="g-docs-icon fs-4 pointer"/>
+                                </a> 
+                            </TooltipedIcon>
                         ) :
                         <a target="_blank" aria-disabled={true} title="No hay docs">
                             <SiGoogledocs className="g-docs-icon fs-4 icon-disabled"/>
@@ -56,7 +69,10 @@ function TableRow ({row , edit , setRegistroToEdit , modalIsOpen , reenviarCorre
             </td>
             <td>
                 <div className="d-flex justify-content-between">
-                    <HiOutlineMail className="icon-msg fs-3 mx-1 pointer" type="button" onClick={e => reenviarCorreo(row , 'cot')}/>
+                    <TooltipedIcon configObj={{logs: safeParse(row.msjLogs , {cots : []} ).cots?.map(i=>getRelativeTime(i))}}> 
+                        <HiOutlineMail className="icon-msg fs-3 mx-1 pointer" type="button" onClick={e => reenviarCorreo(row , 'cot')}/>
+                    </TooltipedIcon>
+                    
                     <FaRegEdit className="icon-edit fs-4 ms-1 pointer" type="button" onClick={openModal}/>
                     <RiDeleteBin6Fill className="icon-del fs-4 mx-1 pointer" onClick={e => edit(row.id , {active:false} , 'eliminar')}/>
                 </div>

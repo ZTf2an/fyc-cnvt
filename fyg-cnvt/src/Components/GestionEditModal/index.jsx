@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { Modal , Form , Button, Row, Col } from 'react-bootstrap';
 import { RegistroContext } from '../../Context';
 import { parsedParams } from '../../useServerHooks/useCreate';
-import formatedDate from '../../Utils/formatDate';
+import { formatedDate } from '../../Utils/formatDate';
 // import Modal from 'react-bootstrap/Modal';
 
 function GestionEditModal () {
