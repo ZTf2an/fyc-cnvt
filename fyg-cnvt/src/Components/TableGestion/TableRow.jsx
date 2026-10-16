@@ -12,6 +12,7 @@ import { apiPost } from "../../services/apiPetition";
 import TooltipedIcon from "../TooltipedIcon";
 import { safeParse } from "../../Utils/safeParse";
 import { getRelativeTime } from "../../Utils/formatDate";
+import getLastUrl from "../../Utils/getLastUrl";
 
 function TableRow ({row , editRow , openModal , registroToEdit , toast }) {
     const preFecha = new Date(row.fecha);
@@ -43,11 +44,6 @@ function TableRow ({row , editRow , openModal , registroToEdit , toast }) {
         } catch (err) {
             console.error("Error al copiar: ", err);
         }
-    };
-
-    const getLastUrl =  ( string ) => {
-        const url = safeParse( string , [string] );
-        return url[url.length -1]
     };
     
     const crearCarpeta = (item) => {

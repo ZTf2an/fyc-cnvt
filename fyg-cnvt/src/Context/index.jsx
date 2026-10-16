@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { apiGet, apiPost } from "../services/apiPetition";
+import getLastUrl from "../Utils/getLastUrl";
 
 export const RegistroContext = createContext();
 
@@ -164,7 +165,6 @@ export const RegistroProvider= ({children}) => {
                     apiPost({type : 'update'} , {id : id , data : changes} , onSuccesHandler , onErrorHandler);
 
                 } else {
-                    
                     const onSuccesHandler = data => {
                         setNewToast(JSON.parse(data));
                     };
@@ -189,9 +189,10 @@ export const RegistroProvider= ({children}) => {
 
     // Util reenviar los correos
     const sendMail = (obj , type) => {
-        console.log(obj.id);
+        obj.pdf = getLastUrl(obj.pdf);
+        obj.pdfCuenta = getLastUrl(obj.pdfCuenta);
+        
         if (confirm("Está por enviar el correo de "+obj.cliente)) {
-
             const onSuccesHandler = data => {
                 data = JSON.parse(data);
                 editRow(obj.id , {msjLogs : JSON.stringify(data.msjLogs)}, "none" , false)

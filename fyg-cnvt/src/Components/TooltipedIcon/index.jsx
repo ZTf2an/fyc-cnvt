@@ -58,11 +58,10 @@ export function Tooltip({ children , items , allowed = true }) {
       {items.map((item, index) => (
         <Dropdown.Item 
           key={index} 
-          href={item.startsWith("http")? item : ""}
+          href={item.startsWith("http") ? item : ""}
           target="_blank"
         >
-          {/* {item || `Link ${index + 1}`} */}
-          {item.startsWith("http") ? `Link ${index + 1}` : item}
+          { item.startsWith("http") ? `Link ${index + 1}` : item}
         </Dropdown.Item>
       ))}
     </Dropdown.Menu>

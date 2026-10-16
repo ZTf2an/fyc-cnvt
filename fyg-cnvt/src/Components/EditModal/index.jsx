@@ -3,6 +3,7 @@ import { RegistroContext } from "../../Context";
 import Cotizador from "../Cotizador";
 import { Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter, Button, Stack , Row, Container } from 'react-bootstrap';
 import { apiPost } from "../../services/apiPetition";
+import getLastUrl from "../../Utils/getLastUrl";
 
 function EditModal({ regTarget }) {
     const { editRow , editModalIsOpen , setEditModalIsOpen , setNewToast} = useContext(RegistroContext);
@@ -22,7 +23,7 @@ function EditModal({ regTarget }) {
 
       apiPost(
         {type : 'createpdf' , docType : 'COTIZACION'} ,
-        {id : target.id , data : {url : target.docs} } ,
+        {id : target.id , data : {url : getLastUrl(target.docs)} } ,
         onSuccessHandler , onErrorHandler);
     };
 
