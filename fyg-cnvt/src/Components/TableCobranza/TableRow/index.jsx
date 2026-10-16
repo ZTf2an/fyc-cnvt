@@ -8,6 +8,7 @@ import { TbCashRegister } from "react-icons/tb";
 import TooltipedIcon from "../../TooltipedIcon";
 import { safeParse } from "../../../Utils/safeParse";
 import { getRelativeTime } from "../../../Utils/formatDate";
+import getLastUrl from "../../../Utils/getLastUrl";
 
 function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , setEditorType}) {
 
@@ -127,7 +128,7 @@ function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , s
                             <span className="visually-hidden">Loading...</span>
                         </Spinner> :
                         <TooltipedIcon configObj={{links : safeParse(row.pdfCuenta , [row.pdfCuenta])}}>
-                            <a href={row.pdfCuenta} target="_blank">
+                            <a href={getLastUrl(row.pdfCuenta)} target="_blank">
                                 <PiFilePdf className="pdf-icon fs-4 pointer"/>
                             </a> 
                         </TooltipedIcon> ):
@@ -145,8 +146,8 @@ function TableRow({row , edit , openEditor , registroToEdit , reenviarCorreo , s
                         <Spinner animation="border" variant="secondary">
                             <span className="visually-hidden">Loading...</span>
                         </Spinner> :
-                        <TooltipedIcon configObj={{links: safeParse(row.docsCuenta , [row.docsCuenta]) }}>
-                            <a href={row.docsCuenta} target="_blank">
+                        <TooltipedIcon configObj={{links: safeParse(row.docsCuenta , [row.docsCuenta]) }} >
+                            <a href={getLastUrl(row.docsCuenta)} target="_blank" onClick={e=> console.log(row.cliente , typeof row.docsCuenta)}>
                                 <SiGoogledocs className="g-docs-icon fs-4 pointer"/>
                             </a> 
                         </TooltipedIcon> ):

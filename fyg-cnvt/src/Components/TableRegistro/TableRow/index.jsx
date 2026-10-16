@@ -7,16 +7,12 @@ import { SiGoogledocs } from "react-icons/si";
 import TooltipedIcon from "../../TooltipedIcon";
 import {safeParse} from "../../../Utils/safeParse"
 import { getRelativeTime } from "../../../Utils/formatDate";
+import getLastUrl from "../../../Utils/getLastUrl"
 
 function TableRow ({row , edit , setRegistroToEdit , modalIsOpen , reenviarCorreo }) {
     const preFecha = new Date(row.fecha);
     const fecha = new Date(preFecha.getUTCFullYear(), preFecha.getUTCMonth(), preFecha.getUTCDate());
 
-    const getLastUrl =  ( string ) => {
-        const url = safeParse( string , [string] );
-        return url[url.length -1]
-    };
-    
     const openModal = () => {
         setRegistroToEdit(row);
         modalIsOpen(true)
