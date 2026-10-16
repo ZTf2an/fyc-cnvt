@@ -7,6 +7,7 @@ import { API_CNVT, API_GAS } from '../../Globals/API';
 import generarCuenta from '../../useServerHooks/useCuentaDeCobro/useGenerateCuenta';
 import PaymentForm from '../PaymentForm';
 import { apiPost } from '../../services/apiPetition';
+import getLastUrl from '../../Utils/getLastUrl';
 
 function SideMenu() {
     const { editSideIsOpen ,
@@ -37,7 +38,7 @@ function SideMenu() {
 
             apiPost(
                 {type : 'createpdf' , docType : 'CUENTA'} , 
-                {id : target.id , data : {url : target.docsCuenta} } ,
+                {id : target.id , data : {url : getLastUrl(target.docsCuenta)} } ,
                 onSuccesHandler , onErrorHandler
             );
             handleClose();
