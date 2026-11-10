@@ -9,7 +9,7 @@ import {safeParse} from "../../../Utils/safeParse"
 import { getRelativeTime } from "../../../Utils/formatDate";
 import getLastUrl from "../../../Utils/getLastUrl"
 
-function TableRow ({row , edit , setRegistroToEdit , modalIsOpen , reenviarCorreo }) {
+function TableRow ({row , edit , setRegistroToEdit , modalIsOpen , reenviarCorreo, erpRegistered }) {
     const preFecha = new Date(row.fecha);
     const fecha = new Date(preFecha.getUTCFullYear(), preFecha.getUTCMonth(), preFecha.getUTCDate());
 
@@ -69,7 +69,13 @@ function TableRow ({row , edit , setRegistroToEdit , modalIsOpen , reenviarCorre
                         <HiOutlineMail className="icon-msg fs-3 mx-1 pointer" type="button" onClick={e => reenviarCorreo(row , 'cot')}/>
                     </TooltipedIcon>
                     
-                    <FaRegEdit className="icon-edit fs-4 ms-1 pointer" type="button" onClick={openModal}/>
+                    <FaRegEdit
+                        className={`icon-edit fs-4 ms-1 pointer${erpRegistered ? ' icon-edit-erp' : ''}`}
+                        fill={erpRegistered ? 'purple' : 'currentColor'}
+                        type="button"
+                        title="Editar registro"
+                        onClick={openModal}
+                    />
                     <RiDeleteBin6Fill className="icon-del fs-4 mx-1 pointer" onClick={e => edit(row.id , {active:false} , 'eliminar')}/>
                 </div>
             </td>

@@ -2,3 +2,4 @@
 /fyg-cnvt/build
 /mailTemplates
 /mailTemplates/cotizacion.html
+.env

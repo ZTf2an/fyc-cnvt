@@ -18,7 +18,8 @@ function TableRegistro () {
         orderContition ,
         setOrderCondition ,
         ordenarFecha ,
-        orderIcon , setOrderIcon
+        orderIcon , setOrderIcon,
+        isClientInErp
     } = useContext(RegistroContext);
 
     return (
@@ -51,6 +52,7 @@ function TableRegistro () {
                             setRegistroToEdit={setRegistroToEdit}
                             modalIsOpen={setEditModalIsOpen}
                             reenviarCorreo={sendMail}
+                            erpRegistered={isClientInErp(row.nit)}
                         />)}
                 </tbody>
             </table>

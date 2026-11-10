@@ -54,6 +54,10 @@ thead th {
 .icon-edit:hover {
     color : rgb(21, 94, 136)
 }
+.icon-edit-erp,
+.icon-edit-erp:hover {
+    color: #8e44ad;
+}
 
 /* iconos de pdf y docs */
 .pdf-icon{

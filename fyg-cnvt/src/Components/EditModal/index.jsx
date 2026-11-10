@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { RegistroContext } from "../../Context";
 import Cotizador from "../Cotizador";
 import { Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter, Button, Stack , Row, Container } from 'react-bootstrap';
@@ -6,7 +6,17 @@ import { apiPost } from "../../services/apiPetition";
 import getLastUrl from "../../Utils/getLastUrl";
 
 function EditModal({ regTarget }) {
-    const { editRow , editModalIsOpen , setEditModalIsOpen , setNewToast} = useContext(RegistroContext);
+    const {
+      editRow,
+      editModalIsOpen,
+      setEditModalIsOpen,
+      setNewToast,
+      erpStatus,
+      isClientInErp,
+      syncClientWithErp
+    } = useContext(RegistroContext);
+    const [syncingErp, setSyncingErp] = useState(false);
+    const clientIsInErp = isClientInErp(regTarget?.nit);
 
     const editPdf = (target) => {
       editRow(target.id , {pdf : 'load'} , 'pdf' , false);
@@ -36,6 +46,7 @@ function EditModal({ regTarget }) {
         editRow(target.id , {docs : data.url} , 'none' , false);       
         setNewToast({status : data.status , msj : `Docs de Cotización de ${target.cliente}: ${data.msj}`});
       };
+
       const onErrorHandler = error => {
         setNewToast({status : 'error' , msj : error})
       };
@@ -45,6 +56,23 @@ function EditModal({ regTarget }) {
         {id : target.id , data : target } ,
         onSuccesHandler , onErrorHandler
       )
+    };
+
+    const syncWithErp = async () => {
+      setSyncingErp(true);
+      try {
+        const createdThirdParty = await syncClientWithErp(regTarget);
+        if (createdThirdParty) {
+          setNewToast({
+            status: 'success',
+            msj: `${regTarget.cliente} se creó correctamente en el ERP.`
+          });
+        }
+      } catch (error) {
+        setNewToast({ status: 'Error', msj: error.message });
+      } finally {
+        setSyncingErp(false);
+      }
     };
   
     return (
@@ -64,6 +92,14 @@ function EditModal({ regTarget }) {
                 </Button>
                 <Button variant="outline-info" onClick={() => updateDocs(regTarget)}>
                   Actualizar Docs
+                </Button>
+                <Button
+                  variant="outline-primary"
+                  disabled={syncingErp || clientIsInErp || erpStatus !== 'connected'}
+                  onClick={syncWithErp}
+                  title={erpStatus === 'contingency' ? 'ERP en modo contingencia' : undefined}
+                >
+                  {syncingErp ? 'Sincronizando…' : clientIsInErp ? 'Ya está en ERP' : 'Sincronizar ERP'}
                 </Button>
                 <Button variant="secondary" className="ms-auto" onClick={() => setEditModalIsOpen(false)}>
                   Cerrar

@@ -1,5 +1,11 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useCallback, useEffect, useMemo, useState } from "react";
 import { apiGet, apiPost } from "../services/apiPetition";
+import {
+    createErpThirdParty,
+    fetchErpThirdParties,
+    hasErpThirdParty,
+    normalizeErpDocument
+} from "../services/erpApi";
 import getLastUrl from "../Utils/getLastUrl";
 
 export const RegistroContext = createContext();
@@ -86,6 +92,34 @@ export const RegistroProvider= ({children}) => {
     //TOAST | contiene todo lo Relacionado con la creacion de los Toast
     const [activeToast, setActiveToast] = useState([]);
     const [newToast, setNewToast] = useState(null);
+    const [erpStatus, setErpStatus] = useState('checking');
+    const [erpThirdParties, setErpThirdParties] = useState([]);
+
+    const erpDocumentNumbers = useMemo(
+        () => new Set(erpThirdParties.map(thirdParty => normalizeErpDocument(thirdParty.identificacion))),
+        [erpThirdParties]
+    );
+
+    const isClientInErp = useCallback(
+        documentNumber => {
+            const document = normalizeErpDocument(documentNumber);
+            return Boolean(document) && erpDocumentNumbers.has(document);
+        },
+        [erpDocumentNumbers]
+    );
+
+    const refreshErp = useCallback(async () => {
+        setErpStatus('checking');
+        try {
+            const thirdParties = await fetchErpThirdParties();
+            setErpThirdParties(thirdParties);
+            setErpStatus('connected');
+            return true;
+        } catch {
+            setErpStatus('contingency');
+            return false;
+        }
+    }, []);
 
     useEffect(() => {
         if (newToast) {
@@ -114,7 +148,8 @@ export const RegistroProvider= ({children}) => {
     };
     useEffect(()=>{
         fetchData();
-    },[]);
+        refreshErp();
+    },[refreshErp]);
 
     const editType = {
         "modalidad" : (nombreCliente) => (`Está cambiando la modalidad de ${nombreCliente}`),
@@ -210,6 +245,41 @@ export const RegistroProvider= ({children}) => {
         };
     }
 
+    const syncClientWithErp = async client => {
+        const document = normalizeErpDocument(client.nit);
+        if (!document) {
+            throw new Error('Ingresa un NIT válido antes de sincronizar con el ERP.');
+        }
+        if (!String(client.cliente ?? '').trim()) {
+            throw new Error('El nombre del cliente es obligatorio para sincronizar con el ERP.');
+        }
+        if (erpStatus !== 'connected') {
+            return null;
+        }
+        if (hasErpThirdParty(erpThirdParties, document)) {
+            throw new Error('Este NIT ya existe como tercero en el ERP.');
+        }
+
+        try {
+            const createdThirdParty = await createErpThirdParty(client);
+            setErpThirdParties(current => hasErpThirdParty(current, document)
+                ? current
+                : [...current, {
+                    ...createdThirdParty,
+                    identificacion: createdThirdParty.identificacion || document
+                }]);
+            setErpStatus('connected');
+            return createdThirdParty;
+        } catch (error) {
+            if (!error.status || error.status >= 500 || [401, 403, 429].includes(error.status)) {
+                setErpStatus('contingency');
+                return null;
+            }
+
+            throw error;
+        }
+    };
+
     return (
         <RegistroContext.Provider value={{
             fetchData,
@@ -230,6 +300,7 @@ export const RegistroProvider= ({children}) => {
             editGestionModalIsOpen , setEditGestionModalIsOpen ,
             ordenarFecha,
             activeToast , newToast , setNewToast
+            , erpStatus, refreshErp, isClientInErp, syncClientWithErp
         }}>
             {children}
         </RegistroContext.Provider>

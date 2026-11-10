@@ -3,10 +3,21 @@ import { NavLink } from 'react-router-dom'
 import { RegistroContext } from '../../Context' //borrar
 import { useContext } from 'react' //borrar
 import { Navbar } from 'react-bootstrap'
+import { FaCircle } from 'react-icons/fa'
 
 function NavBar () {
     const activeStyle = 'text-decoration-underline text-light'
-    const { fetchData } = useContext(RegistroContext);
+    const { fetchData, erpStatus, refreshErp } = useContext(RegistroContext);
+    const erpStatusLabel = {
+        checking: 'Verificando ERP…',
+        connected: 'ERP conectado · volver a verificar',
+        contingency: 'ERP en contingencia · reintentar conexión'
+    }[erpStatus];
+    const erpColor = {
+        checking: '#ffc107',
+        connected: '#28a745',
+        contingency: '#dc3545'
+    }[erpStatus];
     return (
         <Navbar className="conectivate-bg">
             <div className="container-fluid d-flex justify-content-between">
@@ -24,6 +35,19 @@ function NavBar () {
                 <div className="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
                     <div className="n" role="search">
                         <ul className='navbar-nav me-auto mb-lg-0'>
+                            <li>
+                                <button
+                                    type="button"
+                                    className="nav-link text-white-50 d-flex align-items-center gap-2"
+                                    title={erpStatusLabel}
+                                    aria-label={erpStatusLabel}
+                                    disabled={erpStatus === 'checking'}
+                                    onClick={refreshErp}
+                                >
+                                    <FaCircle style={{ color: erpColor }} aria-hidden="true" />
+                                    ERP
+                                </button>
+                            </li>
                             <li className=''>
                                 <NavLink 
                                     to='/'
