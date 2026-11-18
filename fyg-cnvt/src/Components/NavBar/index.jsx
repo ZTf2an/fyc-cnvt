@@ -50,7 +50,7 @@ function NavBar () {
                             </li>
                             <li className=''>
                                 <NavLink 
-                                    to='/'
+                                    to='/registro'
                                     className={({isActive}) => (isActive ? activeStyle : 'text-white-50') + ' nav-link'}
                                 >
                                     Registro

@@ -1,4 +1,5 @@
 import { API_CNVT, API_GAS } from "../Globals/API";
+import { safeParse } from "../Utils/safeParse";
 
 /**
  * Peticion Get para extraer datos del Servidor GAS.
@@ -6,13 +7,23 @@ import { API_CNVT, API_GAS } from "../Globals/API";
  * @param {Function} onSuccess 
  * @param {Function} onError 
  */
-export function apiGet(path, onSuccess, onError) {
-    fetch(API_CNVT + path)
-        .then(response => response.json())
+export function apiGet(path, onSuccess, onError, token) {
+    const tokenQuery = token
+        ? `${path.includes('?') ? '&' : '?'}token=${encodeURIComponent(token)}`
+        : '';
+
+    fetch(API_CNVT + path + tokenQuery)
+        // .then(response => response.json() || response.text())
+        .then(response => response.text())
         .then(data => {
-            onSuccess(data);
+            if(data.startsWith("<")) {
+                const exception = data.match(/Exception:[^<]+/) || data.match(/TypeError:[^<]+/) || data.match(/Error:[^<]+/);
+                throw `No se guardaron los cambios \n ${exception[0]}`;
+            }
+            onSuccess(safeParse(data));
         })
         .catch(error => { 
+            console.log(error)
             if (onError) onError(error);
         });
 };
@@ -39,9 +50,9 @@ export function apiPost (querys , body , onSuccess , onError) {
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data);
-        if (data.startsWith("<")) {
-            const exception = data.match(/Exception:[^<]+/) || data.match(/TypeError:[^<]+/);
+
+        if (typeof data === 'string' && data.startsWith("<")) {
+            const exception = data.match(/Exception:[^<]+/) || data.match(/TypeError:[^<]+/) || data.match(/Error:[^<]+/);
             throw `No se guardaron los cambios \n ${exception[0]}`;
         };
         onSuccess(data)

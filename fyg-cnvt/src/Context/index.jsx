@@ -1,5 +1,6 @@
-import { createContext, useCallback, useEffect, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { apiGet, apiPost } from "../services/apiPetition";
+import { AuthContext } from "../auth";
 import {
     createErpThirdParty,
     fetchErpThirdParties,
@@ -11,6 +12,8 @@ import getLastUrl from "../Utils/getLastUrl";
 export const RegistroContext = createContext();
 
 export const RegistroProvider= ({children}) => {
+    const { token , logout } = useContext(AuthContext);
+
     //Carga de datos al inicio de la aplicacion.
     const [loading , setLoading] = useState(true);
     const [serverError , setServerError] = useState(false);
@@ -129,11 +132,12 @@ export const RegistroProvider= ({children}) => {
     
     
     //Extrae la data de la hoja Sheets - la url es del servidor local http://localhost:3000
-    const fetchData = () => {
+    const fetchData = useCallback(() => {
         console.log('iniciando el fetch de datos');
         setData([]); //borrar
         setServerError(false);
         setLoading(true);
+        setActiveToast([])
         
         const onSuccessHandler = (data) => {
             setData(data.reverse());
@@ -141,13 +145,18 @@ export const RegistroProvider= ({children}) => {
         };
         const onErrorHandler = (error) => {
             setServerError(true);
-            setNewToast({msj: "No hay conexión. Revisar internet."})
+            setNewToast({msj: error || "No hay conexión. Revisar internet."})
+            logout();
+
         };
-        apiGet('/registrosCaribe' , onSuccessHandler , onErrorHandler)
+        apiGet('/registrosCaribe' , onSuccessHandler , onErrorHandler, token)
         console.log('fetch de datos finalizado');
-    };
+    }, [token]);
+    useEffect(() => {
+        if (token) fetchData();
+    }, [fetchData, token]);
+
     useEffect(()=>{
-        fetchData();
         refreshErp();
     },[refreshErp]);
 
@@ -237,7 +246,7 @@ export const RegistroProvider= ({children}) => {
             };
 
             apiPost(
-                {type : 'sendMail' , docType : type } ,
+                {type : 'sendMail' , docType : type , token : token} ,
                 {data:obj} , onSuccesHandler , onErrorHandler
             );
         } else {
