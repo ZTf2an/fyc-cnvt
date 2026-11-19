@@ -11,7 +11,8 @@ function TableGestion () {
     const { data , searchedData , serverError ,
           loading , orderContition , setRegistroToEdit ,
           orderIcon , ordenarFecha , editRow ,
-          setEditGestionModalIsOpen , setNewToast
+          setEditGestionModalIsOpen , setNewToast ,
+          token
         } = useContext(RegistroContext);
     return (
         <>
@@ -43,6 +44,7 @@ function TableGestion () {
                                 openModal={setEditGestionModalIsOpen}
                                 registroToEdit={setRegistroToEdit}
                                 toast={setNewToast}
+                                token = {token}
                             />
                     )}
                 </tbody>

@@ -5,7 +5,6 @@ import { HiOutlineMail } from "react-icons/hi";
 import { PiFilePdf } from "react-icons/pi";
 import { IoFolderOpenSharp } from "react-icons/io5";
 import { MdFolderOff , MdOutlineAddToDrive } from "react-icons/md";
-import { API_CNVT , API_GAS } from "../../Globals/API";
 import formatHour from "../../Utils/formatHour";
 import { apiPost } from "../../services/apiPetition";
 import TooltipedIcon from "../TooltipedIcon";
@@ -13,7 +12,8 @@ import { safeParse } from "../../Utils/safeParse";
 import { getRelativeTime } from "../../Utils/formatDate";
 import getLastUrl from "../../Utils/getLastUrl";
 
-function TableRow ({row , editRow , openModal , registroToEdit , toast }) {
+function TableRow ({row , editRow , openModal , registroToEdit , toast , token}) {
+
     const preFecha = new Date(row.fecha);
     const fecha = new Date(preFecha.getUTCFullYear(), preFecha.getUTCMonth(), preFecha.getUTCDate());
 
@@ -41,7 +41,7 @@ function TableRow ({row , editRow , openModal , registroToEdit , toast }) {
                 toast({status : 'error' , msj : error})
             };
 
-            apiPost({type : 'createFolder'} , {id : item.id , data : item} , onSuccesHandler , onErrorHandler)
+            apiPost({type : 'createFolder' , token , token} , {id : item.id , data : item} , onSuccesHandler , onErrorHandler)
         };
     };
 
@@ -59,7 +59,7 @@ function TableRow ({row , editRow , openModal , registroToEdit , toast }) {
                 toast({status : "error" , msj : error});
             };
 
-            apiPost({type:'sendMail' , docType : 'folder'} , { data : item} , onSuccesHandler , onErrorHandler );
+            apiPost({type:'sendMail' , docType : 'folder' , token : token} , { data : item} , onSuccesHandler , onErrorHandler );
         };
         return response
     };

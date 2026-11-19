@@ -203,7 +203,7 @@ export const RegistroProvider= ({children}) => {
                         setNewToast({status:"Error" , msj:error})
                     };
 
-                    apiPost({type : 'update'} , {id : id , data : changes} , onSuccesHandler , onErrorHandler);
+                    apiPost({type : 'update' , token : token} , {id : id , data : changes} , onSuccesHandler , onErrorHandler);
 
                 } else {
                     const onSuccesHandler = data => {
@@ -214,7 +214,7 @@ export const RegistroProvider= ({children}) => {
                         setNewToast({ status:"Error",msj:error});
                     };
 
-                    apiPost({type : 'edit'} , {id : id , data : changes} , onSuccesHandler ,onErrorHandler);
+                    apiPost({type : 'edit' , token : token} , {id : id , data : changes} , onSuccesHandler ,onErrorHandler);
                    
                 };
 
@@ -308,8 +308,9 @@ export const RegistroProvider= ({children}) => {
             editSideType , setEditSideType ,
             editGestionModalIsOpen , setEditGestionModalIsOpen ,
             ordenarFecha,
-            activeToast , newToast , setNewToast
-            , erpStatus, refreshErp, isClientInErp, syncClientWithErp
+            activeToast , newToast , setNewToast ,
+            erpStatus, refreshErp, isClientInErp, syncClientWithErp ,
+            token 
         }}>
             {children}
         </RegistroContext.Provider>

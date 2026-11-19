@@ -4,6 +4,7 @@ import { RegistroContext } from '../../Context' //borrar
 import { useContext } from 'react' //borrar
 import { Navbar } from 'react-bootstrap'
 import { FaCircle } from 'react-icons/fa'
+const env = import.meta.env
 
 function NavBar () {
     const activeStyle = 'text-decoration-underline text-light'
@@ -31,6 +32,7 @@ function NavBar () {
                     <span className="color-2 fs-6">&</span>
                     <span className="color-3">G</span>
                 </a>
+                {env.VITE_VARIABLE}
 
                 <div className="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
                     <div className="n" role="search">

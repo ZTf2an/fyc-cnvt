@@ -14,6 +14,7 @@ function SideMenu() {
         setEditSideIsOpen ,
         editSideType ,
         setNewToast ,
+        token ,
         registroToEdit ,
         editRow } = useContext(RegistroContext);
 
@@ -37,7 +38,7 @@ function SideMenu() {
             };
 
             apiPost(
-                {type : 'createpdf' , docType : 'CUENTA'} , 
+                {type : 'createpdf' , docType : 'CUENTA' , token : token} , 
                 {id : target.id , data : {url : getLastUrl(target.docsCuenta)} } ,
                 onSuccesHandler , onErrorHandler
             );
@@ -67,7 +68,7 @@ function SideMenu() {
                     {editSideType == 'Form' ?
                         <div className='m-2 hstack gap-3'>
                             <Button variant="outline-danger" hidden={!registroToEdit.docsCuenta} onClick={e => generarpdf(registroToEdit)}>Actualizar PDF</Button>
-                            <Button variant="outline-info" className='me-auto' title='Generar Cuenta de Cobro' onClick={e => generarCuenta(registroToEdit , editRow , setNewToast ,handleClose)}>Generar Cuenta</Button>
+                            <Button variant="outline-info" className='me-auto' title='Generar Cuenta de Cobro' onClick={e => generarCuenta(registroToEdit , editRow , setNewToast , handleClose , token)}>Generar Cuenta</Button>
                             <Button variant="info" type='submit' form='CobranzaEditor'>Guardar Cambios</Button>
                         </div> :
                         <div className='m-2 hstack gap-3' hidden={true}>

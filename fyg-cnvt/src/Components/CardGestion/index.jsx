@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState , useContext} from "react"
 import { Card, ListGroup, Spinner, Stack , Table } from "react-bootstrap";
 import { BsFolderCheck } from "react-icons/bs";
 import { MdOutlineAddToDrive } from "react-icons/md";
@@ -6,8 +6,10 @@ import { HiOutlineMail } from "react-icons/hi";
 import "./CardGestion.css";
 import formatHour from "../../Utils/formatHour";
 import { apiPost } from "../../services/apiPetition";
+import { AuthContext } from "../../auth";
 
 function CardGestion ({info , editRow , setNewToast}) {
+    const {token} = useContext(AuthContext)
     const preFecha = new Date(info.fecha);
     const fecha = new Date(preFecha.getUTCFullYear(), preFecha.getUTCMonth(), preFecha.getUTCDate());
 
@@ -41,7 +43,7 @@ function CardGestion ({info , editRow , setNewToast}) {
                 setNewToast({status: 'error', msj : error})
             };
 
-            apiPost({type : 'createFolder'} , {id : item.id , data : item} ,
+            apiPost({type : 'createFolder' , token : token} , {id : item.id , data : item} ,
                 onSuccessHandler , onErrorHandler 
             );
         };
@@ -61,7 +63,7 @@ function CardGestion ({info , editRow , setNewToast}) {
                 // alert(`Error : ${error}`)
             };
             apiPost(
-                {type : 'sendMail' , docType : 'folder'} , 
+                {type : 'sendMail' , docType : 'folder' , token : token} , 
                 { data : item } , 
                 onSuccesHandler , onErrorHandler
             );

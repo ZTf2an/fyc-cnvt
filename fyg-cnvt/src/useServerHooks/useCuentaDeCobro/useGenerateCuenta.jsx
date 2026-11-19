@@ -1,7 +1,7 @@
 import { apiPost } from '../../services/apiPetition';
 import useGenerateParams from './useGenerateParams';
 
-const generarCuenta = (target , editRow , setNewToast , handleClose) => {
+const generarCuenta = (target , editRow , setNewToast , handleClose , token ) => {
 
     const check = validarRequisitos( target.modalidad , target.remitenteCuenta , target.modoCTA);
 
@@ -24,7 +24,7 @@ const generarCuenta = (target , editRow , setNewToast , handleClose) => {
             };
 
             apiPost(
-                {type : 'updateDocs' , docType : 'CUENTA'},
+                {type : 'updateDocs' , docType : 'CUENTA' , token : token},
                 {id : target.id , data : target , notes : body},
                 onSuccesHandler , onErrorHandler
             );   

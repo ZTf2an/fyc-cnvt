@@ -11,9 +11,10 @@ function EditModal({ regTarget }) {
       editModalIsOpen,
       setEditModalIsOpen,
       setNewToast,
+      token ,
       erpStatus,
       isClientInErp,
-      syncClientWithErp
+      syncClientWithErp 
     } = useContext(RegistroContext);
     const [syncingErp, setSyncingErp] = useState(false);
     const clientIsInErp = isClientInErp(regTarget?.nit);
@@ -32,7 +33,7 @@ function EditModal({ regTarget }) {
       };
 
       apiPost(
-        {type : 'createpdf' , docType : 'COTIZACION'} ,
+        {type : 'createpdf' , docType : 'COTIZACION' , token : token} ,
         {id : target.id , data : {url : getLastUrl(target.docs)} } ,
         onSuccessHandler , onErrorHandler);
     };
@@ -52,7 +53,7 @@ function EditModal({ regTarget }) {
       };
       
       apiPost(
-        {type : 'updateDocs' , docType : 'COTIZACION'} ,
+        {type : 'updateDocs' , docType : 'COTIZACION' , token : token} ,
         {id : target.id , data : target } ,
         onSuccesHandler , onErrorHandler
       )
